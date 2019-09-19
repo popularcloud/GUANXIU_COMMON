@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/f0_gray_line"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/include_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_130"
+            android:background="@drawable/title_bg_new">
+            <LinearLayout
+                android:id="@+id/ll_head"
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_64"
+                android:layout_margin="@dimen/dp_14"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_35"
+                android:layout_marginBottom="@dimen/dp_35"
+                android:layout_marginRight="@dimen/dp_13"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:background="@drawable/oval_gray_bg">
+            <com.lwc.common.widget.CircleImageView
+                android:id="@+id/imgHead"
+                android:layout_width="@dimen/dp_61"
+                android:layout_height="@dimen/dp_61"
+                android:src="@drawable/default_portrait_100" />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ll_head"
+                android:orientation="vertical"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="李明"
+                    android:textColor="@color/white"
+                    android:layout_alignParentTop="true"
+                    android:textSize="@dimen/sp_16" />
+                <TextView
+                    android:id="@+id/txtSign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/dp_8"
+                    android:text="综合评分："
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/txtName"
+                    android:textSize="@dimen/sp_14" />
+            <!--    <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/roomRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_32"
+                    android:paddingTop="@dimen/dp_8"
+                    android:isIndicator="true"
+                    android:layout_below="@+id/txtName"
+                    android:layout_toRightOf="@+id/txtSign"
+                    android:numStars="5" />-->
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtName"
+                    android:layout_toRightOf="@+id/txtSign"
+                    android:paddingTop="@dimen/dp_8"
+                    hedgehog:clickable="false"
+                    hedgehog:halfstart="true"
+                    hedgehog:starCount="5"
+                    hedgehog:starEmpty="@drawable/ic_star_yw_null"
+                    hedgehog:starFill="@drawable/ic_star_yw_full"
+                    hedgehog:starHalf="@drawable/ic_star_half"
+                    hedgehog:starImageHeight="15dp"
+                    hedgehog:starImageWidth="15dp"
+                    hedgehog:starImagePadding="3dp"/>
+                <TextView
+                    android:id="@+id/txtOrderCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="88"
+                    android:layout_alignBaseline="@+id/txtName"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="@dimen/dp_65"
+                    android:textSize="@dimen/sp_18" />
+                <TextView
+                    android:id="@+id/txtOrderCountTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBaseline="@+id/txtSign"
+                    android:text="完成单数"
+                    android:layout_below="@+id/txtOrderCount"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="@dimen/dp_51"
+                    android:textSize="@dimen/sp_14" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+       <!-- <com.lwc.common.view.TagListView
+            xmlns:f="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tagview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_25"
+            android:paddingLeft="@dimen/dp_25"
+            f:orientation="horizontal"
+            f:verticalSpacing="@dimen/dp_13" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            android:background="@color/white"
+            android:scrollbars="none"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/dp_4"
+            android:background="@color/white">
+            <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+                android:id="@+id/mBGARefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/f0_gray_line"
+                    android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+            </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+            <TextView android:id="@+id/tv_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="暂无用户对他评价哦！"
+                android:textColor="@color/gray_btm"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

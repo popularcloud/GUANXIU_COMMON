@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/include_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_15"
+            android:textColor="@color/all_black"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_27"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:text="金金"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/line_cc"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_below="@id/tv_name"
+            android:text="已关联你的微信"/>
+
+        <com.lwc.common.widget.CircleImageView
+            android:id="@+id/iv_header"
+            android:layout_width="@dimen/dp_55"
+            android:layout_height="@dimen/dp_55"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_28"
+            android:src="@drawable/default_portrait_100"/>
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginTop="@dimen/dp_38"
+            android:textColor="@color/all_black"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_marginRight="@dimen/dp_28"
+            android:padding="0dp"
+            android:textColorHint="@color/line_cc"
+            android:layout_below="@id/tv_desc"
+            android:hint="手机号"
+            android:textSize="@dimen/sp_15" />
+        <View
+            android:id="@+id/line_phone"
+            style="@style/line_ccStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_below="@id/et_phone"
+            android:layout_marginTop="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_28"
+            android:layout_marginLeft="@dimen/dp_28"/>
+
+        <LinearLayout
+            android:id="@+id/ll_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_38"
+            android:layout_below="@id/line_phone"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textColor="@color/all_black"
+                android:layout_marginLeft="@dimen/dp_28"
+                android:layout_marginRight="@dimen/dp_28"
+                android:padding="0dp"
+                android:textColorHint="@color/line_cc"
+                android:hint="验证码"
+                android:textSize="@dimen/sp_15" />
+            <TextView
+                android:id="@+id/tv_get_code"
+                android:layout_width="@dimen/dp_88"
+                android:layout_height="@dimen/dp_29"
+                android:textColor="@color/btn_blue_nomal"
+                android:textSize="@dimen/sp_12"
+                android:gravity="center"
+                android:background="@drawable/btn_round_white_bg_blue_bian_small"
+                android:text="获取验证码"
+                android:layout_marginRight="@dimen/dp_28"
+                />
+        </LinearLayout>
+        <View
+            android:id="@+id/line_code"
+            style="@style/line_ccStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_below="@id/ll_code"
+            android:layout_marginTop="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_28"
+            android:layout_marginLeft="@dimen/dp_28"/>
+
+        <TextView
+            android:id="@+id/btn_sure"
+            android:layout_width="@dimen/dp_320"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginTop="@dimen/dp_38"
+            android:layout_below="@id/line_code"
+            android:background="@drawable/button_login_selector"
+            android:gravity="center"
+            android:text="绑定"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_16" />
+    </RelativeLayout>
+</LinearLayout>

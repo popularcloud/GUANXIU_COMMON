@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/dp_10">
+
+    <com.lwc.common.widget.ZQImageViewRoundOval
+        android:id="@+id/item_image"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:padding="@dimen/dp_5"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_33"
+        android:textSize="@dimen/sp_12"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/dp_5"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/item_integral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red_money"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="@dimen/dp_5"
+        android:gravity="left"
+        android:text="TextView" />
+
+</LinearLayout>

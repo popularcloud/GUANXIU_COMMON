@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1">
+
+    <include layout="@layout/include_title" />
+    <TextView android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:id="@+id/repairerCount"
+        android:textColor="@color/gray_99"
+        android:textSize="12sp"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:text="附近有0个维修员"/>
+
+    <TextView style="@style/text_tip_Style"
+        android:id="@+id/tctTip"/>
+    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+        android:id="@+id/mBGARefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/repairerCount">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+</RelativeLayout>

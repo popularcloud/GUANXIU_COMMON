@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:minWidth="200dp"
+        android:orientation="vertical"
+        android:background="@drawable/btn_round_white_bg"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_titel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="15dp" 
+            android:text="恭喜您已成功成为广东智修互联大数据有限公司专属客户！"
+			android:layout_marginBottom="10dp"
+            android:textColor="#666666"
+            android:textSize="18sp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+            android:visibility="visible"/>
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+            android:textColor="@color/gray_99"
+			android:text="您的订单将由该公司提供专属维修服务"
+            android:textSize="14sp" />
+
+		<Button
+			android:id="@+id/btn"
+			android:layout_width="match_parent"
+			android:layout_height="46dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_marginBottom="20dp"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/button_login_selector"
+			android:text="知道啦"
+			android:textSize="16sp"
+			android:gravity="center"
+			android:textColor="@color/white"></Button>
+	</LinearLayout>
+</LinearLayout>

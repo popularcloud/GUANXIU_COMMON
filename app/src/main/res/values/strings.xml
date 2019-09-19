@@ -1,0 +1,64 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">密修个人版</string>
+
+    <string name="double_click_to_exit_app">再按一次退出程序</string>
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="release_to_refresh">松开可以刷新</string>
+    <string name="lastUpdateTime">最近更新：%s</string>
+    <string name="load_full">已加载全部</string>
+    <string name="no_data">暂无数据</string>
+    <string name="d">图片描述</string>
+    <!-- 二维码扫描 -->
+    <string name="zxing_arm">将二维码放入框内,即可自动扫描</string>
+
+    <string name="hint_send_image_max">您目前最多可选择的图片数量为%1$s张</string>
+    <!-- **********************SP数据模块*********************** -->
+    <string name="spkey_file_userinfo">userinfo</string>
+    <string name="spkey_file_is_system_mention">is_system_mention</string>
+    <string name="spkey_file_is_ring">is_ring</string>
+
+    <!-- <string name="spkey_value_account">account</string> -->
+    <string name="weibosdk_demo_toast_auth_canceled">取消授权</string>
+    <!-- 第三方平台 -->
+    <!-- 第三方平台id -->
+
+    <!-- **********************公用数据模块******************************************************** -->
+    <string name="complete">完成</string>
+    <string name="enter">确定</string>
+    <string name="cancel">取消</string>
+    <string name="prompt">提示</string>
+    <string name="more">更多</string>
+    <!-- ********************Intent数据模块********************* -->
+    <string name="intent_key_content">content</string>
+    <string name="intent_key_path">path</string>
+    <string name="intent_key_image_path">imagepath</string>
+    <string name="intent_key_image_name">imagename</string>
+    <string name="intent_key_image">image</string>
+    <string name="intent_key_serializable">serializable</string>
+    <string name="intent_key_isremark">isremark</string>
+    <string name="intent_key_max_counts">max_counts</string>
+    <string name="intent_key_thumbnail">thumbnail</string>
+    <string name="warning_not_search_photomessage">未搜索到相册信息！</string>
+
+
+    <string name="activity_image_browser_page">%1$s/%2$s</string>
+    <!-- **********************等待提示模块*********************** -->
+    <string name="process_loading_wait">正在加载数据，请稍候&#8230;</string>
+    <string name="process_handle_wait">正在处理，请稍候&#8230;</string>
+    <string name="search_repair_type">请输入配件名称</string>
+    <string name="search">搜索</string>
+    <string name="price">价格</string>
+    <string name="filter">筛选</string>
+    <string name="spec">规格</string>
+
+    <string-array name="chinese_week_string_array">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </string-array>
+
+</resources>

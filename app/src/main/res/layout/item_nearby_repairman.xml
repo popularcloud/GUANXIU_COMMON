@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg1"
+    android:orientation="vertical">
+
+    <View
+        style="@style/line_c8Style"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_item_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.lwc.common.widget.CircleImageView
+            android:id="@+id/imgIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/default_portrait_100" />
+
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/imgIcon"
+            android:text="李大宝"
+            android:textColor="@color/all_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/txtName"
+            android:drawableLeft="@drawable/fujindingdan_juli"
+            android:text="0km"
+            android:drawablePadding="2dp"
+            android:textColor="@color/gray_99"
+            android:textSize="13sp" />
+
+    <!--    <RatingBar
+            android:id="@+id/ratingBar_1"
+            style="@style/roomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:isIndicator="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/txtName"
+            android:layout_toRightOf="@+id/imgIcon"
+            android:numStars="5" />-->
+
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/ratingBar_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imgIcon"
+            android:layout_below="@+id/txtName"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="15dp"
+            hedgehog:clickable="false"
+            hedgehog:halfstart="true"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@drawable/start1"
+            hedgehog:starFill="@drawable/start2"
+            hedgehog:starHalf="@drawable/start3"
+            hedgehog:starImageHeight="15dp"
+            hedgehog:starImageWidth="15dp"
+            hedgehog:starImagePadding="3dp"/>
+        <TextView
+            android:id="@+id/txtOrderCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_below="@+id/txtName"
+            android:layout_toRightOf="@+id/ratingBar_1"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/ratingBar_1"
+            android:layout_toRightOf="@+id/imgIcon"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txtSkilled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:text="擅长"
+                android:background="@drawable/btn_round_white_bg_blue_bian"
+                android:textColor="@color/blue_ff"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/txtSkilled_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text=""
+                android:textColor="@color/gray_99"
+                android:layout_marginLeft="2dp"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_yq"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:textSize="13sp"
+            android:text="邀请维修"
+            android:drawablePadding="3dp"
+            android:background="@drawable/button_blue_round_shape"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+</LinearLayout>

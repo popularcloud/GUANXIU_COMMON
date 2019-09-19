@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+    <com.lwc.common.view.TagView
+        android:id="@+id/tagview"
+        android:layout_width="@dimen/dp_92"
+        android:layout_height="@dimen/dp_34"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/dp_10"
+        android:textColor="@color/all_black"
+        android:text="上门速度"
+        android:textSize="@dimen/sp_12" />
+</FrameLayout>

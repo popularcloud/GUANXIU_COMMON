@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_item_bg"
+    android:layout_marginTop="1px"
+    android:orientation="vertical">
+   <!-- <View style="@style/line_c8Style"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp"
+        android:background="@drawable/xuxian"/>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.lwc.common.widget.CircleImageView
+            android:id="@+id/imgHead"
+            android:layout_width="@dimen/dp_39"
+            android:layout_height="@dimen/dp_39"
+            android:layout_centerVertical="true"
+            android:src="@drawable/default_portrait_114"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="@dimen/dp_13"
+            android:layout_marginLeft="@dimen/dp_15"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imgHead"
+            android:layout_marginTop="@dimen/dp_15">
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="密修用户&#160;&#160;&#8201;***"
+                android:textColor="@color/all_black"
+                android:layout_alignParentTop="true"
+                android:textSize="@dimen/sp_12" />
+            <TextView
+                android:id="@+id/txtSign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_8"
+                android:text="评价星级："
+                android:textColor="@color/gray_99"
+                android:layout_below="@+id/txtName"
+                android:textSize="@dimen/sp_12"/>
+
+       <!--     <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/roomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_marginTop="5dp"
+                android:isIndicator="true"
+                android:layout_below="@+id/txtName"
+                android:layout_toRightOf="@+id/txtSign"
+                android:numStars="5" />-->
+
+            <com.hedgehog.ratingbar.RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_below="@+id/txtName"
+                android:layout_toRightOf="@+id/txtSign"
+                hedgehog:clickable="false"
+                hedgehog:halfstart="true"
+                hedgehog:starCount="5"
+                hedgehog:starEmpty="@drawable/start1"
+                hedgehog:starFill="@drawable/start2"
+                hedgehog:starHalf="@drawable/start3"
+                hedgehog:starImageHeight="15dp"
+                hedgehog:starImageWidth="15dp"
+                hedgehog:starImagePadding="3dp"/>
+
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp_15"
+                android:text="2018-07"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/gray_99"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/txtContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/txtSign"
+                android:layout_marginTop="5dp"
+                android:text="评价内容"
+                android:textColor="@color/gray_99"
+                android:textSize="@dimen/sp_12" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

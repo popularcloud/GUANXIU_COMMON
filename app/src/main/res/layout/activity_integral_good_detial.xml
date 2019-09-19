@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/include_title"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="44dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+         <!--   <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:src="@drawable/zi_xiao"
+                android:scaleType="centerCrop"/>-->
+            <include layout="@layout/layout_main_head_bg" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10元话费"
+                android:textColor="@color/all_black"
+                android:paddingLeft="@dimen/dp_15"
+                android:textSize="@dimen/sp_15"
+                android:paddingTop="@dimen/dp_15"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_integral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="111"
+                    android:textColor="@color/ff_orange_txt"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:textSize="@dimen/sp_18"
+                    android:layout_marginBottom="@dimen/dp_15" />
+                <TextView
+                    android:id="@+id/tv_integral_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="积分"
+                    android:textColor="@color/ff_orange_txt"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginBottom="@dimen/dp_15"/>
+            </LinearLayout>
+
+            <View style="@style/line_c8Style"
+                android:layout_height="@dimen/dp_4"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="详情说明"
+                android:textSize="@dimen/sp_15"
+                android:textColor="@color/black_66"
+                android:layout_marginTop="@dimen/dp_15"
+                android:gravity="center"/>
+         <WebView
+             android:id="@+id/wv_detail"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/dp_15"
+             android:layout_marginBottom="@dimen/dp_60"/>
+        </LinearLayout>
+    </ScrollView>
+<!--    <TextView
+        android:id="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="立即兑换"
+        android:background="@color/ff_orange"
+        android:layout_gravity="bottom"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />-->
+    <TextView
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_49"
+        android:background="@color/red_money"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_15"
+        android:text="立即兑换"
+        android:layout_gravity="bottom"
+        android:textColor="#fff"
+        android:textSize="@dimen/sp_16" />
+</FrameLayout>

@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black" >
+
+    <com.lwc.common.view.TitleView
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/view_img_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view_title"
+        android:background="@color/transparent" >
+
+        <ImageView
+            android:id="@+id/img_zoom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_55" >
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_title_right_selector"
+            android:minWidth="50dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/cancel"
+            android:textColor="@color/font_title_gray" />
+
+        <EditText
+            android:id="@+id/edit_message"
+            style="@style/edit_white_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_enter"
+            android:layout_toRightOf="@+id/btn_cancel"
+            android:maxLength="100"
+            android:singleLine="false"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_title_right_selector"
+            android:minWidth="50dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/enter"
+            android:textColor="@color/font_title_gray" />
+    </RelativeLayout>
+
+</RelativeLayout>

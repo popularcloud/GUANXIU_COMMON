@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bg_f7"
+	android:orientation="vertical">
+	<include layout="@layout/include_title"/>
+	<LinearLayout
+		android:background="@color/blue"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+		<TextView
+			android:layout_marginTop="25dp"
+			android:layout_marginLeft="15dp"
+			android:textColor="@color/white"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="left"
+			android:text="账户余额(元)"
+			android:textSize="15sp"
+			/>
+		<TextView
+		    android:id="@+id/txt_balance_info"
+			android:layout_marginTop="30dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginBottom="30dp"
+			android:textColor="@color/white"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="left"
+			android:text="0.00"
+			android:textSize="35sp"/>
+	</LinearLayout>
+	<View style="@style/line_ccStyle"/>
+	<TextView
+		android:id="@+id/txt_pay"
+		android:layout_width="match_parent"
+		android:layout_height="47dp"
+		android:background="@drawable/selector_item_bg"
+		android:drawableLeft="@drawable/gerenziliao"
+		android:drawablePadding="4dp"
+		android:drawableRight="@drawable/you_new"
+		android:gravity="center_vertical"
+		android:paddingLeft="15dp"
+		android:paddingRight="15dp"
+		android:clickable="true"
+		android:onClick="clickPay"
+		android:text="充值"
+		android:textColor="@color/black_0a"
+		android:textSize="13sp"
+		android:visibility="visible" />
+	<View style="@style/line_c8Style"/>
+	<TextView
+		android:id="@+id/txt_withdraw"
+		android:layout_width="match_parent"
+		android:layout_height="47dp"
+		android:background="@drawable/selector_item_bg"
+		android:drawableLeft="@drawable/gerenziliao"
+		android:drawablePadding="4dp"
+		android:drawableRight="@drawable/you_new"
+		android:gravity="center_vertical"
+		android:paddingLeft="15dp"
+		android:paddingRight="15dp"
+		android:clickable="true"
+		android:onClick="clickWithdraw"
+		android:text="提现"
+		android:textColor="@color/black_0a"
+		android:textSize="13sp"
+		android:visibility="visible" />
+	<View style="@style/line_ccStyle"/>
+</LinearLayout>

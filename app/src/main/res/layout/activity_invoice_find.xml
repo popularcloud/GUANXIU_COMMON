@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@color/bg_f7"
+	android:layout_width="match_parent"
+	android:orientation="vertical"
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true">
+
+	<include layout="@layout/include_title"/>
+	<com.lwc.common.view.MatrixImageView
+		android:id="@+id/miv"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:scaleType="fitXY"/>
+</LinearLayout>

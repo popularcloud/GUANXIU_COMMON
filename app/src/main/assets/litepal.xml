@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <!-- 数据库名称 -->
+    <dbname value="guanxiu"></dbname>
+    <!-- 数据库版本 -->
+    <version value="16"></version>
+
+    <list>
+        <!-- 定义数据库表 -->
+        <!-- 表（实体）的路径 -->
+        <mapping class="com.lwc.common.module.bean.Malfunction"></mapping>
+        <mapping class="com.lwc.common.module.bean.Repairs"></mapping>
+        <mapping class="com.lwc.common.module.bean.RepairsCompany"></mapping>
+        <mapping class="com.lwc.common.module.bean.Address"></mapping>
+        <mapping class="com.lwc.common.module.bean.ActivityBean"></mapping>
+        <mapping class="com.lwc.common.module.bean.HasMsg"></mapping>
+        <mapping class="com.lwc.common.module.bean.Coupon"></mapping>
+    </list>
+</litepal>

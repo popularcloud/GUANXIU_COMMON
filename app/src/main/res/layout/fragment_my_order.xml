@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/f0_gray_line"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+        <include layout="@layout/include_title" />
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rBtnUnderway"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:textSize="@dimen/sp_14"
+            android:text="进行中"
+            android:textColor="@drawable/blue_or_black_selector" />
+
+        <RadioButton
+            android:id="@+id/rBtnFinish"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_14"
+            android:button="@null"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@drawable/blue_or_black_selector" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/viewLine1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/btn_blue_nomal"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/viewLine3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/btn_blue_nomal"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <com.lwc.common.widget.CustomViewPager
+        android:id="@+id/cViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.lwc.common.widget.CustomViewPager>
+</LinearLayout>

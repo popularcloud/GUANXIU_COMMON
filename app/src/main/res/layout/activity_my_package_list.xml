@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/include_title" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rBtnUnderway"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="使用中"
+            android:textSize="15sp"
+            android:checked="true"
+            android:textColor="@drawable/red_or_black_selector" />
+
+        <RadioButton
+            android:id="@+id/rBtnExpires"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="已过期"
+            android:textColor="@drawable/red_or_black_selector" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/viewLine1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red_money"
+            android:visibility="visible" />
+        <View
+            android:id="@+id/viewLine2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red_money"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <com.lwc.common.widget.CustomViewPager
+        android:id="@+id/cViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.lwc.common.widget.CustomViewPager>
+</LinearLayout>

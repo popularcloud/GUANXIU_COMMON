@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_f7"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/include_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/mBGARefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+        <TextView android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            android:background="@drawable/no_pachage"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/but_no"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:background="@drawable/button_login_shape_red"
+        android:layout_margin="@dimen/dp_15"
+        android:visibility="gone"
+        android:text="不使用套餐"/>
+</LinearLayout>

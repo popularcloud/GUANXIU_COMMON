@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:id="@+id/ll_head_bg"
+	android:layout_width="36dp"
+	android:layout_height="46dp">
+	<com.lwc.common.widget.CircleImageView
+		android:id="@+id/img_map_head"
+		android:layout_width="30dp"
+		android:layout_marginLeft="3dp"
+		android:layout_marginTop="3dp"
+		android:layout_marginBottom="13dp"
+		android:layout_marginRight="3dp"
+		android:layout_height="30dp" />
+</LinearLayout>

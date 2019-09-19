@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@color/bg_f7"
+	android:layout_width="match_parent"
+	android:orientation="vertical"
+	android:layout_height="match_parent">
+	<include layout="@layout/include_title" android:visibility="gone"/>
+	<WebView
+		android:id="@+id/webView1"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:visibility="gone"/>
+	<!--<ImageView
+		android:id="@+id/iv_long"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:scrollbars="vertical"
+		android:adjustViewBounds="true"/>-->
+	<FrameLayout
+		android:id="@+id/fl_content"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<android.support.v4.view.ViewPager
+			android:id="@+id/vp_loop_advertisement"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
+		<LinearLayout
+			android:id="@+id/dot_horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:layout_marginBottom="@dimen/dp_32"
+			android:gravity="center"
+			android:orientation="horizontal" />
+		<TextView
+			android:id="@+id/tv_rightNow"
+			android:layout_width="@dimen/dp_127"
+			android:layout_height="@dimen/dp_36"
+			android:layout_marginBottom="@dimen/dp_61"
+			android:layout_gravity="center_horizontal|bottom"
+			android:gravity="center"
+			android:textColor="@color/btn_blue_nomal"
+			android:background="@drawable/circle_blue_shape"
+			android:visibility="gone"
+			android:text="立即体验"/>
+	</FrameLayout>
+</LinearLayout>

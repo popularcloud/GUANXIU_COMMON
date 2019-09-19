@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:minWidth="250dp"
+        android:orientation="vertical"
+        android:background="@drawable/btn_round_gray_bg"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_titel"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="恭喜您获得新用户大礼包"
+			android:background="@drawable/title_bg"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="visible"/>
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/recyclerView"
+			android:layout_width="match_parent"
+			android:layout_marginTop="13dp"
+			android:layout_marginLeft="13dp"
+			android:layout_marginRight="13dp"
+			android:layout_height="0dp"
+			android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+        
+            <TextView
+                android:id="@+id/tv_tip"
+	            android:layout_width="match_parent"
+	            android:layout_height="60dp"
+	            android:gravity="center"
+				android:layout_marginRight="5dp"
+				android:layout_marginLeft="5dp"
+				android:lineSpacingExtra="5dp"
+	            android:text="礼包已存放在“我的—我的优惠券”里哦！\n请及时使用！"
+	            android:textColor="@color/gray_99"
+	            android:textSize="13sp"
+				android:visibility="gone"/>
+
+		<TextView
+			android:id="@+id/tv_lq"
+			android:layout_width="match_parent"
+			android:layout_height="44dp"
+			android:layout_alignParentRight="true"
+			android:layout_marginTop="13dp"
+			android:layout_marginLeft="13dp"
+			android:layout_marginRight="13dp"
+			android:textSize="12sp"
+			android:gravity="center"
+			android:text="立即领取"
+			android:layout_marginBottom="13dp"
+			android:textColor="@color/white"
+			android:background="@drawable/but_bg"/>
+
+		<TextView
+			android:id="@+id/tv_yqrx"
+			android:layout_width="match_parent"
+			android:layout_height="44dp"
+			android:layout_alignParentRight="true"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="13dp"
+			android:layout_marginLeft="13dp"
+			android:layout_marginRight="13dp"
+			android:textSize="12sp"
+			android:visibility="gone"
+			android:gravity="center"
+			android:text="下次再领"
+			android:textColor="@color/rjColor"
+			android:background="@drawable/yqrx_bg"/>
+		<ImageView android:id="@+id/iv_cancel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:layout_marginRight="5dp"
+			android:layout_gravity="center_horizontal"
+			android:visibility="gone"
+			android:src="@drawable/gbtc"/>
+	</LinearLayout>
+</LinearLayout>

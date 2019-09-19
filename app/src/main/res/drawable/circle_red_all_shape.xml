@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+
+    <solid android:color="@color/red_money" />
+    <size android:height="@dimen/dp_15" android:width="@dimen/dp_30"></size>
+    <stroke android:color="@color/red_money" android:width="@dimen/dp_1"></stroke>
+    <corners android:radius="@dimen/dp_35"/> <!-- 设置四个角的半径 -->
+</shape>

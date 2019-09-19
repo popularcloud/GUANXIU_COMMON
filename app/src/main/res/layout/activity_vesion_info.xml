@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/f0_gray_line"
+	android:orientation="vertical"
+	android:fitsSystemWindows="true">
+	<include layout="@layout/include_title"/>
+	<RelativeLayout
+		android:background="@color/transparent"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<ImageView
+			android:id="@+id/img_icon"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="@dimen/dp_49"
+			android:layout_width="@dimen/dp_73"
+			android:layout_height="@dimen/dp_73"
+			android:scaleType="centerInside"
+			android:background="@drawable/logo" />
+		<TextView
+			android:id="@+id/tv_appName"
+			android:layout_below="@id/img_icon"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/all_black"
+			android:layout_marginTop="@dimen/dp_38"
+			android:textSize="@dimen/sp_20"
+			android:layout_centerHorizontal="true"
+			android:text="密修个人版"/>
+		<TextView
+		    android:id="@+id/txt_vesion_info"
+		    android:layout_marginTop="@dimen/dp_10"
+		    android:layout_below="@+id/tv_appName"
+			android:textColor="@color/black_66"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:textSize="@dimen/sp_14"
+			android:text="2.2.0"
+			 />
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/dp_44"
+			android:layout_marginTop="@dimen/dp_78"
+			android:layout_below="@+id/txt_vesion_info"
+			android:background="@drawable/selector_item_bg">
+			<TextView
+				android:textColor="@color/all_black"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_alignParentLeft="true"
+				android:layout_marginLeft="@dimen/dp_15"
+				android:textSize="@dimen/sp_15"
+				android:text="版本更新"
+				/>
+			<ImageView android:id="@+id/iv_red"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_toLeftOf="@+id/tv_new"
+				android:layout_marginRight="5dp"
+				android:src="@drawable/red_mention"
+				android:visibility="gone"/>
+			<TextView android:id="@+id/tv_new"
+				android:textColor="@color/gray_99"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:layout_centerVertical="true"
+				android:layout_alignParentRight="true"
+				android:layout_marginRight="@dimen/dp_15"
+				android:drawableRight="@drawable/you_new"
+				android:drawablePadding="5dp"
+				android:textSize="@dimen/sp_15"
+				android:text="暂无新版本"
+				/>
+
+		</RelativeLayout>
+
+	</RelativeLayout>
+</LinearLayout>

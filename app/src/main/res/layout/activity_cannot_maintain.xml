@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/f0_gray_line"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <include layout="@layout/include_title" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_4"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_title_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_15"
+                    android:background="@color/white"
+                    android:text="拒绝维修原因"
+                    android:textColor="@color/all_black"
+                    android:textSize="@dimen/sp_15" />
+                <EditText
+                    android:id="@+id/et_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1px"
+                    android:padding="@dimen/dp_15"
+                    android:hint="请输入拒绝原因"
+                    android:background="@color/white"
+                    android:textColorHint="@color/line_cc"
+                    android:textColor="@color/black_66"
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:background="@color/white"
+                android:padding="@dimen/dp_15"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="上传图片(选填)"
+                    android:textColor="@color/all_black"
+                    android:background="@color/white"
+                    android:textSize="@dimen/sp_15" />
+                <View style="@style/line_ccStyle" android:layout_marginTop="@dimen/dp_15"></View>
+                <com.lwc.common.view.MyGridView
+                    android:id="@+id/gridview_my"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:numColumns="4"
+                    android:verticalSpacing="@dimen/dp_15"
+                    android:horizontalSpacing="@dimen/dp_15"
+                    android:scrollbars="none"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/dp_4">
+                <RelativeLayout
+                    android:id="@+id/rl_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_15"
+                        android:text="优惠券减免"
+                        android:textColor="@color/red_money"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:id="@+id/tv_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="@dimen/dp_15"
+                        android:textColor="@color/red_money"
+                        android:drawableRight="@drawable/you_new"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:textSize="@dimen/sp_15" />
+                </RelativeLayout>
+                <View
+                    style="@style/line_ccStyle"/>
+                <RelativeLayout
+                    android:id="@+id/rl_pak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_15"
+                        android:text="套餐减免"
+                        android:textColor="@color/red_money"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:id="@+id/tv_pak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="@dimen/dp_15"
+                        android:textColor="@color/red_money"
+                        android:drawableRight="@drawable/you_new"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:textSize="@dimen/sp_15" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <TextView
+        android:id="@+id/btnAffirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:background="@drawable/button_login_selector"
+        android:gravity="center"
+        android:layout_margin="@dimen/dp_15"
+        android:layout_gravity="center_horizontal"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"/>
+</LinearLayout>

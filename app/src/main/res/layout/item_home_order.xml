@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_order"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/selector_item_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <com.lwc.common.widget.CircleImageView
+            android:id="@+id/img_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dp" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/txtMaintainName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_0a"
+                android:textSize="14sp" />
+
+       <!--     <RatingBar
+                android:id="@+id/rBarLevel"
+                style="@style/roomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_15"
+                android:layout_below="@+id/txtMaintainName"
+                android:layout_marginTop="10dp"
+                android:isIndicator="true"
+                android:numStars="5" />-->
+            <com.hedgehog.ratingbar.RatingBar
+                android:id="@+id/rBarLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtMaintainName"
+                android:layout_marginTop="10dp"
+                hedgehog:clickable="false"
+                hedgehog:halfstart="true"
+                hedgehog:starCount="5"
+                hedgehog:starEmpty="@drawable/start1"
+                hedgehog:starFill="@drawable/start2"
+                hedgehog:starHalf="@drawable/start3"
+                hedgehog:starImageHeight="15dp"
+                hedgehog:starImageWidth="15dp"
+                hedgehog:starImagePadding="3dp"/>
+            <ImageView
+                android:id="@+id/btn_engineer_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:clickable="true"
+                android:background="@drawable/selector_item_bg"
+                android:src="@drawable/home_phone" />
+            <TextView
+                android:id="@+id/txtOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/canceled"
+                android:layout_toLeftOf="@+id/btn_engineer_phone"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/txtDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtOrderStatus"
+                android:layout_toLeftOf="@+id/btn_engineer_phone"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/color_33"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

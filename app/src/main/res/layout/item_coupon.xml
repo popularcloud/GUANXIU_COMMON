@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_11"
+        android:orientation="horizontal"
+        android:background="@drawable/yhj_bg">
+        <RelativeLayout
+            android:id="@+id/rl_bg"
+            android:layout_width="0dp"
+            android:layout_weight="109"
+            android:layout_height="@dimen/dp_90">
+            <TextView
+                android:id="@+id/txtDiscountAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_centerHorizontal="true"
+                android:text="Y50"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_15" />
+            <TextView
+                android:id="@+id/txtFullReductionAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_below="@id/txtDiscountAmount"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="满100元可用"
+                android:textSize="@dimen/sp_14" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="236"
+            android:layout_height="@dimen/dp_100"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上门费减免优惠券"
+                android:textColor="@color/black_66"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:textSize="@dimen/sp_15" />
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_99"
+                android:layout_below="@+id/txtName"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:text="2018.07.07-2018.07.31"
+                android:textSize="@dimen/sp_12" />
+
+            <View android:id="@+id/viewLine"
+                style="@style/line_c8Style"
+                android:background="@drawable/xuxian"
+                android:layout_below="@+id/txtTime"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="@dimen/dp_8"/>
+            <TextView
+                android:id="@+id/tv_ljsy"
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_19"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_below="@+id/viewLine"
+                android:textSize="@dimen/sp_12"
+                android:gravity="center"
+                android:text="立即使用"
+                android:textColor="@color/red_money"
+                android:background="@drawable/circle_red_shape"/>
+            <TextView
+                android:id="@+id/txtInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewLine"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:textColor="@color/gray_99"
+                android:drawableRight="@drawable/down_jt"
+                android:drawablePadding="5dp"
+                android:text="详细信息"
+                android:textSize="@dimen/sp_12" />
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/xd_icon"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:textColor="@color/gray_99"
+        android:textSize="@dimen/sp_12"
+        android:paddingTop="15dp"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="25dp"
+        android:paddingBottom="15dp"
+        android:lineSpacingExtra="5dp"
+        android:background="@drawable/txt_gray_shape"
+        android:text="1,软件优惠券只能抵扣软件维修服务费（不含上门费）\n2,本优惠券的使用最终解释权归广东智修互联大数据"
+        android:visibility="gone"/>
+</LinearLayout>

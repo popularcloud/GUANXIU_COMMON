@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lwc.common">
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="26" />
+    <!--
+    Required
+    <permission
+        android:name="com.lwc.guanxiu.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--
+    <uses-permission android:name="android.permission.READ_CONTACTS" />读取联系人
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />允许程序管理AccountManager中的账户列表
+     <uses-permission android:name="android.permission.GET_TASKS" />获取任务信息
+    -->
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.lwc.common.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.RECEIVE_MESSAGE" />
+
+    <permission
+        android:name="android.permission.RECEIVE_MESSAGE"
+        android:description="@string/weibosdk_demo_toast_auth_canceled"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/weibosdk_demo_toast_auth_canceled"
+        android:permissionFlags="removed"
+        android:protectionLevel="signature" />
+    <!--
+AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
+置应用数据是否能能够被备份或恢复。android:resizeableActivity="true" 允许分屏
+    -->
+    <application
+        android:name=".configs.SophixStubApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:persistent="true"
+        android:resizeableActivity="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.lwc.common.fileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <meta-data
+            android:name="com.openinstall.APP_KEY"
+            android:value="hcic06" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58c881f565b6d6452500238a" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="ratio_float" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="838f90c11ff8c37a24ed5f4e70711462" />
+
+        <activity
+            android:name=".module.login.ui.LoadingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppSplash"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="hcic06" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.UserGuideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.order.ui.activity.PackageListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.order.ui.activity.SelectPackageListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.order.ui.activity.PackageDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.order.ui.activity.MyPackageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".module.order.ui.activity.PayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 故障确认单 -->
+        <activity
+            android:name=".module.order.ui.activity.QuoteAffirmActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.order.ui.activity.MyCheckActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <!-- 拒绝维修 -->
+        <activity
+            android:name=".module.order.ui.activity.CannotMaintainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.order.ui.activity.AppealOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.login.ui.IntroduceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.mine.AttestationInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.message.ui.MyMsgActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.message.ui.MsgListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.invoice.InvoiceHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.invoice.InvoiceOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.invoice.HistoryDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.invoice.InvoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.invoice.FindInvoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.invoice.OpenInvoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.wallet.ui.WalletActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.wallet.ui.WalletDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.wallet.ui.PaySettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.wallet.ui.PayPwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <!-- 输入密码并支付 -->
+        <activity
+            android:name=".module.wallet.ui.InputPayPwdActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".module.wallet.ui.InputPayPwdAndAddressActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".module.wallet.ui.WithdrawDepositActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.wallet.ui.WithdrawPayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <!-- 申请为维修员 -->
+        <activity
+            android:name=".module.mine.AccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 申请为维修员 -->
+        <!-- 确认列表 -->
+        <!-- 维修员信息 -->
+        <!-- 版本信息 -->
+        <activity
+            android:name=".module.setting.ui.VesionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 我的技能 -->
+        <activity
+            android:name=".module.nearby.ui.MySkillsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 我的设置 -->
+        <activity
+            android:name=".module.setting.ui.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 意见反馈 -->
+        <activity
+            android:name=".module.setting.ui.SuggestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.mine.UpdateUserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".module.mine.PerfectionUserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 个人信息页面 -->
+        <activity
+            android:name=".module.mine.UserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 二维码页面 -->
+        <activity
+            android:name=".activity.CodeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme" />
+        <activity
+            android:name=".fragment.MapFragment"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.order.ui.activity.OrderListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.InformationDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".module.mine.FindPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 滑动菜单页面 -->
+        <!-- 图片展示部分 ======================================================= -->
+        <activity
+            android:name=".activity.ImageBrowseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.ImagePreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.PhotoSelectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.PhotoAlbumActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 二维码扫描部分 ======================================================= -->
+        <activity
+            android:name=".module.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".module.zxing.activity.ResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <!--
+                <receiver android:name=".receiver.NetworkConnectChangedReceiver">
+                    <intent-filter>
+                        <action android:name="android.NET.conn.CONNECTIVITY_CHANGE" />
+                        <action android:name="android.Net.wifi.WIFI_STATE_CHANGED" />
+                        <action android:name="android.net.wifi.STATE_CHANGE" />
+                    </intent-filter>
+
+                    <intent-filter>
+                        <action android:name="android.intent.action.BATTERY_CHANGED"/>
+                    </intent-filter>
+
+                    <intent-filter>
+                        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+
+                    <intent-filter>
+                        <action android:name="android.intent.action.BATTERY_OKAY"/>
+                        <action android:name="android.intent.action.BATTERY_LOW"/>
+                    </intent-filter>
+
+                    <intent-filter>
+                        <action android:name="android.intent.action.USER_PRESENT"/>
+                        <action android:name="com.lwc.guanxiu.push"/>
+                    </intent-filter>
+
+                    <intent-filter>
+                        <action android:name="android.intent.action.PACKAGE_ADDED" />
+                        <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                        <data android:scheme="package" />
+                        [color=red] 注意！！ 这句必须要加，否则接收不到BroadCast  [/color]
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.ContacterSyncService" />
+        -->
+
+        <activity
+            android:name=".module.mine.ShareActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activity.RedPacketActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <!-- 微信 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 微信 -->
+        <!-- qq登录和分享 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1105700752" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- qq登录和分享 -->
+
+
+        <!-- 微博登录 -->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- 微博登录 -->
+        <receiver
+            android:name=".receiver.MyReceiver"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_MESSAGE">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
+
+                <category android:name="com.lwc.common" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+         <service android:name="com.lwc.guanxiu.service.BackService" />
+         高德地图
+        -->
+        <service android:name="com.amap.api.location.APSService" />
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.lwc.common" />
+            </intent-filter>
+        </service>
+        <!-- 我的 -->
+
+
+        <!-- 订单详情 -->
+        <activity
+            android:name=".module.order.ui.activity.OrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme" />
+        <activity
+            android:name=".module.repairs.ui.activity.MalfunctionSelectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!-- 评价页面 -->
+        <activity
+            android:name=".module.order.ui.activity.EvaluateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <!-- 登录 -->
+        <activity android:name=".module.login.ui.LoginActivity" />
+        <activity android:name=".module.login.ui.RegisterActivity" />
+        <activity android:name=".module.login.ui.NewUserActivity" />
+
+        <!-- 报修 -->
+        <activity android:name=".module.repairs.ui.activity.ApplyForMaintainActivity" />
+        <activity android:name=".module.repairs.ui.activity.AddressManagerActivity" />
+        <activity android:name=".module.repairs.ui.activity.AddAddressActivity" />
+        <activity
+            android:name=".module.repairs.ui.activity.SelectAddressActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!-- 附近的工程师 -->
+        <activity android:name=".module.nearby.ui.RepairmanInfoActivity" />
+        <!-- 我的配件库首页 -->
+        <activity android:name=".module.partsLib.ui.activity.PartsMainActivity" />
+        <!-- 配件库列表 -->
+        <activity android:name=".module.partsLib.ui.activity.PartsListActivity" />
+        <!-- 配件详情 -->
+        <activity android:name=".module.partsLib.ui.activity.PartsDetailActivity" />
+        <!-- 积分兑换 -->
+        <activity
+            android:name=".module.integral.activity.IntegralMainActivity"
+            android:launchMode="singleTask" />
+        <!-- 积分商品详情 -->
+        <activity android:name=".module.integral.activity.IntegralGoodsDetailActivity" />
+        <!-- 积分兑换订单历史 -->
+        <activity android:name=".module.integral.activity.IntegralOrderActivity" />
+        <!-- 积分兑换记录 -->
+        <activity android:name=".module.integral.activity.IntegralExchangeRecordActivity" />
+        <!-- 积分兑换 -->
+        <activity android:name=".module.integral.activity.IntegralOrderDetailActivity" />
+        <!-- 积分兑换详情 -->
+        <activity android:name=".module.integral.activity.IntegralExchangeDetailActivity" />
+        <!-- 确认订单 -->
+        <activity android:name=".module.integral.activity.IntegralOrderConfirmActivity" />
+        <activity android:name=".module.login.ui.BindPhoneActivity" />
+        <activity android:name=".module.mine.SignInActivity" />
+        <!-- 收费标准 -->
+        <activity android:name=".module.order.ui.activity.FeeStandardActivity" />
+        <!-- 更新密码 -->
+        <activity android:name=".module.mine.UpdatePassWordActivity" />
+        <!-- 更新个性签名 -->
+        <activity android:name=".module.mine.UpdateSignActivity" />
+        <activity android:name=".module.integral.activity.IntegralLuckDrawActivity" />
+        <!-- 我的收益 -->
+        <activity android:name=".module.mine.MyProfitActivity" />
+        <activity android:name=".module.mine.MyInvitationCodeActivity"></activity>
+        <activity android:name=".module.mine.SimpleShareActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" ></activity>
+        <activity android:name=".activity.WebViewLoadHtmlActivity"></activity>
+    </application>
+
+</manifest>
