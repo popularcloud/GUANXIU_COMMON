@@ -16,9 +16,9 @@ public class ServerConfig {
 	public static final String RESPONSE_STATUS_SUCCESS = "1";
 
 	/*************************** 服务器地址 ****************************/
-	public final static String DOMAIN = "https://47.97.217.243";
+//	public final static String DOMAIN = "https://47.97.217.243";
 	//public final static String DOMAIN = "http://192.168.0.116";
-	//public final static String DOMAIN = "https://www.ls-mx.com";
+	public final static String DOMAIN = "https://www.ls-mx.com";
 	//正式服务器
 	public final static String SERVER_API_URL = DOMAIN+"/api";
 	//测试服务器

@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lLayout0"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
                 android:orientation="horizontal"
@@ -63,7 +63,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp">
-
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_15"

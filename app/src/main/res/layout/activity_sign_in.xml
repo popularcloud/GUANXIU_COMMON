@@ -233,9 +233,10 @@
             android:text="1.每日签到获得一个积分"/>
     </RelativeLayout>
     </ScrollView>
-    <Button
+    <TextView
         android:id="@+id/btn_sign"
-        android:layout_width="@dimen/dp_345"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dp_15"
         android:layout_height="@dimen/dp_44"
         android:background="@drawable/button_sign_selector"
         android:gravity="center"
@@ -243,6 +244,5 @@
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
          android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp_15"
         android:textSize="@dimen/sp_16" />
 </RelativeLayout>

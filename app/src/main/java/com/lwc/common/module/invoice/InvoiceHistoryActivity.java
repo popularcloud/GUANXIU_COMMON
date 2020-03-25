@@ -52,7 +52,7 @@ public class InvoiceHistoryActivity extends BaseActivity {
 
 	@Override
 	protected int getContentViewId(Bundle savedInstanceState) {
-		return R.layout.activity_invoice_order_list;
+		return R.layout.activity_invoice_history;
 	}
 
 	@Override

@@ -105,7 +105,6 @@ public class CustomDialog extends Dialog {
 		animator.start(main);
 	}
 
-
 	public void setGoneBut2() {
 		view_line_btns.setVisibility(View.GONE);
 		btn_Button2.setVisibility(View.GONE);

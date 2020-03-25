@@ -108,7 +108,7 @@ public class AddressManagerAdapter extends SuperAdapter<Address> {
         }
 
         if (!TextUtils.isEmpty(address)) {
-            String p = "";
+        /*    String p = "";
             if (!TextUtils.isEmpty(item.getProvinceName())) {
                 p=item.getProvinceName();
             }
@@ -117,8 +117,8 @@ public class AddressManagerAdapter extends SuperAdapter<Address> {
             }
             if (!TextUtils.isEmpty(item.getTownName())) {
                 p=p+item.getTownName();
-            }
-            holder.setText(R.id.txtAddress, p+address);
+            }*/
+            holder.setText(R.id.txtAddress, address);
         } else {
             holder.setText(R.id.txtPhone, "暂无");
         }

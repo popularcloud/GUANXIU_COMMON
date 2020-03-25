@@ -53,7 +53,7 @@ public class SignInActivity extends BaseActivity implements CalendarView.OnYearV
     @BindView(R.id.tv_present_date)
     TextView tv_present_date;
     @BindView(R.id.btn_sign)
-    Button btn_sign;
+    TextView btn_sign;
     @BindView(R.id.tv_continuity_sign_in)
     TextView tv_continuity_sign_in;
     @BindView(R.id.tv_total_sign_in)

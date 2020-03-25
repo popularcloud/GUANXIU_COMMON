@@ -1,10 +1,15 @@
 package com.lwc.common.module.invoice;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -13,13 +18,18 @@ import com.lwc.common.activity.BaseActivity;
 import com.lwc.common.controler.http.RequestValue;
 import com.lwc.common.module.bean.Common;
 import com.lwc.common.module.bean.InvoiceOrder;
+import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
 import com.lwc.common.module.common_adapter.InvoiceOrderListAdapter;
+import com.lwc.common.module.order.ui.fragment.FinishFragment;
+import com.lwc.common.module.order.ui.fragment.ProceedFragment;
 import com.lwc.common.utils.BGARefreshLayoutUtils;
 import com.lwc.common.utils.HttpRequestUtils;
 import com.lwc.common.utils.IntentUtil;
 import com.lwc.common.utils.JsonUtil;
 import com.lwc.common.utils.ToastUtil;
 import com.lwc.common.utils.Utils;
+import com.lwc.common.view.MyTextView;
+import com.lwc.common.widget.CustomViewPager;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -39,24 +49,25 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * @date 2018年1月05日
  */
 public class InvoiceActivity extends BaseActivity {
+	@BindView(R.id.txtActionbarTitle)
+	MyTextView txtActionbarTitle;
+	@BindView(R.id.img_back)
+	ImageView imgBack;
+	@BindView(R.id.rBtnUnderway)
+	RadioButton rBtnUnderway;
+	@BindView(R.id.rBtnFinish)
+	RadioButton rBtnFinish;
+	@BindView(R.id.viewLine1)
+	View viewLine1;
+	@BindView(R.id.viewLine3)
+	View viewLine3;
+	@BindView(R.id.cViewPager)
+	CustomViewPager cViewPager;
 
-	@BindView(R.id.recyclerView)
-	RecyclerView recyclerView;
-	@BindView(R.id.mBGARefreshLayout)
-	BGARefreshLayout mBGARefreshLayout;
-	@BindView(R.id.iv_checked)
-	ImageView iv_checked;
-	@BindView(R.id.tv_maney)
-	TextView tv_maney;
-	@BindView(R.id.tv_all_select)
-	TextView tv_all_select;
-	@BindView(R.id.tv_msg)
-	TextView tv_msg;
-	private boolean isChecked = false;
-	private ArrayList<InvoiceOrder> myOrders = new ArrayList<>();
-	private List<String> isSelect = new ArrayList<>();
-	private InvoiceOrderListAdapter adapter;
-	private int page=1;
+	private HashMap rButtonHashMap;
+	private HashMap<Integer, Fragment> fragmentHashMap;
+	private OrderInvoiceFragment orderInvoiceFragment;
+	private PackageInvoiceFragment packageInvoiceFragment;
 
 	@Override
 	protected int getContentViewId(Bundle savedInstanceState) {
@@ -65,8 +76,6 @@ public class InvoiceActivity extends BaseActivity {
 
 	@Override
 	protected void findViews() {
-		ButterKnife.bind(this);
-		BGARefreshLayoutUtils.initRefreshLayout(this, mBGARefreshLayout);
 		setTitle("订单开票");
 		setRight("发票记录", new View.OnClickListener() {
 			@Override
@@ -74,204 +83,99 @@ public class InvoiceActivity extends BaseActivity {
 				IntentUtil.gotoActivity(InvoiceActivity.this, InvoiceHistoryActivity.class);
 			}
 		});
-		String str = "合计: ¥ 0";
-		tv_maney.setText(Utils.getSpannableStringBuilder(1, str.length()-1, getResources().getColor(R.color.red_money), str, 16));
+		addFragmenInList();
+		addRadioButtonIdInList();
+		init();
+		bindViewPage(fragmentHashMap);
 	}
 
+	/**
+	 * 往fragmentHashMap中添加 Fragment
+	 */
+	private void addFragmenInList() {
+
+		fragmentHashMap = new HashMap<>();
+		orderInvoiceFragment = new OrderInvoiceFragment();
+		packageInvoiceFragment = new PackageInvoiceFragment();
+		fragmentHashMap.put(0, orderInvoiceFragment);
+		fragmentHashMap.put(1, packageInvoiceFragment);
+	}
 	@Override
 	protected void init() {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		if (mBGARefreshLayout != null)
-			mBGARefreshLayout.beginRefreshing();  //请求网络数据
-	}
-
-	/**
-	 *
-	 * 查询可开发票订单列表
-	 *
-	 */
-	private void getOrderList() {
-		HashMap<String, String> params = new HashMap<>();
-		params.put("curPage", page+"");
-		HttpRequestUtils.httpRequest(this, "InvoiceOrderList", RequestValue.GET_INVOICE_ORDER_LIST, params, "GET", new HttpRequestUtils.ResponseListener() {
-			@Override
-			public void getResponseData(String result) {
-				Common common = JsonUtil.parserGsonToObject(result, Common.class);
-				if (common.getStatus().equals("1")) {
-					ArrayList<InvoiceOrder> current = JsonUtil.parserGsonToArray(JsonUtil.getGsonValueByKey(result, "data"), new TypeToken<ArrayList<InvoiceOrder>>() {
-					});
-					if (page == 1) {
-						if (current != null && current.size() > 0){
-							myOrders = current;
-							isSelect = new ArrayList<>();
-							for (int i=0; i<myOrders.size(); i++){
-								isSelect.add("0");
-							}
-						} else {
-							myOrders = new ArrayList<>();
-							isSelect = new ArrayList<>();
-						}
-					} else if (page > 1) {
-						if (current!= null && current.size() > 0) {
-							myOrders.addAll(current);
-							for (int i=0; i<current.size(); i++){
-								isSelect.add("0");
-							}
-						} else {
-							page--;
-						}
-					}
-					updateMoney();
-//					tv_all_select.setText("全选（"+myOrders.size()+"）");
-					adapter.setDateSelect(isSelect);
-					adapter.replaceAll(myOrders);
-					if (myOrders.size() > 0) {
-						tv_msg.setVisibility(View.GONE);
-					} else {
-						tv_msg.setVisibility(View.VISIBLE);
-					}
-				} else {
-					ToastUtil.showToast(InvoiceActivity.this, common.getInfo());
-				}
-				BGARefreshLayoutUtils.endRefreshing(mBGARefreshLayout);
-				BGARefreshLayoutUtils.endLoadingMore(mBGARefreshLayout);
-			}
-
-			@Override
-			public void returnException(Exception e, String msg) {
-				ToastUtil.showToast(InvoiceActivity.this, msg);
-				BGARefreshLayoutUtils.endRefreshing(mBGARefreshLayout);
-				BGARefreshLayoutUtils.endLoadingMore(mBGARefreshLayout);
-			}
-		});
-	}
-
-	@Override
 	protected void initGetData() {
+
 	}
 
 	@Override
 	protected void widgetListener() {
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//		recyclerView.setLayoutManager(new VegaLayoutManager(this));
-		adapter = new InvoiceOrderListAdapter(this, myOrders, R.layout.item_invoice_order);
-		adapter.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(View itemView, int viewType, int position) {
-				if (isSelect.get(position).equals("0")) {
-					isSelect.set(position, "1");
-				} else {
-					isSelect.set(position, "0");
-				}
 
-				adapter.setDateSelect(isSelect);
-				adapter.notifyDataSetChanged();
-				updateMoney();
-			}
-		});
-		recyclerView.setAdapter(adapter);
-
-		//刷新控件监听器
-		mBGARefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
-			@Override
-			public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-				page = 1;
-				getOrderList();
-			}
-
-			@Override
-			public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-//				page++;
-//				getOrderList();
-				return false;
-			}
-		});
 	}
 
-	@OnClick({R.id.iv_checked, R.id.tv_all_select, R.id.tv_next})
-	public void clickView(View view) {
+	/**
+	 * 往rButtonHashMap中添加 RadioButton Id
+	 */
+	private void addRadioButtonIdInList() {
+
+		rButtonHashMap = new HashMap<>();
+		rButtonHashMap.put(0, rBtnUnderway);
+		rButtonHashMap.put(1, rBtnFinish);
+	}
+
+	@OnClick({R.id.rBtnUnderway, R.id.rBtnFinish})
+	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.iv_checked:
-			case R.id.tv_all_select:
-				if (myOrders == null || myOrders.size() == 0) {
-					isChecked = false;
-					iv_checked.setImageResource(R.drawable.invoice_order_noselected1);
-					return;
-				}
-				if (isChecked) {
-					isChecked = false;
-					//tv_all_select.setTextColor(getResources().getColor(R.color.black_66));
-					iv_checked.setImageResource(R.drawable.invoice_order_noselected1);
-				} else {
-					isChecked = true;
-					//tv_all_select.setTextColor(getResources().getColor(R.color.blue_00aaf5));
-					iv_checked.setImageResource(R.drawable.invoice_order_selected1);
-				}
-				updateList();
+			case R.id.rBtnUnderway:
+				showLineView(1);
+				cViewPager.setCurrentItem(0);
 				break;
-			case R.id.tv_next:
-				//TODO 要传开票订单号列表和总金额过去
-				String allManey = "0";
-				String ids = "";
-				for (int i=0; i<isSelect.size(); i++) {
-					if (isSelect.get(i).equals("1")) {
-						allManey = Utils.jia(allManey, myOrders.get(i).getOrderAmount());
-						ids = ids+myOrders.get(i).getOrderId()+",";
-					}
-				}
-				if (allManey.equals("0") || ids.equals("")) {
-					ToastUtil.showToast(this, "请选择你要开发票的订单");
-					return;
-				}
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("invoiceOrderIds", ids.substring(0, ids.length()-1));
-				bundle.putSerializable("totalManey", allManey);
-				IntentUtil.gotoActivity(InvoiceActivity.this, OpenInvoiceActivity.class, bundle);
+			case R.id.rBtnFinish:
+				showLineView(2);
+				cViewPager.setCurrentItem(1);
 				break;
 		}
 	}
 
-	private void updateMoney() {
-		isChecked = true;
-		String allManey = "0";
-		int count = 0;
-		for (int i=0; i<myOrders.size(); i++){
-			if (isSelect.get(i).equals("1")) {
-				count ++;
-				allManey = Utils.jia(allManey, myOrders.get(i).getOrderAmount());
-			} else {
-				isChecked = false;
-			}
-		}
-		String str = "合计: ¥ "+Utils.getMoney(allManey);
-		tv_all_select.setText("全选("+count+")");
-		tv_maney.setText(str);
-		if (!isChecked) {
-			tv_all_select.setTextColor(getResources().getColor(R.color.black_66));
-			iv_checked.setImageResource(R.drawable.invoice_order_noselected1);
-		} else {
-			tv_all_select.setTextColor(getResources().getColor(R.color.btn_blue_nomal));
-			iv_checked.setImageResource(R.drawable.invoice_order_selected1);
+
+	/**
+	 * 显示RadioButton线条
+	 *
+	 * @param num 1 ： 显示已发布下的线条  2 ： 显示未完成下的线条  3： 显示已完成下的线条  。未选中的线条将会被隐藏
+	 */
+	private void showLineView(int num) {
+		switch (num) {
+			case 1:
+				viewLine1.setVisibility(View.VISIBLE);
+				viewLine3.setVisibility(View.INVISIBLE);
+				break;
+			case 2:
+				viewLine3.setVisibility(View.VISIBLE);
+				viewLine1.setVisibility(View.INVISIBLE);
+				break;
 		}
 	}
 
-	private void updateList() {
-		if (isChecked) {
-			for (int i=0; i<myOrders.size(); i++){
-				isSelect.set(i, "1");
+	private void bindViewPage(HashMap<Integer, Fragment> fragmentList) {
+		//是否滑动
+		cViewPager.setPagingEnabled(true);
+		cViewPager.setAdapter(new FragmentsPagerAdapter(getSupportFragmentManager(), fragmentList));
+		cViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
 			}
-			updateMoney();
-		} else {
-			for (int i=0; i<myOrders.size(); i++){
-				isSelect.set(i, "0");
+
+			@Override
+			public void onPageSelected(int position) {
+				cViewPager.setChecked(rButtonHashMap, position);
+				showLineView(position + 1);
 			}
-			updateMoney();
-		}
-		adapter.setDateSelect(isSelect);
-		adapter.notifyDataSetChanged();
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+			}
+		});
 	}
 }

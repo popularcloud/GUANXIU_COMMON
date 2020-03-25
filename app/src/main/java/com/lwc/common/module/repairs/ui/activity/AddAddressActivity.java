@@ -1,17 +1,25 @@
 package com.lwc.common.module.repairs.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.services.core.LatLonPoint;
-import com.bigkoo.pickerview.OptionsPickerView;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeAddress;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.google.gson.reflect.TypeToken;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
@@ -28,8 +36,7 @@ import com.lwc.common.module.repairs.ui.IAddAddressView;
 import com.lwc.common.utils.FileUtil;
 import com.lwc.common.utils.IntentUtil;
 import com.lwc.common.utils.JsonUtil;
-import com.lwc.common.utils.KeyboardUtil;
-import com.lwc.common.utils.LLog;
+import com.lwc.common.utils.ProgressUtils;
 import com.lwc.common.utils.SharedPreferencesUtils;
 import com.lwc.common.utils.ToastUtil;
 import com.lwc.common.utils.Utils;
@@ -40,7 +47,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -48,7 +54,7 @@ import butterknife.OnClick;
  * 294663966@qq.com
  * 添加地址
  */
-public class AddAddressActivity extends BaseActivity implements IAddAddressView {
+public class AddAddressActivity extends BaseActivity implements IAddAddressView, GeocodeSearch.OnGeocodeSearchListener {
 
     @BindView(R.id.edtName)
     EditText edtName;
@@ -58,8 +64,8 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
     TextView btnAffirm;
     @BindView(R.id.edtDetailAddress)
     TextView edtDetailAddress;
-    @BindView(R.id.txtAddress)
-    TextView txtAddress;
+    /*    @BindView(R.id.txtAddress)
+        TextView txtAddress;*/
     @BindView(R.id.edtAddress)
     TextView edtAddress;
     private AddAddressPresenter presenter;
@@ -86,11 +92,21 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
      * 选中的县
      */
     private Xian selectedXian;
+
     private Address addressData;
     private PoiBean poiBean;
+    ;
     private String cityCode;
     private User user;
     private Location location;
+
+    private AMapLocationClient locationClient = null;//定位类
+    private GeocodeSearch geocoderSearch;
+
+    private ProgressUtils progressUtils;
+
+
+    private boolean isLocation = true;
 
     @Override
     protected int getContentViewId(Bundle savedInstanceState) {
@@ -99,8 +115,6 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
 
     @Override
     protected void findViews() {
-        ButterKnife.bind(this);
-
         InputFilter filter = new InputFilter() {
             public CharSequence filter(CharSequence source, int start, int end,
                                        Spanned dest, int dstart, int dend) {
@@ -113,12 +127,15 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
             }
         };
         edtName.setFilters(new InputFilter[]{filter});
+        progressUtils = new ProgressUtils();
+
+        initLocation();
     }
 
     /**
      * 获取地区数据
      */
-    private void getAreaData() {
+    private void getAreaData(String address_city, String address_district) {
         String sheng = FileUtil.readAssetsFile(this, "sheng.json");
         String shi = FileUtil.readAssetsFile(this, "shi.json");
         String xian = FileUtil.readAssetsFile(this, "xian.json");
@@ -126,15 +143,15 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
         });
         shis = JsonUtil.parserGsonToArray(shi, new TypeToken<ArrayList<Shi>>() {
         });
-
-        String address_province = (String) SharedPreferencesUtils.getParam(this,"address_province","湖南");
-        String address_city = (String) SharedPreferencesUtils.getParam(this,"address_city","长沙");
+        xians = JsonUtil.parserGsonToArray(xian, new TypeToken<ArrayList<Xian>>() {
+        });
 
         if (!TextUtils.isEmpty(address_city) && shis != null) {
             for (int i = 0; i < shis.size(); i++) {
-                if (shis.get(i).getName().equals(address_city)) {
+                if (shis.get(i).getName().contains(address_city)) {
                     selectedShi = shis.get(i);
-                    shis.remove(selectedShi);
+                    ;
+                    Log.e("yufs", "选中的市：" + selectedShi.getName());
                     break;
                 }
             }
@@ -142,81 +159,25 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
                 for (int i = 0; i < shengs.size(); i++) {
                     if (shengs.get(i).getDmId().equals(selectedShi.getParentid())) {
                         selectedSheng = shengs.get(i);
-                        shengs.remove(selectedSheng);
+                        Log.e("yufs", "选中的省：" + selectedSheng.getName());
                         break;
                     }
                 }
-                if (selectedSheng != null) {
-                    //shengs.clear();
-                    shengs.add(0,selectedSheng);
-                   // shis.clear();
-                    shis.add(0,selectedShi);
-                }
-            }
-        }
-        xians = JsonUtil.parserGsonToArray(xian, new TypeToken<ArrayList<Xian>>() {
-        });
-    }
-
-    /**
-     * 加载地区弹框数据
-     */
-    private void loadOptionsPickerViewData() {
-        //添加省
-        for (int i = 0; i < shengs.size(); i++) {
-            Sheng sheng = shengs.get(i);
-            options1Items.add(new PickerView(i, sheng.getName()));
-        }
-//        //添加市
-        for (int j = 0; j < shengs.size(); j++) {
-            Sheng sheng = shengs.get(j);
-            ArrayList<String> options2Items_01 = new ArrayList<>();
-            List<Shi> tempSortShi = new ArrayList<>();
-            for (int z = 0; z < shis.size(); z++) {
-                Shi shi = shis.get(z);
-                if (sheng.getDmId().equals(shi.getParentid())) {
-                    options2Items_01.add(shi.getName());
-                    tempSortShi.add(shi);
-                }
-            }
-            options2Items.add(options2Items_01);
-            sortShi.add(tempSortShi);
-
-        }
-        //添加县
-        for (int p = 0; p < shengs.size(); p++) { //遍历省级
-            ArrayList<ArrayList<String>> provinceAreaList = new ArrayList<>();//该省的所有地区列表（第三极）
-            List<List<Xian>> tempProvince = new ArrayList<>();
-            Sheng sheng = shengs.get(p);
-            for (int s = 0; s < shis.size(); s++) {  //省级下的市
-                ArrayList<String> cityList = new ArrayList<>();//该省的城市列表（第二级）
-                List<Xian> tempXian = new ArrayList<>();
-                Shi shi = shis.get(s);
-                if (sheng.getDmId().equals(shi.getParentid())) {
-                    for (int x = 0; x < xians.size(); x++) {
-                        Xian xian = xians.get(x);
-                        if (shi.getDmId().equals(xian.getParentid())) {
-                            cityList.add(xian.getName());
-                            tempXian.add(xian);
+                if (!TextUtils.isEmpty(address_district)) {
+                    for (int i = 0; i < xians.size(); i++) {
+                        if (xians.get(i).getName().contains(address_district)) {
+                            selectedXian = xians.get(i);
+                            Log.e("yufs", "选中的区县：" + selectedXian.getName());
+                            break;
                         }
                     }
-                    provinceAreaList.add(cityList);
-                    tempProvince.add(tempXian);
                 }
             }
-            options3Items.add(provinceAreaList);
-            sortXian.add(tempProvince);
+
         }
-        LLog.i("options3Items    " + options3Items.toString());
+
     }
 
-    private Thread myThread = new Thread() {
-        @Override
-        public void run() {
-            super.run();
-            loadOptionsPickerViewData();
-        }
-    };
 
     @Override
     protected void init() {
@@ -257,6 +218,8 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
                     edtPhone.setText(user.getUserName());
                 }
             }
+            //如果是新地址才开启定位
+            locationClient.startLocation();
         } else {
             setTitle("修改地址");
             edtName.setText(addressData.getContactName());
@@ -267,27 +230,28 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
                 edtAddress.setText(arr[1]);
             }
             String province = addressData.getProvinceName();
-            if(!TextUtils.isEmpty(province)){
+            if (!TextUtils.isEmpty(province)) {
                 selectedSheng = new Sheng();
                 selectedSheng.setDmId(String.valueOf(addressData.getProvinceId()));
                 selectedSheng.setName(addressData.getProvinceName());
             }
             String city = addressData.getCityName();
-            if(!TextUtils.isEmpty(city)){
+            if (!TextUtils.isEmpty(city)) {
                 selectedShi = new Shi();
                 selectedShi.setDmId(String.valueOf(addressData.getCityId()));
                 selectedShi.setName(addressData.getCityName());
             }
             String county = addressData.getTownName();
-            if(!TextUtils.isEmpty(county)){
+            if (!TextUtils.isEmpty(county)) {
                 selectedXian = new Xian();
                 selectedXian.setDmId(String.valueOf(addressData.getTownId()));
                 selectedXian.setName(addressData.getTownName());
             }
-            txtAddress.setText(province + "-" + city + "-" + county);
+            // txtAddress.setText(province + "-" + city + "-" + county);
         }
-        getAreaData();
-        myThread.start();
+
+
+        // getAreaData();
     }
 
     @Override
@@ -304,28 +268,37 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1520 && resultCode == RESULT_OK) {
-            poiBean = new PoiBean();
+            if(poiBean == null){
+                poiBean = new PoiBean();
+            }
             poiBean.setTitleName(data.getStringExtra("address"));
             double latitude = data.getDoubleExtra("latitude", 0);
             double longitude = data.getDoubleExtra("longitude", 0);
             LatLonPoint latLonPoint = new LatLonPoint(latitude, longitude);
             poiBean.setPoint(latLonPoint);
             edtDetailAddress.setText(poiBean.getTitleName());
+            isLocation = false;
+            // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+            RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 500, GeocodeSearch.AMAP);
+            geocoderSearch.getFromLocationAsyn(query);
+
+            progressUtils.showDefaultProgressDialog(AddAddressActivity.this,"");
         }
     }
 
-    @OnClick({R.id.btnAffirm, R.id.txtAddress, R.id.ll_select_address})
+    @OnClick({R.id.btnAffirm, R.id.ll_select_address})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
             case R.id.ll_select_address:
-                if(selectedXian == null){
-                    ToastUtil.showToast(this,"请先选择地区");
+                if (selectedXian == null) {
+                    ToastUtil.showToast(this, "获取定位信息失败.请稍后");
+                    locationClient.startLocation();
                     return;
                 }
                 Bundle bundle = new Bundle();
-                bundle.putString("city_str",selectedShi.getName());
-                IntentUtil.gotoActivityForResult(AddAddressActivity.this, SelectAddressActivity.class, bundle,1520);
+                bundle.putString("city_str", selectedShi.getName());
+                IntentUtil.gotoActivityForResult(AddAddressActivity.this, SelectAddressByMapActivity.class, bundle, 1520);
                 break;
             case R.id.btnAffirm:
                 String name = edtName.getText().toString();
@@ -402,43 +375,110 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
                     }
                 }
                 break;
-            case R.id.txtAddress:
-                showPickerView();
-                break;
         }
     }
 
+
     /**
-     * 弹出区域选择器
+     * ###################定位信息操作###################################
+     **/
+
+    private void initLocation() {
+
+        geocoderSearch = new GeocodeSearch(this);
+        geocoderSearch.setOnGeocodeSearchListener(this);
+
+        //初始化client
+        locationClient = new AMapLocationClient(this.getApplicationContext());
+        //设置定位参数
+        locationClient.setLocationOption(getDefaultOption());
+        // 设置定位监听
+        locationClient.setLocationListener(locationListener);
+
+    }
+
+    /**
+     * 设置定位相关信息
+     *
+     * @return
      */
-    private void showPickerView() {
-        KeyboardUtil.showInput(false, this);
-        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                //返回的分别是三个级别的选中位置
+    private AMapLocationClientOption getDefaultOption() {
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+        mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
+        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
+        mOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
+        mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        mOption.setLocationCacheEnable(false); //可选，设置是否使用缓存定位，默认为true
+        return mOption;
+    }
 
-                selectedSheng = shengs.get(options1);
-                selectedShi = sortShi.get(options1).get(options2);
-                selectedXian = sortXian.get(options1).get(options2).get(options3);
-                String tx = selectedSheng.getName() + "-" +
-                        selectedShi.getName() + "-" +
-                        selectedXian.getName();
-                txtAddress.setText(tx);
-
-                edtDetailAddress.setText("");
+    AMapLocationListener locationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation loc) {
+            if (null != loc) {
+                //解析定位结果
+          /*      mCity = loc.getCity();
+                mLoc=loc;
+                lp.setLongitude(loc.getLongitude());
+                lp.setLatitude(loc.getLatitude());*/
+                //得到定位信息
+                Log.e("yufs", "定位详细信息：" + loc.toString());
+                LatLonPoint myPoint = new LatLonPoint(loc.getLatitude(), loc.getLongitude());
+                if(poiBean == null){
+                    poiBean = new PoiBean();
+                }
+                poiBean.setPoint(myPoint);
+               // progressUtils.showDefaultProgressDialog(AddAddressActivity.this,"");
+                // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+                RegeocodeQuery query = new RegeocodeQuery(myPoint, 500, GeocodeSearch.AMAP);
+                geocoderSearch.getFromLocationAsyn(query);
+            } else {
+                ToastUtil.showLongToast(AddAddressActivity.this, "定位失败，请打开位置权限");
             }
-        })
+        }
+    };
 
-                .setTitleText("选择区域")
-                .setDividerColor(Color.BLACK)
-                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                .setContentTextSize(20)
-                .setOutSideCancelable(false)// default is true
-                .build();
-        /*pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
-        pvOptions.show();
+    @Override
+    public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+        progressUtils.dissmissDefaultProgressDialog();
+        if(i == 1000){
+            Log.e("yufs", "逆地理编码onRegeocodeSearched：");
+
+            RegeocodeAddress regeocodeAddress = regeocodeResult.getRegeocodeAddress();
+            String mySheng = regeocodeAddress.getProvince();
+            String myShi = regeocodeAddress.getCity();
+            String myXian = regeocodeAddress.getDistrict();
+            String detailAddress = regeocodeAddress.getFormatAddress();
+            if(isLocation){
+                poiBean.setTitleName(detailAddress);
+                edtDetailAddress.setText(poiBean.getTitleName());
+            }
+            if (TextUtils.isEmpty(myXian)) {
+                myXian = regeocodeAddress.getTownship();
+            }
+            Log.e("yufs", "逆地理编码定位详细信息：" + mySheng + "---" + myShi + "---" + myXian);
+            if (!TextUtils.isEmpty(myXian) && !TextUtils.isEmpty(myShi)) {
+                String subShi = myShi.replaceAll("市", "");
+                String subXian = myXian.replaceAll("街道", "").replaceAll("镇", "").replaceAll("县", "");
+                Log.e("yufs", "逆地理编码定位截取的县：" + subShi + subXian);
+                getAreaData(subShi, subXian);
+            } else {
+                ToastUtil.showToast(AddAddressActivity.this, "定位失败!请开启定位后重试!");
+            }
+        }else{
+            ToastUtil.showToast(AddAddressActivity.this,"获取地址失败!请重新选择");
+        }
+
+    }
+
+    @Override
+    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
     }
 }

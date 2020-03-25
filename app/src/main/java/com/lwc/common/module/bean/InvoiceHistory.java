@@ -28,6 +28,7 @@ public class InvoiceHistory implements Serializable {
     private String remark;//": "",                             //备注信息
     private String userEmail;//": "2998868900@qq.com",         //电子发票收件信息
     private String userId;//": "170901094644576101RK"          //用户ID
+    private String buyType;
 
     public String getInvoiceImages() {
         return invoiceImages;
@@ -181,4 +182,11 @@ public class InvoiceHistory implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getBuyType() {
+        return buyType;
+    }
+
+    public void setBuyType(String buyType) {
+        this.buyType = buyType;
+    }
 }

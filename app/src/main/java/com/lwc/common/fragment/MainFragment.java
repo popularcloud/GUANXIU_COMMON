@@ -226,9 +226,18 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
                     titleContainer.setBackgroundColor(Color.parseColor("#ffffff"));
                     txtActionbarTitle.setVisibility(View.VISIBLE);
                     txtActionbarTitle.setTextColor(Color.parseColor("#000000"));
+                    ImmersionBar.with(getActivity())
+                            .statusBarColor(R.color.white)
+                            .statusBarDarkFont(true)
+                            .navigationBarColor(R.color.white).init();
                 }else{
                     titleContainer.setBackgroundColor(Color.parseColor("#00000000"));
                     txtActionbarTitle.setVisibility(View.GONE);
+                    ImmersionBar.with(getActivity())
+                            .transparentStatusBar()
+                            .statusBarDarkFont(true)
+                            .fitsSystemWindows(false)
+                            .navigationBarColor(R.color.white).init();
                 }
                 setAnyBarAlpha(statusAlpha);
             }
@@ -239,8 +248,11 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-
+        if(isVisibleToUser && getActivity() != null){
+            ImmersionBar.with(getActivity())
+                    .statusBarColor(R.color.white)
+                    .statusBarDarkFont(true)
+                    .navigationBarColor(R.color.white).init();
         }
     }
 
@@ -430,8 +442,10 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
             }else{
                 // 点击图片后,有内链和外链的区别
                 Bundle bundle = new Bundle();
-                if (!TextUtils.isEmpty(info.getAdvertisingUrl()))
-                    bundle.putString("url", info.getAdvertisingUrl());
+                if (TextUtils.isEmpty(info.getAdvertisingUrl())){
+                    return;
+                }
+                bundle.putString("url", info.getAdvertisingUrl());
                 if (!TextUtils.isEmpty(info.getAdvertisingTitle()))
                     bundle.putString("title", info.getAdvertisingTitle());
                 IntentUtil.gotoActivity(getActivity(), InformationDetailsActivity.class, bundle);

@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/f0_gray_line">
     <include layout="@layout/include_title" android:id="@+id/include_title"/>
+    <View android:layout_width="match_parent" android:layout_height="1px" android:background="@color/f0_gray_line" />
     <ExpandableListView
         android:id="@+id/expand_list"
         android:layout_width="match_parent"

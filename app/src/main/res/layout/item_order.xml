@@ -98,6 +98,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:lineSpacingExtra="5dp"
+                    android:ellipsize="end"
                     android:gravity="right"
                     android:textColor="@color/all_black"
                     android:textSize="@dimen/sp_14" />

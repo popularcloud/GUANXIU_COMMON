@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '29.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 22
+        minSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,18 +31,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile files('libs/SecurityEnvSDK-release-1.1.0.jar')
-    compile files('libs/umeng-common-2.0.2.jar')
-    compile files('libs/umeng-share-core-6.9.4.jar')
-    compile files('libs/umeng-share-QQ-simplify-6.9.4.jar')
-    compile files('libs/umeng-share-sina-simplify-6.9.4.jar')
-    compile files('libs/umeng-share-wechat-full-6.9.4.jar')
-    compile files('libs/umeng-shareboard-widget-6.9.4.jar')
-    compile files('libs/umeng-sharetool-6.9.4.jar')
-    compile files('libs/wechat-sdk-android-without-mta-5.1.4.jar')
+    testImplementation 'junit:junit:4.12'
+    api files('libs/SecurityEnvSDK-release-1.1.0.jar')
+    api files('libs/umeng-common-2.0.2.jar')
+    api files('libs/umeng-share-core-6.9.4.jar')
+    api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
+    api files('libs/umeng-share-sina-simplify-6.9.4.jar')
+    api files('libs/umeng-share-wechat-full-6.9.4.jar')
+    api files('libs/umeng-shareboard-widget-6.9.4.jar')
+    api files('libs/umeng-sharetool-6.9.4.jar')
+    api files('libs/wechat-sdk-android-without-mta-5.1.4.jar')
 }

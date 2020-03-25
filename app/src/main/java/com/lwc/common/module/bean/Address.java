@@ -11,13 +11,13 @@ import java.io.Serializable;
  */
 public class Address extends DataSupport implements Serializable {
 
-    private int provinceId;//": "7",                        //省ID
+    private String provinceId;//": "7",                        //省ID
     private String createTime;//": "2017-8-31 17:25:34",        //创建时间
     private String contactPhone;//": "13219950722",           //联系电话
-    private int cityId;//": "79",                           //市ID
+    private String cityId;//": "79",                           //市ID
     private String townName;//": "南城区",                  //区名称
     private String cityName;//": "东莞市",                   // 市名称
-    private int townId;//": "714",                        //区ID
+    private String townId;//": "714",                        //区ID
     private String provinceName;//": "广东省",               //省名称
     private int isDefault;//": 1,                          //是否默认 （0：否 1:是）
     private String contactName;//": "King",                  //联系人
@@ -90,13 +90,6 @@ public class Address extends DataSupport implements Serializable {
         this.provinceName = provinceName;
     }
 
-    public int getTownId() {
-        return townId;
-    }
-
-    public void setTownId(int townId) {
-        this.townId = townId;
-    }
 
     public String getCityName() {
         return cityName;
@@ -114,13 +107,6 @@ public class Address extends DataSupport implements Serializable {
         this.townName = townName;
     }
 
-    public int getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }
 
     public String getContactPhone() {
         return contactPhone;
@@ -138,12 +124,27 @@ public class Address extends DataSupport implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getProvinceId() {
+    public String getProvinceId() {
         return provinceId;
     }
 
-    public void setProvinceId(int provinceId) {
+    public void setProvinceId(String provinceId) {
         this.provinceId = provinceId;
     }
 
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getTownId() {
+        return townId;
+    }
+
+    public void setTownId(String townId) {
+        this.townId = townId;
+    }
 }

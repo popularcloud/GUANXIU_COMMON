@@ -413,7 +413,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
 	private void bindCompany(String uid) {
 		String uidStr = "";
-		if (TextUtils.isEmpty(uid) || (!uid.contains("?str=") && !uid.contains("bindOrderIndex=")) && !uid.contains("?codeId=")) {
+		if (TextUtils.isEmpty(uid) || (!uid.contains("?str=") && !uid.contains("bindOrderIndex=")) && !uid.contains("?codeId=") && !uid.contains("codeLeaseId=")) {
 			if (!TextUtils.isEmpty(uid) && uid.startsWith("http")) {
 				Bundle bundle = new Bundle();
 				bundle.putString("url", uid);
@@ -440,6 +440,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			}else if(uid.contains("?codeId=")){
 				Log.d("联网成功","进入了else获取到的二维码数据:"+uid);
 				uidStr = uid.substring(uid.indexOf("codeId=") + 7, uid.length());
+			}else if(uid.contains("codeLeaseId=")){
+				int lineIndex = uid.lastIndexOf("codeLeaseId=");
+				uidStr = uid.substring(lineIndex+12);
 			}
 		}
 		if (TextUtils.isEmpty(uidStr)) {
@@ -478,6 +481,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			deviceScanCode(uidStr);
 		} else if (uid.contains("codeId=")) {
 			bindCode(uidStr);
+		} else if (uid.contains("codeLeaseId=")) {
+			Log.d("联网成功","scanStr"+uid + "  token"+ uidStr);
+			applyDevice(uidStr);
 		}
 	}
 
@@ -520,6 +526,69 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 								bundle.putSerializable("repairsCompany", rc);
 								bundle.putInt("isSecrecy", isSecrecy);
 								bundle.putString("qrcodeIndex", qrcodeIndex);
+								IntentUtil.gotoActivityAndFinish(CaptureActivity.this, ApplyForMaintainActivity.class, bundle);
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						break;
+					default:
+						finish();
+						ToastUtil.showLongToast(CaptureActivity.this, common.getInfo());
+						break;
+				}
+			}
+			@Override
+			public void returnException(Exception e, String msg) {
+				LLog.eNetError(e.toString());
+				ToastUtil.showLongToast(CaptureActivity.this, msg);
+			}
+		});
+	}
+
+	/**
+	 * 租赁设备报修
+	 * @param uidStr
+	 */
+	private void applyDevice(String uidStr) {
+		Map<String, String> map = new HashMap<>();
+		map.put("qrcodeIndex", uidStr);
+		HttpRequestUtils.httpRequest(this, "扫描租赁二维码", RequestValue.SCAN_LEASECODE, map, "GET", new HttpRequestUtils.ResponseListener() {
+			@Override
+			public void getResponseData(String response) {
+				Common common = JsonUtil.parserGsonToObject(response, Common.class);
+				switch (common.getStatus()) {
+					case "1":
+						try {
+							if (!response.contains("data")) {
+								dialog = DialogUtil.dialogBind(CaptureActivity.this, "", "该二维码还未绑定设备！","", new View.OnClickListener(){
+									@Override
+									public void onClick(View v) {
+										dialog.dismiss();
+										finish();
+									}
+								});
+							} else {
+								JSONObject object = new JSONObject(JsonUtil.getGsonValueByKey(response, "data"));
+								String deviceTypeId = object.optString("deviceTypeId");
+								String deviceTypeName = object.optString("deviceTypeName");
+								String reqairId = object.optString("reqairId");
+								String reqairnName = object.optString("reqairName");
+								int isSecrecy = object.optInt("isSecrecy");
+								String orderCompanyId = object.optString("orderCompanyId");
+								String orderCompanyName = object.optString("orderCompanyName");
+								String qrcodeIndex = object.optString("qrcodeIndex");
+								Repairs repairs = new Repairs(deviceTypeId, deviceTypeName, "");
+								Malfunction malfunction = new Malfunction(reqairId, reqairnName);
+								RepairsCompany rc = new RepairsCompany();
+								rc.setCompanyId(orderCompanyId);
+								rc.setCompanyName(orderCompanyName);
+								Bundle bundle = new Bundle();
+//								bundle.putSerializable("malfunction", malfunction);
+								bundle.putSerializable("repairs", repairs);
+								bundle.putSerializable("repairsCompany", rc);
+								bundle.putInt("isSecrecy", isSecrecy);
+								bundle.putString("leaseQrcodeIndex", qrcodeIndex);
 								IntentUtil.gotoActivityAndFinish(CaptureActivity.this, ApplyForMaintainActivity.class, bundle);
 							}
 						} catch (JSONException e) {

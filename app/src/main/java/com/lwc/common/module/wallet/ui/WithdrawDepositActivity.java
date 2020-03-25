@@ -29,10 +29,12 @@ import com.lwc.common.utils.SharedPreferencesUtils;
 import com.lwc.common.utils.ToastUtil;
 import com.lwc.common.utils.Utils;
 import com.lwc.common.widget.CustomDialog;
+import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +66,7 @@ public class WithdrawDepositActivity extends BaseActivity {
 	private User user;
 	private String money;
 	private String alipayAccount;
+	private String mOpenId;
 
 	@Override
 	protected int getContentViewId(Bundle savedInstanceState) {
@@ -75,6 +78,7 @@ public class WithdrawDepositActivity extends BaseActivity {
 		ButterKnife.bind(this);
 		setTitle("提现");
 		uMShareAPI = UMShareAPI.get(this);
+		mOpenId = SharedPreferencesUtils.getInstance(WithdrawDepositActivity.this).loadString("mOpenId");
 	}
 
 	@OnClick({R.id.tBtnSecretWechat, R.id.tBtnSecretAlipay, R.id.txtWithdraw, R.id.tv_all_money, R.id.rl_ali_pay, R.id.rl_wechat_pay,R.id.tv_money_hint})
@@ -83,7 +87,6 @@ public class WithdrawDepositActivity extends BaseActivity {
 			case R.id.tv_all_money:
 				if (!TextUtils.isEmpty(user.getBanlance()) && Double.parseDouble(user.getBanlance()) >= 1 ) {
 					et_money.setText(user.getBanlance());
-
 					tv_money_hint.setVisibility(View.GONE);
 					et_money.setVisibility(View.VISIBLE);
 					et_money.setFocusable(true);
@@ -98,6 +101,24 @@ public class WithdrawDepositActivity extends BaseActivity {
 				tBtnSecretWechat.setChecked(true);
 				tBtnSecretAlipay.setChecked(false);
 				rl_alipay.setVisibility(View.GONE);
+
+				if (TextUtils.isEmpty(mOpenId)) {
+					DialogUtil.showMessageDg(WithdrawDepositActivity.this, "温馨提示", "绑定微信成功后密修APP中的钱包余\n额可提现至所绑定的微信账号中！", new CustomDialog.OnClickListener() {
+
+						@Override
+						public void onClick(CustomDialog dialog, int id, Object object) {
+							dialog.dismiss();
+							/**
+							 * 如果没有安装微信
+							 */
+							if (!uMShareAPI.isInstall(WithdrawDepositActivity.this, SHARE_MEDIA.WEIXIN)) {
+								ToastUtil.showToast(WithdrawDepositActivity.this, "您手机上未安装微信，请先安装微信客户端！");
+								return;
+							}
+							uMShareAPI.doOauthVerify(WithdrawDepositActivity.this, SHARE_MEDIA.WEIXIN, new WithdrawDepositActivity.MyUMAuthListener());
+						}
+					});
+				}
 				break;
 			case R.id.rl_ali_pay:
 			case R.id.tBtnSecretAlipay:
@@ -121,7 +142,7 @@ public class WithdrawDepositActivity extends BaseActivity {
 				}
 				money = Utils.getMoney(money);
 				if (tBtnSecretWechat.isChecked()) {
-					if (TextUtils.isEmpty(user.getOpenid())) {
+					if (TextUtils.isEmpty(mOpenId)) {
 						DialogUtil.showMessageDg(WithdrawDepositActivity.this, "温馨提示", "您还未绑定微信账号\n无法提现到微信中！", new CustomDialog.OnClickListener() {
 
 							@Override
@@ -189,6 +210,59 @@ public class WithdrawDepositActivity extends BaseActivity {
 		}
 	}
 
+	class MyUMAuthListener implements UMAuthListener {
+
+		@Override
+		public void onCancel(SHARE_MEDIA arg0, int arg1) {
+			ToastUtil.showLongToast(WithdrawDepositActivity.this, "授权取消");
+		}
+		@Override
+		public void onStart(SHARE_MEDIA share_media) {
+		}
+		@Override
+		public void onComplete(SHARE_MEDIA arg0, int arg1,
+							   Map<String, String> arg2) {
+//			Toast.makeText(PaySettingActivity.this, "授权成功", Toast.LENGTH_SHORT).show();
+//				openid可以作为用户的唯一标识，将openid保存下来，就可以实现登录状态的检查了。
+			mOpenId = arg2.get("openid");
+			String access_token = arg2.get("access_token");
+			updateUserData(mOpenId, access_token);
+		}
+
+		@Override
+		public void onError(SHARE_MEDIA arg0, int arg1, Throwable arg2) {
+			ToastUtil.showLongToast(WithdrawDepositActivity.this, "授权失败");
+		}
+	}
+
+	private void updateUserData(final String openId, final String tokey) {
+		HashMap<String, String> params = new HashMap<>();
+		params.put("openId", openId);
+		HttpRequestUtils.httpRequest(this, "updateUserData 微信绑定解绑", RequestValue.UP_USER_INFOR, params, "POST", new HttpRequestUtils.ResponseListener() {
+			@Override
+			public void getResponseData(String response) {
+				Common common = JsonUtil.parserGsonToObject(response, Common.class);
+				if (common.getStatus().equals(ServerConfig.RESPONSE_STATUS_SUCCESS)) {
+					if (openId != null && !openId.equals("")) {
+						user.setOpenid(openId);
+						SharedPreferencesUtils.getInstance(WithdrawDepositActivity.this).saveObjectData(user);
+						SharedPreferencesUtils.getInstance(WithdrawDepositActivity.this).saveString("mOpenId",mOpenId);
+						ToastUtil.showLongToast(WithdrawDepositActivity.this, "绑定微信成功");
+						//getWxUserInfo(openId, tokey);//获取用户的信息
+					}
+					//updateView();
+				} else {
+					ToastUtil.showLongToast(WithdrawDepositActivity.this, common.getInfo());
+				}
+			}
+			@Override
+			public void returnException(Exception e, String msg) {
+				LLog.eNetError("updateUserInfo1  " + e.toString());
+				ToastUtil.showLongToast(WithdrawDepositActivity.this, msg);
+			}
+		});
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -208,6 +282,7 @@ public class WithdrawDepositActivity extends BaseActivity {
 		params.put("transactionAmount", Utils.cheng(money, "100"));
 		if (tBtnSecretWechat.isChecked()) {
 			params.put("transactionMeans", "3");
+			params.put("openid", alipayAccount);
 		} else if (tBtnSecretAlipay.isChecked()) {
 			params.put("transactionMeans", "2");
 			params.put("aliToken", alipayAccount);

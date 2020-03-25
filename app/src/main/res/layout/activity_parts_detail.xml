@@ -39,6 +39,7 @@
 		android:paddingBottom="@dimen/dp_7"/>
 
 	<TextView
+		android:id="@+id/tv_good_detail_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_14"

@@ -60,5 +60,5 @@
         <item>五</item>
         <item>六</item>
     </string-array>
-
+    <string name="cp_locating">正在定位…</string>
 </resources>

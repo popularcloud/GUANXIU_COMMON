@@ -77,7 +77,7 @@ public class QuoteAffirmActivity extends BaseActivity {
     @BindView(R.id.tv_fwf)
     TextView tv_fwf;
     @BindView(R.id.rl_remark)
-    RelativeLayout rl_remark;
+    LinearLayout rl_remark;
     @BindView(R.id.tv_remark)
     TextView tv_remark;
     @BindView(R.id.tv_total)

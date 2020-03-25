@@ -19,6 +19,7 @@ public class Evaluate implements Serializable{
     private int synthesizeGrade;//评价星级
     private String commentContent;//评价内容
     private String orderContactName;//用户名称
+    private String maintenanceHeadImage;//用户名称
 
     public String getOrderContactName() {
         return orderContactName;
@@ -50,5 +51,13 @@ public class Evaluate implements Serializable{
 
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+    }
+
+    public String getMaintenanceHeadImage() {
+        return maintenanceHeadImage;
+    }
+
+    public void setMaintenanceHeadImage(String maintenanceHeadImage) {
+        this.maintenanceHeadImage = maintenanceHeadImage;
     }
 }

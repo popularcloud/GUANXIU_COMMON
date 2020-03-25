@@ -187,15 +187,15 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
                     android:src="@drawable/you_new"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/txtIde"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/img_ide"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
                     android:ellipsize="marquee"
                     android:maxWidth="200dp"
                     android:singleLine="true"
@@ -229,7 +229,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
                     android:src="@drawable/you_new"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
 
                 <TextView
@@ -237,8 +237,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/img_accounts"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
                     android:ellipsize="marquee"
                     android:maxWidth="200dp"
                     android:singleLine="true"
@@ -270,7 +270,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
                     android:src="@drawable/you_new"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
 
                 <TextView
@@ -278,8 +278,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/img_id"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
                     android:ellipsize="marquee"
                     android:maxWidth="200dp"
                     android:singleLine="true"

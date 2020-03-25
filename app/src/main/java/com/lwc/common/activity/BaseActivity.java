@@ -74,8 +74,10 @@ public abstract class BaseActivity extends FragmentActivity {
 				.statusBarDarkFont()
 				.navigationBarBackground(R.color.white)
 				.navigationBarBackgroundAlpha(0);*/
-
-        ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).init();
+		ImmersionBar.with(this)
+				.statusBarColor(R.color.white)
+				.statusBarDarkFont(true)
+				.navigationBarColor(R.color.white).init();
 	}
 
 	protected void setTitle(String title) {

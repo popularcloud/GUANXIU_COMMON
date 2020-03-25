@@ -3,7 +3,7 @@ package com.lwc.common.utils;
 
 import android.os.Environment;
 
-import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps.model.LatLng;
 
 public class Constants {
 

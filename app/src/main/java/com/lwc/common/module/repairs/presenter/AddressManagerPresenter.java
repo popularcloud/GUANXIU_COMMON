@@ -2,6 +2,7 @@ package com.lwc.common.module.repairs.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
 import com.lwc.common.controler.http.RequestValue;
@@ -48,15 +49,19 @@ public class AddressManagerPresenter {
                 Common common = JsonUtil.parserGsonToObject(response, Common.class);
                 switch (common.getStatus()) {
                     case "1":
-                        List<Address> addresses = JsonUtil.parserGsonToArray(JsonUtil.getGsonValueByKey(response, "data"), new TypeToken<ArrayList<Address>>() {
-                        });
-                        if (addresses == null || addresses.size() == 0) {
+
+                        String data = JsonUtil.getGsonValueByKey(response, "data");
+                        List<Address> addresses;
+                        if(!TextUtils.isEmpty(data)){
+                            addresses = JsonUtil.parserGsonToArray(data, new TypeToken<ArrayList<Address>>() {
+                            });
+                            DataSupport.saveAll(addresses);
+                        }else{
                             addresses = new ArrayList<>();
-                            //ToastUtil.showToast(context, "暂无地址");
+                            DataSupport.deleteAll(Address.class);
                         }
+
                         iAddressManagerView.notifyData(addresses);
-                        DataSupport.deleteAll(Address.class);
-                        DataSupport.saveAll(addresses);
                         break;
                     default:
                         ToastUtil.showLongToast(context, common.getInfo());

@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -44,7 +44,7 @@ public class MyMapUtil {
             }
             //清空集合
             mapMarkers = new ArrayList<>();
-            aMap.invalidate();//刷新地图
+            aMap.reloadMap(); //刷新地图
         } else {
             if (!isAdding) {
 
@@ -59,7 +59,7 @@ public class MyMapUtil {
                 } else {
                     imagepaths.clear();
                 }
-                aMap.invalidate();//刷新地图
+                aMap.reloadMap();//刷新地图
                 for (int i = 0; i < nearList.size(); i++) {
                     imagepaths.add(nearList.get(i).getMaintenanceHeadImage());
                 }

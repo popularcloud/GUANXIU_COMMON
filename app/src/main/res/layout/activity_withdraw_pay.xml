@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:background="@color/bg_f7"
+	android:background="@color/f0_gray_line"
 	android:layout_width="match_parent"
 	android:orientation="vertical"
 	android:layout_height="match_parent"
@@ -123,7 +123,7 @@
 		android:id="@+id/rl_ali_pay"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="2dp"
+		android:layout_marginTop="1px"
 		android:background="@drawable/selector_item_bg">
 		<ImageView
 			android:id="@+id/iv_alipay"

@@ -118,6 +118,20 @@
         android:drawablePadding="@dimen/dp_10"
         android:textColor="@color/all_black"
         android:textSize="@dimen/sp_15" />
+    <View style="@style/line_c8Style"/>
+    <TextView
+        android:id="@+id/txtUserAgreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableRight="@drawable/you_new"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_15"
+        android:text="用户协议&amp;隐私政策"
+        android:drawableLeft="@drawable/ic_user_agreement"
+        android:drawablePadding="@dimen/dp_10"
+        android:textColor="@color/all_black"
+        android:textSize="@dimen/sp_15" />
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"

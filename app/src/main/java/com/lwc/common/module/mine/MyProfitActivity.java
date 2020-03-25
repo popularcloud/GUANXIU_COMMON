@@ -1,5 +1,6 @@
 package com.lwc.common.module.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
 import com.lwc.common.adapter.MyProfitAdapter;
@@ -92,12 +94,14 @@ public class MyProfitActivity extends BaseActivity {
 
     }
 
+    @SuppressLint("ResourceType")
     @Override
     protected void initStatusBar() {
         super.initStatusBar();
-        Sofia.with(this)
-                .statusBarBackground(Color.parseColor("#fb7039"))
-                .statusBarLightFont();
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.red_fb)
+                .statusBarDarkFont(true)
+                .navigationBarColor(R.color.white).init();
     }
 
     private void initRecycleView() {

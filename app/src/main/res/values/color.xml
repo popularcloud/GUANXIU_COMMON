@@ -51,6 +51,7 @@
     <color name="blue_5fd">#0aa5fd</color>
     <color name="blue_429">#4293f7</color>
     <color name="blue_ff">#1481ff</color>
+    <color name="blue_37">#378EFF</color>
     <!-- 灰色 透明 -->
     <color name="bg_gray_30">#30868686</color>
     <!-- 灰色 透明 -->
@@ -141,6 +142,8 @@
 
     <color name="red_money">#ff3a3a</color>
     <color name="red_number">#FF0000</color>
+    <color name="red_fb">#fb7039</color>
+    <color name="red_fb52">#fb5251</color>
     <color name="status">#faae00</color>
 
     <color name="colorPrimary">#3F51B5</color>
@@ -173,4 +176,5 @@
     <color name="red_f47">#ff473a</color>
     <color name="blue_9ff">#3599ff</color>
     <color name="red_39">#fb4939</color>
+    <color name="cp_alpha_gray">#CC646464</color>
 </resources>

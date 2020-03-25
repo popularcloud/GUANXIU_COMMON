@@ -115,7 +115,7 @@ public class PartsListActivity extends BaseActivity implements PartsListView{
 
     }
 
-    @OnClick({R.id.tv_filter,R.id.tv_search,R.id.tv_price})
+    @OnClick({R.id.tv_filter,R.id.tv_search,R.id.tv_price,R.id.iv_no_data})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_filter:
@@ -145,6 +145,14 @@ public class PartsListActivity extends BaseActivity implements PartsListView{
                 tv_price.setCompoundDrawables(null,null,drawable,null);
                 mBGARefreshLayout.beginRefreshing();
                 break;
+             case R.id.iv_no_data:
+                 iv_no_data.setVisibility(View.GONE);
+                 recyclerView.setVisibility(View.VISIBLE);
+                 searchText = "";
+                 et_search.setText("");
+                 searchData(false);
+                 break;
+
         }
     }
 

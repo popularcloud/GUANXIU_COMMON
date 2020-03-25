@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
 import com.lwc.common.module.order.ui.fragment.ExpiresFragment;
@@ -83,9 +84,10 @@ public class MyCheckActivity extends com.lwc.common.module.BaseFragmentActivity 
 	}
 
 	protected void initStatusBar(){
-		Sofia.with(this)
-				.statusBarBackground(Color.parseColor("#FFFFFF"))
-				.statusBarDarkFont();
+		ImmersionBar.with(this)
+				.statusBarColor(R.color.white)
+				.statusBarDarkFont(true)
+				.navigationBarColor(R.color.white).init();
 	}
 
 	/**

@@ -114,7 +114,9 @@ public class IntegralMainActivity extends BaseActivity implements IntegralMainVi
             }else{
                 // 点击图片后,有内链和外链的区别
                 Bundle bundle = new Bundle();
-                if (!TextUtils.isEmpty(info.getAdvertisingUrl()))
+                if (TextUtils.isEmpty(info.getAdvertisingUrl())){
+                    return;
+                }
                     bundle.putString("url", info.getAdvertisingUrl());
                 if (!TextUtils.isEmpty(info.getAdvertisingTitle()))
                     bundle.putString("title", info.getAdvertisingTitle());

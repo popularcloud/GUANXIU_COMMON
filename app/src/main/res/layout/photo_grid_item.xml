@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dp_83"
     android:layout_height="@dimen/dp_83">
-
     <ImageView
         android:id="@+id/add_img"
         android:layout_width="@dimen/dp_81"

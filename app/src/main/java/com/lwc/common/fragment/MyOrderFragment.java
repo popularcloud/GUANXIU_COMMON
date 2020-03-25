@@ -82,8 +82,11 @@ public class MyOrderFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-
+        if(isVisibleToUser && getActivity()!=null){
+            ImmersionBar.with(getActivity())
+                    .statusBarColor(R.color.white)
+                    .statusBarDarkFont(true)
+                    .navigationBarColor(R.color.white).init();
         }
     }
 

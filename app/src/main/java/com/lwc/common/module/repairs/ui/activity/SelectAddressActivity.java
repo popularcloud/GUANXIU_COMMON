@@ -17,6 +17,10 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.lwc.common.R;
@@ -40,14 +44,14 @@ import butterknife.ButterKnife;
  * 294663966@qq.com
  * 修改地址
  */
-public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener, AutoListView.OnRefreshListener, AutoListView.OnLoadListener{
+public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener, AutoListView.OnRefreshListener, AutoListView.OnLoadListener, GeocodeSearch.OnGeocodeSearchListener {
 
     @BindView(R.id.et_search)
     EditText et_search;
     @BindView(R.id.iv_delete)
     ImageView iv_delete;
-    @BindView(R.id.lv_list)
-    AutoListView lv_list;
+ /*   @BindView(R.id.lv_list)
+    AutoListView lv_list;*/
 
     private LatLonPoint lp = new LatLonPoint(23.04, 113.75);
 
@@ -63,6 +67,7 @@ public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnP
     private AMapLocation mLoc;//首次进入定位成功信息
     private String mCity;
     private String cityStr;
+    private GeocodeSearch geocoderSearch;
 
     @Override
     protected int getContentViewId(Bundle savedInstanceState) {
@@ -80,6 +85,10 @@ public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnP
     }
 
     private void initLocation() {
+
+        geocoderSearch = new GeocodeSearch(this);
+        geocoderSearch.setOnGeocodeSearchListener(this);
+        
         //初始化client
         locationClient = new AMapLocationClient(this.getApplicationContext());
         //设置定位参数
@@ -132,7 +141,13 @@ public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnP
                 //初始化地图对象
                 //查询周边
                 doSearchQuery(loc.getCity(),loc.getLatitude(),loc.getLongitude());
-//                latSearchList(mLatitude, mLongitude);
+
+                LatLonPoint myPoint = new LatLonPoint(loc.getLatitude(),loc.getLongitude());
+                // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+                RegeocodeQuery query = new RegeocodeQuery(myPoint, 200,GeocodeSearch.AMAP);
+
+//                geocoderSearch.getFromLocationAsyn(query);
+               //latSearchList(mLatitude, mLongitude);
             } else {
                 ToastUtil.showLongToast(SelectAddressActivity.this, "定位失败，请打开位置权限");
             }
@@ -172,7 +187,7 @@ public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnP
     @Override
     protected void widgetListener() {
         mAdapter=new PoiAdapter(this,poiData);
-        lv_list.setAdapter(mAdapter);
+/*        lv_list.setAdapter(mAdapter);
         lv_list.setOnRefreshListener(this);
         lv_list.setOnLoadListener(this);
         lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -187,7 +202,7 @@ public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnP
                 setResult(RESULT_OK, i);
                 onBackPressed();
             }
-        });
+        });*/
 
         et_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -230,8 +245,8 @@ public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnP
         if (rCode == 1000) {
             if (result != null && result.getQuery() != null) {// 搜索poi的结果
                 if (result.getQuery().equals(query)) {// 是否是同一条
-                    lv_list.setVisibility(View.VISIBLE);
-                    lv_list.onLoadComplete();
+               /*     lv_list.setVisibility(View.VISIBLE);
+                    lv_list.onLoadComplete();*/
                     try {
                         List<PoiItem> poiItems = result.getPois();// 取得第一页的poiitem数据，页数从数字0开始
                         List<PoiBean> tem=new ArrayList<>();
@@ -269,12 +284,26 @@ public class SelectAddressActivity extends BaseActivity implements PoiSearch.OnP
 
     @Override
     public void onRefresh() {
-        lv_list.onRefreshComplete();
+       // lv_list.onRefreshComplete();
     }
 
     @Override
     public void onLoad() {
         currentPage++;
         doSearchQuery(mCity,mLatitude,mLongitude);
+    }
+
+    @Override
+    public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+        Log.e("yufs","逆地理编码onRegeocodeSearched：");
+        Log.e("yufs","定位详细信息："+regeocodeResult.getRegeocodeQuery());
+
+        regeocodeResult.getRegeocodeAddress().getTownship();
+    }
+
+    @Override
+    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+        Log.e("yufs","逆地理编码onGeocodeSearched：");
+        Log.e("yufs","定位详细信息："+geocodeResult.getGeocodeQuery());
     }
 }

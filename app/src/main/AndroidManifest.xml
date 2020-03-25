@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lwc.common">
 
-    <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="26" />
-    <!--
-    Required
-    <permission
-        android:name="com.lwc.guanxiu.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
-    -->
+ <!--   <permission
+        android:name="com.lwc.common.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,13 +20,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--
-    <uses-permission android:name="android.permission.READ_CONTACTS" />读取联系人
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />允许程序管理AccountManager中的账户列表
-     <uses-permission android:name="android.permission.GET_TASKS" />获取任务信息
-    -->
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -60,7 +48,7 @@
     <permission
         android:name="android.permission.RECEIVE_MESSAGE"
         android:description="@string/weibosdk_demo_toast_auth_canceled"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_launcher"
         android:label="@string/weibosdk_demo_toast_auth_canceled"
         android:permissionFlags="removed"
         android:protectionLevel="signature" />
@@ -71,7 +59,7 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
     <application
         android:name=".configs.SophixStubApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:persistent="true"
@@ -88,18 +76,31 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
                 android:resource="@xml/file_paths" />
         </provider>
         <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <meta-data
             android:name="com.openinstall.APP_KEY"
             android:value="hcic06" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="58c881f565b6d6452500238a" />
         <meta-data
-            android:name="android.max_aspect"
-            android:value="ratio_float" />
-        <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="838f90c11ff8c37a24ed5f4e70711462" />
 
+        <meta-data
+            tools:node="replace"
+            android:name="android.support.VERSION"
+            android:value="26.0.2"
+            />
         <activity
             android:name=".module.login.ui.LoadingActivity"
             android:screenOrientation="portrait"
@@ -145,18 +146,6 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.alipay.sdk.app.H5AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".module.order.ui.activity.PayActivity"
             android:screenOrientation="portrait"
@@ -551,6 +540,9 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <activity
             android:name=".module.repairs.ui.activity.SelectAddressActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".module.repairs.ui.activity.SelectAddressByMapActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 附近的工程师 -->
         <activity android:name=".module.nearby.ui.RepairmanInfoActivity" />
         <!-- 我的配件库首页 -->
@@ -589,6 +581,10 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <activity android:name=".module.mine.MyInvitationCodeActivity"></activity>
         <activity android:name=".module.mine.SimpleShareActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" ></activity>
         <activity android:name=".activity.WebViewLoadHtmlActivity"></activity>
+        <activity android:name=".module.invoice.InvoicePackageActivity"></activity>
+        <activity android:name=".module.repairs.citypicker.CityPickerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
     </application>
 
 </manifest>

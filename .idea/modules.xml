@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/mzbanner/mzbanner.iml" filepath="$PROJECT_DIR$/mzbanner/mzbanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/refreshlayout/refreshlayout.iml" filepath="$PROJECT_DIR$/refreshlayout/refreshlayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/runtimepermissions-lib/runtimepermissions-lib.iml" filepath="$PROJECT_DIR$/runtimepermissions-lib/runtimepermissions-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/shareandthirdlogin/shareandthirdlogin.iml" filepath="$PROJECT_DIR$/shareandthirdlogin/shareandthirdlogin.iml" />
     </modules>
   </component>

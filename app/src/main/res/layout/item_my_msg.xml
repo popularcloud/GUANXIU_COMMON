@@ -13,7 +13,7 @@
             android:layout_height="@dimen/dp_34"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_10"
             android:src="@drawable/newstyle_gift"/>
     <!--    <ImageView
             android:id="@+id/iv_new_msg"
@@ -24,15 +24,15 @@
             android:src="@drawable/red_mention"/>-->
         <TextView
             android:id="@+id/iv_new_msg"
-            android:layout_width="@dimen/dp_18"
-            android:layout_height="@dimen/dp_18"
-            android:layout_marginTop="@dimen/dp_12"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="12dp"
             android:visibility="visible"
             android:gravity="center"
-            android:text="12"
+            android:text="0"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_10"
-            android:layout_toRightOf="@+id/iv_icon"
+            android:textSize="6sp"
+            android:layout_marginLeft="32dp"
             android:background="@drawable/circle_red_all_shape"/>
         <LinearLayout
             android:layout_toRightOf="@+id/iv_new_msg"

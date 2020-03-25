@@ -72,7 +72,7 @@ public class IntegralOrderConfirmActivity extends BaseActivity{
     @BindView(R.id.et_my_desc)
     EditText et_my_desc;
     @BindView(R.id.btnConfirm)
-    Button btnConfirm;
+    TextView btnConfirm;
     @BindView(R.id.lLayout0)
     LinearLayout lLayout0;
 

@@ -12,6 +12,10 @@
     <!-- Your custom size defind by references, can be writted in anywhere, any module, any values/*.xml, for example: -->
     <dimen name="common_margin">@dimen/dp_15</dimen>
 
+    <dimen name="side_letter_bar_letter_size">13sp</dimen>
+    <dimen name="side_letter_bar_width">36dp</dimen>
+    <dimen name="city_text_size">15sp</dimen>
+
     <!-- dp and sp values, must be defind in this file! -->
     <!-- view size,you can add if there is no one -->
     <dimen name="dp_m_60">-60dp</dimen>

@@ -232,9 +232,14 @@ public class RequestValue {
     public static final String GET_USER_MODIFY = "/user/modify";
 
     /**
-     * 查询待开发票订单列表
+     * 查询待开发票订单列表(订单)
      */
     public static final String GET_INVOICE_ORDER_LIST = "/user/invoice/order";
+
+    /**
+     * 查询待开发票订单列表(套餐)
+     */
+    public static final String GET_INVOICE_PACKAGE_LIST = "/user/invoice/package";
 
     /**
      * 查询用户开发票历史列表
@@ -275,6 +280,11 @@ public class RequestValue {
      * 查询费用
      */
     public static final String GET_PRICE_MSG = "/type/priceMsg";
+
+    /**
+     * 查询报修提示
+     */
+    public static final String GET_PRICE_MSG_2_9 = "/type/priceMsg_2_9";
 
     /**
      * 查询报价单
@@ -370,6 +380,11 @@ public class RequestValue {
      * 扫设备二维码
      */
     public static final String SCAN_CODE = "/scan/code";
+
+    /**
+     * 扫租赁设备二维码
+     */
+    public static final String SCAN_LEASECODE = "/scan/leaseCode";
 
     /**
      * 用户优惠券领取

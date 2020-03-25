@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/f0_gray_line">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/mBGARefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/repairerCount">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+        <TextView android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="暂无可开发票订单"
+            android:textColor="@color/gray_btm"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_checked"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/invoice_order_noselected1"
+            />
+        <TextView
+            android:id="@+id/tv_all_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全选(0)"
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_checked"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/all_black"
+            android:textSize="@dimen/sp_12"/>
+
+        <TextView
+            android:id="@+id/tv_maney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计:￥0"
+            android:layout_toRightOf="@id/tv_all_select"
+            android:layout_toLeftOf="@+id/tv_next"
+            android:textColor="@color/btn_blue_nomal"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:textSize="@dimen/sp_15"/>
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/btn_blue_nomal"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/sp_17"
+            android:text="下一步"/>
+    </RelativeLayout>
+</LinearLayout>

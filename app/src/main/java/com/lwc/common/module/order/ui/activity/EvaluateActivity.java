@@ -122,6 +122,14 @@ public class EvaluateActivity extends BaseActivity {
         getLabel();
     }
 
+    private void clearTags(){
+        for(Tag tag : mTags){
+            if(tag.isChecked()){
+                tag.setChecked(false);
+            }
+        }
+    }
+
     /**
      * 获取评价
      */
@@ -184,6 +192,7 @@ public class EvaluateActivity extends BaseActivity {
                 tv_cha.setCompoundDrawables(null, null, null, Utils.getDrawable(this, R.drawable.pj011));
                 star = 1;
                 tv_cha.setTextColor(c);
+                clearTags();
                 mTags.clear();
                 mTags.addAll(tagCp);
                 //mTagListView.setTags(mTags);
@@ -194,6 +203,7 @@ public class EvaluateActivity extends BaseActivity {
                 tv_yiban.setCompoundDrawables(null, null, null, Utils.getDrawable(this, R.drawable.pj022));
                 star = 2;
                 tv_yiban.setTextColor(c);
+                clearTags();
                 mTags.clear();
                 mTags.addAll(tagCp);
                 //mTagListView.setTags(mTags);
@@ -204,6 +214,7 @@ public class EvaluateActivity extends BaseActivity {
                 tv_haibucuo.setCompoundDrawables(null, null, null, Utils.getDrawable(this, R.drawable.pj033));
                 star = 3;
                 tv_haibucuo.setTextColor(c);
+                clearTags();
                 mTags.clear();
                 mTags.addAll(tagHp);
                 //mTagListView.setTags(mTags);
@@ -214,6 +225,7 @@ public class EvaluateActivity extends BaseActivity {
                 tv_manyi.setCompoundDrawables(null, null, null, Utils.getDrawable(this, R.drawable.pj044));
                 star = 4;
                 tv_manyi.setTextColor(c);
+                clearTags();
                 mTags.clear();
                 mTags.addAll(tagHp);
                // mTagListView.setTags(mTags);
@@ -224,6 +236,7 @@ public class EvaluateActivity extends BaseActivity {
                 tv_tuijin.setCompoundDrawables(null, null, null, Utils.getDrawable(this, R.drawable.pj055));
                 star = 5;
                 tv_tuijin.setTextColor(c);
+                clearTags();
                 mTags.clear();
                 mTags.addAll(tagHp);
                 //mTagListView.setTags(mTags);

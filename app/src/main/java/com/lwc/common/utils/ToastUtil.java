@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.lwc.common.R;
@@ -100,6 +101,7 @@ public class ToastUtil {
 	public static void showToast(Context context, String text) {
 		if (toast == null) {
 			toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER,0,0);
 		} else {
 			toast.setText(text);
 		}
@@ -110,6 +112,7 @@ public class ToastUtil {
 	public static void showLongToast(Context context, String text) {
 		if (toast == null) {
 			toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER,0,0);
 		} else {
 			toast.setText(text);
 		}
@@ -120,6 +123,7 @@ public class ToastUtil {
 	public static void showNetErr(Context context) {
 		if (toast == null) {
 			toast = Toast.makeText(context, "网络请求错误,请检查网络是否正常!", Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER,0,0);
 		} else {
 			toast.setText("网络请求错误,请检查网络是否正常！");
 		}
@@ -130,6 +134,7 @@ public class ToastUtil {
 	public static void showNetMsg(Context context, String msg) {
 		if (toast == null) {
 			toast = Toast.makeText(context, "网络请求错误!", Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER,0,0);
 		} else {
 			toast.setText("网络请求错误");
 		}

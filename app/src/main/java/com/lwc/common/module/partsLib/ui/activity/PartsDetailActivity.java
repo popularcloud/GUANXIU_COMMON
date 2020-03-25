@@ -57,6 +57,8 @@ public class PartsDetailActivity extends BaseActivity{
     TextView tv_price;
     @BindView(R.id.wv_content)
     WebView wv_content;
+    @BindView(R.id.tv_good_detail_bar)
+    TextView tv_good_detail_bar;
     private SpecAdapter specAdapter;
 
     private ArrayList<ADInfo> infos = new ArrayList<>();//广告轮播图
@@ -144,6 +146,9 @@ public class PartsDetailActivity extends BaseActivity{
                         webSettings.setSupportZoom(true); // 可以缩放
 
                         String context = getNewContent(partsBeans.getAccessoriesDetail());
+                        if(TextUtils.isEmpty(context)){
+                            tv_good_detail_bar.setVisibility(View.GONE);
+                        }
                         wv_content.loadDataWithBaseURL(null, context, "text/html", "UTF-8", null);
                         break;
                     default:

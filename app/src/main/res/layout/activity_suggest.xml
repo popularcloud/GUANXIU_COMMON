@@ -35,6 +35,7 @@
 					android:textColorHint="@color/gray_99"
 					android:background="@drawable/edit_fogray_shape"
 					android:padding="10dip"
+					android:maxLength="200"
 					android:textColor="@color/all_black"
 					android:textSize="@dimen/sp_14" />
 					<TextView
@@ -45,7 +46,6 @@
 						android:textSize="@dimen/sp_14"
 						android:layout_alignParentRight="true"
 						android:layout_alignParentBottom="true"
-						android:maxLength="200"
 						android:layout_marginBottom="@dimen/dp_15"
 						android:layout_marginRight="@dimen/dp_20"
 						android:text="0/200"/>

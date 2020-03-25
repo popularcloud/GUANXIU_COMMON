@@ -41,7 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/ll_head"
-                android:orientation="vertical"
                 android:layout_centerVertical="true">
                 <TextView
                     android:id="@+id/txtName"
@@ -77,8 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtName"
-                    android:layout_toRightOf="@+id/txtSign"
-                    android:paddingTop="@dimen/dp_8"
+                    android:paddingTop="@dimen/dp_12"
                     hedgehog:clickable="false"
                     hedgehog:halfstart="true"
                     hedgehog:starCount="5"
@@ -87,6 +85,7 @@
                     hedgehog:starHalf="@drawable/ic_star_half"
                     hedgehog:starImageHeight="15dp"
                     hedgehog:starImageWidth="15dp"
+                    android:layout_toRightOf="@+id/txtSign"
                     hedgehog:starImagePadding="3dp"/>
                 <TextView
                     android:id="@+id/txtOrderCount"

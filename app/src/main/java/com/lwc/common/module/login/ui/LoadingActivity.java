@@ -1,6 +1,7 @@
 package com.lwc.common.module.login.ui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
@@ -16,12 +17,16 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.lwc.common.R;
+import com.lwc.common.activity.InformationDetailsActivity;
 import com.lwc.common.activity.MainActivity;
 import com.lwc.common.activity.UserGuideActivity;
+import com.lwc.common.configs.ServerConfig;
 import com.lwc.common.controler.http.RequestValue;
 import com.lwc.common.module.bean.ADInfo;
 import com.lwc.common.module.bean.Common;
 import com.lwc.common.module.bean.User;
+import com.lwc.common.module.setting.ui.SettingActivity;
+import com.lwc.common.utils.DialogUtil;
 import com.lwc.common.utils.HttpRequestUtils;
 import com.lwc.common.utils.ImageLoaderUtil;
 import com.lwc.common.utils.IntentUtil;
@@ -60,6 +65,7 @@ public class LoadingActivity extends Activity {
   private ImageCycleView ad_view;
   int hasPermissionCount = 0;
   int noPermissionCount = 0;
+  private Dialog dialog;
 
   @RequiresApi(api = Build.VERSION_CODES.M)
   @Override
@@ -94,6 +100,7 @@ public class LoadingActivity extends Activity {
     });
 
     applyPermission();
+
   }
 
   @RequiresApi(api = Build.VERSION_CODES.M)
@@ -208,13 +215,31 @@ public class LoadingActivity extends Activity {
     //判断是否已启动过app
     boolean isFirstTime = preferencesUtils.loadBooleanData("isfirsttime1");
     if (!isFirstTime) {
-      preferencesUtils.saveBooleanData("isfirsttime1", true);//表示已首次启动过
-      Bundle bundle = new Bundle();
-      bundle.putString("type","9");
-      IntentUtil.gotoActivityAndFinish(LoadingActivity.this, UserGuideActivity.class,bundle);
+      dialog = DialogUtil.dialog(LoadingActivity.this, "用户协议和隐私政策", "同意", "查看协议详情", "请你务必谨慎阅读，充分理解'用户协议'和'隐私政策'各条款;您可以点击查看协议详情了解更多信息，或者点击同意开始接受我们的服务？", new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          preferencesUtils.saveBooleanData("isfirsttime1", true);//表示已首次启动过
+          Bundle bundle = new Bundle();
+          bundle.putString("type","9");
+          IntentUtil.gotoActivity(LoadingActivity.this, UserGuideActivity.class,bundle);
+          dialog.dismiss();
+        }
+      }, new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          Bundle bundle = new Bundle();
+          bundle.putString("url", ServerConfig.DOMAIN.replace("https", "http")+"/main/h5/agreement.html");
+          bundle.putString("title", "用户注册协议");
+          IntentUtil.gotoActivity(LoadingActivity.this, InformationDetailsActivity.class, bundle);
+        }
+      }, true);
+
+
       return;
+    }else{
+      getBoot();
     }
-    getBoot();
+
   }
 
   /**

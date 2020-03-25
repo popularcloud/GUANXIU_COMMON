@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.amap.api.maps2d.AMapUtils;
-import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
 import com.lwc.common.R;
 import com.lwc.common.module.bean.Order;
 import com.lwc.common.module.order.ui.activity.OrderDetailActivity;

@@ -54,7 +54,7 @@ public class ApplyForMaintainPresenter {
      * @param device_type_mold   设备类型模式
      */
     public void submitOrder(ArrayList<Malfunction> malList, String parent_cid, String ua_id,
-                            String is_secrecy, String images, final String remark, String qrcodeIndex,String courier_number,String device_type_mold) {
+                            String is_secrecy, String images, final String remark, String qrcodeIndex,String courier_number,String device_type_mold,boolean isLeaseQrcodeIndex) {
 
         progressUtils.showCustomProgressDialog(context);
         JSONObject map = new JSONObject();
@@ -83,7 +83,12 @@ public class ApplyForMaintainPresenter {
                 map.put("description", remark);
             }
             if (!TextUtils.isEmpty(qrcodeIndex)) {
-                map.put("qrcodeIndex", qrcodeIndex);
+                if(isLeaseQrcodeIndex){
+                    map.put("leaseQrcodeIndex", qrcodeIndex);
+                }else{
+                    map.put("qrcodeIndex", qrcodeIndex);
+                }
+
             }
             if (!TextUtils.isEmpty(courier_number)) {
                 map.put("courier_number", courier_number);

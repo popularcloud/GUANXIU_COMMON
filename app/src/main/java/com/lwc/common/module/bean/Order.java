@@ -88,6 +88,12 @@ public class Order implements Serializable{
     private String isShare;
     private String deviceTypeMold;
     private List<PartsDetailBean> accessories;//配件信息
+    private String packageId;
+    private String packagePrice;
+    private String packageName;
+
+
+
     public String getHardwareCost() {
         return hardwareCost;
     }
@@ -462,5 +468,29 @@ public class Order implements Serializable{
 
     public void setAccessories(List<PartsDetailBean> accessories) {
         this.accessories = accessories;
+    }
+
+    public String getPackageId() {
+        return packageId;
+    }
+
+    public void setPackageId(String packageId) {
+        this.packageId = packageId;
+    }
+
+    public String getPackagePrice() {
+        return packagePrice;
+    }
+
+    public void setPackagePrice(String packagePrice) {
+        this.packagePrice = packagePrice;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }

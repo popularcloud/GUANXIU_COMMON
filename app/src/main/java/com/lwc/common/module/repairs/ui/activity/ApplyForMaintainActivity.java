@@ -170,7 +170,7 @@ public class ApplyForMaintainActivity extends BaseActivity {
     private ProgressDialog pd;
     private PhotoToken token;
     private int selectType = -1, countPhoto = 8;
-    private String guangboStr, qrcodeIndex;
+    private String guangboStr, qrcodeIndex,leaseQrcodeIndex;
     private List<String> urlStrs = new ArrayList();
     private MyGridViewPhotoAdpter adpter;
 
@@ -190,6 +190,7 @@ public class ApplyForMaintainActivity extends BaseActivity {
     //故障描述备注
     private String remark;
     private Dialog dialog;
+    private String orderMsg;
 
 
     @Override
@@ -245,9 +246,9 @@ public class ApplyForMaintainActivity extends BaseActivity {
             Address address = addressesList.get(i);
             if (address.getIsDefault() == 1) {
                 checkedAdd = address;
-                txtName.setText("报修人：" + checkedAdd.getContactName());
+                txtName.setText("" + checkedAdd.getContactName());
                 txtPhone.setText(checkedAdd.getContactPhone());
-                txtAddress.setText("维修地址：" + checkedAdd.getContactAddress().replace("_", ""));
+                txtAddress.setText("" + checkedAdd.getContactAddress().replace("_", ""));
                 break;
             }
         }
@@ -359,6 +360,7 @@ public class ApplyForMaintainActivity extends BaseActivity {
         preferencesUtils = SharedPreferencesUtils.getInstance(this);
         user = preferencesUtils.loadObjectData(User.class);
         qrcodeIndex = getIntent().getStringExtra("qrcodeIndex");
+        leaseQrcodeIndex = getIntent().getStringExtra("leaseQrcodeIndex");
         if (checkedRep != null && checkedMan != null){
             String tx = checkedRep.getDeviceTypeName() + " -> "
                     + checkedMan.getReqairName();
@@ -466,9 +468,9 @@ public class ApplyForMaintainActivity extends BaseActivity {
                     break;
                 case INTENT_ADDRESS_MANAGER:
                     checkedAdd = (Address) data.getSerializableExtra("address");
-                    txtName.setText("报修人：" + checkedAdd.getContactName());
+                    txtName.setText("" + checkedAdd.getContactName());
                     txtPhone.setText(checkedAdd.getContactPhone());
-                    txtAddress.setText("维修地址：" + checkedAdd.getContactAddress().replace("_", ""));
+                    txtAddress.setText("" + checkedAdd.getContactAddress().replace("_", ""));
                     lLayout0.setVisibility(View.VISIBLE);
                     break;
             }
@@ -642,13 +644,19 @@ public class ApplyForMaintainActivity extends BaseActivity {
                 }
             }
 
-            if (!TextUtils.isEmpty(guangboStr)) {
-                dialog = DialogUtil.dialog(ApplyForMaintainActivity.this, "温馨提示", "确定","取消", tv_jgyj.getText().toString(), new View.OnClickListener() {
+            if (!TextUtils.isEmpty(guangboStr) && !TextUtils.isEmpty(orderMsg)) {
+                dialog = DialogUtil.dialog(ApplyForMaintainActivity.this, "温馨提示", "确定","取消",orderMsg, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        presenter.submitOrder(malfunctionArrayList, "",
-                                checkedAdd.getUserAddressId(), "", imgPath, remark, qrcodeIndex,experssStr,String.valueOf(deviceMold));
+                        if(!TextUtils.isEmpty(qrcodeIndex)){
+                            presenter.submitOrder(malfunctionArrayList, "",
+                                    checkedAdd.getUserAddressId(), "", imgPath, remark, qrcodeIndex,experssStr,String.valueOf(deviceMold),false);
+                        }else{
+                            presenter.submitOrder(malfunctionArrayList, "",
+                                    checkedAdd.getUserAddressId(), "", imgPath, remark, leaseQrcodeIndex,experssStr,String.valueOf(deviceMold),true);
+                        }
+
                     }
                 }, new View.OnClickListener() {
                     @Override
@@ -657,8 +665,14 @@ public class ApplyForMaintainActivity extends BaseActivity {
                     }
                 },true);
             } else {
-                presenter.submitOrder(malfunctionArrayList, "",
-                        checkedAdd.getUserAddressId(), "", imgPath, remark, qrcodeIndex,experssStr,String.valueOf(deviceMold));
+                if(!TextUtils.isEmpty(qrcodeIndex)){
+                    presenter.submitOrder(malfunctionArrayList, "",
+                            checkedAdd.getUserAddressId(), "", imgPath, remark, qrcodeIndex,experssStr,String.valueOf(deviceMold),false);
+                }else{
+                    presenter.submitOrder(malfunctionArrayList, "",
+                            checkedAdd.getUserAddressId(), "", imgPath, remark, leaseQrcodeIndex,experssStr,String.valueOf(deviceMold),true);
+                }
+
             }
 
     }
@@ -1015,7 +1029,7 @@ public class ApplyForMaintainActivity extends BaseActivity {
             }
         }
         map.put("repairId", repIds);
-        HttpRequestUtils.httpRequest(this, "查询预计费用", RequestValue.GET_PRICE_MSG, map, "GET", new HttpRequestUtils.ResponseListener() {
+        HttpRequestUtils.httpRequest(this, "查询预计费用", RequestValue.GET_PRICE_MSG_2_9, map, "GET", new HttpRequestUtils.ResponseListener() {
             @Override
             public void getResponseData(String response) {
                 Common common = JsonUtil.parserGsonToObject(response, Common.class);
@@ -1027,14 +1041,23 @@ public class ApplyForMaintainActivity extends BaseActivity {
                             rLayoutJg.setVisibility(View.GONE);
                             return;
                         }
-                        rLayoutJg.setVisibility(View.VISIBLE);
+
+                        orderMsg = JsonUtil.getGsonValueByKey(data,"orderMsg");
+                        String priceMsg = JsonUtil.getGsonValueByKey(data,"priceMsg");
+                        
+                        if(!TextUtils.isEmpty(priceMsg)){
+                            rLayoutJg.setVisibility(View.VISIBLE);
+                            tv_jgyj.setText(priceMsg);
+                        }
+
+                       
                        /* Spanned htmlData;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             htmlData = Html.fromHtml(data,Html.FROM_HTML_MODE_COMPACT);
                         }else{
                             htmlData = Html.fromHtml(data);
                         }*/
-                        tv_jgyj.setText(data);
+                      
                         break;
                     default:
                         rLayoutJg.setVisibility(View.GONE);

@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.amap.api.maps2d.AMapUtils;
-import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
 import com.lwc.common.R;
 import com.lwc.common.adapter.ComViewHolder;
 import com.lwc.common.bean.Location;

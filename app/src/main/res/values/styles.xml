@@ -148,6 +148,11 @@
         <item name="android:layout_height">0.5dp</item>
         <item name="android:background">@color/grey_f1</item>
     </style>
+    <style name="line_f0Style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/f0_gray_line</item>
+    </style>
         <!-- 线条style -->
     <style name="line_ccStyle_white">
         <item name="android:layout_width">match_parent</item>
@@ -299,4 +304,15 @@
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="LetterIndexTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">@dimen/side_letter_bar_width</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray_99</item>
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>

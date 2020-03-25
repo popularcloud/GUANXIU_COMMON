@@ -2,7 +2,12 @@ package com.lwc.common.module.setting.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -10,6 +15,8 @@ import android.widget.TextView;
 
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
+import com.lwc.common.activity.InformationDetailsActivity;
+import com.lwc.common.configs.ServerConfig;
 import com.lwc.common.module.bean.User;
 import com.lwc.common.utils.DialogUtil;
 import com.lwc.common.utils.IntentUtil;
@@ -42,6 +49,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	TextView txtFeedback;
 	@BindView(R.id.btnOutLogin)
 	TextView btnOutLogin;
+	@BindView(R.id.txtUserAgreement)
+	TextView txtUserAgreement;
 	@BindView(R.id.iv_red)
 	ImageView iv_red;
 
@@ -66,13 +75,25 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		txt_vision.setOnClickListener(this);
 		txtFeedback.setOnClickListener(this);
 		btnOutLogin.setOnClickListener(this);
+		txtUserAgreement.setOnClickListener(this);
 		user = SharedPreferencesUtils.getInstance(this).loadObjectData(User.class);
-		img_notifi.setBackgroundResource(
-				sp.getSPValue(SettingActivity.this.getString(R.string.spkey_file_is_system_mention) + user.getUserId(), true)
-						? R.drawable.shezhi_anniu2 : R.drawable.shezhi_anniu1);
 		img_voice.setBackgroundResource(
 				sp.getSPValue(SettingActivity.this.getString(R.string.spkey_file_is_ring) + user.getUserId(), true)
 						? R.drawable.shezhi_anniu2 : R.drawable.shezhi_anniu1);
+
+	}
+
+	private void setNotifiImgBack(){
+		boolean isOpened = false;
+		try {
+			isOpened = NotificationManagerCompat.from(this).areNotificationsEnabled();
+
+			//Log.d("联网成功","进入setNotifiImgBack,状态为"+isOpened);
+		} catch (Exception e) {
+			e.printStackTrace();
+			isOpened = false;
+		}
+		img_notifi.setBackgroundResource(isOpened ? R.drawable.shezhi_anniu2 : R.drawable.shezhi_anniu1);
 	}
 
 	@Override
@@ -84,23 +105,32 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		} else {
 			iv_red.setVisibility(View.GONE);
 		}
+
+		//Log.d("联网成功","进入Resume");
+		setNotifiImgBack();
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_notifi:
-			boolean spValue = sp.getSPValue(
-					SettingActivity.this.getString(R.string.spkey_file_is_system_mention) + user.getUserId(), true);
-			SpUtil.putSPValue(SettingActivity.this, SettingActivity.this.getString(R.string.spkey_file_userinfo), Context.MODE_PRIVATE,
-					SettingActivity.this.getString(R.string.spkey_file_is_system_mention) + user.getUserId(),
-					!spValue);
-			ToastUtil.showToast(SettingActivity.this,
-					"系统通知提示" + (spValue
-									? "已关闭" : "已开启"));
-			img_notifi.setBackgroundResource(
-					spValue
-							? R.drawable.shezhi_anniu1 : R.drawable.shezhi_anniu2);
+			Intent intent = new Intent();
+			if (Build.VERSION.SDK_INT >= 26) {
+				// android 8.0引导
+				intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+				intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+			} else if (Build.VERSION.SDK_INT >= 21) {
+				// android 5.0-7.0
+				intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+				intent.putExtra("app_package", getPackageName());
+				intent.putExtra("app_uid", getApplicationInfo().uid);
+			} else {
+				// 其他
+				intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+				intent.setData(Uri.fromParts("package", getPackageName(), null));
+			}
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 			break;
 		case R.id.img_voice:
 			boolean spValue1 = sp.getSPValue(SettingActivity.this.getString(R.string.spkey_file_is_ring) + user.getUserId(), true);
@@ -122,6 +152,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.txt_vision:
 			IntentUtil.gotoActivity(SettingActivity.this, VesionActivity.class);
+			break;
+		case R.id.txtUserAgreement:
+			Bundle bundle = new Bundle();
+			bundle.putString("url", ServerConfig.DOMAIN.replace("https", "http")+"/main/h5/agreement.html");
+			bundle.putString("title", "用户注册协议");
+			IntentUtil.gotoActivity(this, InformationDetailsActivity.class, bundle);
 			break;
 		case R.id.txtFeedback:
 			IntentUtil.gotoActivity(SettingActivity.this, SuggestActivity.class);

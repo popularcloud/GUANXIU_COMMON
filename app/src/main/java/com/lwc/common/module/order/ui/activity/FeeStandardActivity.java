@@ -80,7 +80,6 @@ public class FeeStandardActivity extends BaseActivity {
                        }else{
                            ToastUtil.showToast(FeeStandardActivity.this, "获取失败");
                        }
-
                         break;
                     default:
                         ToastUtil.showToast(FeeStandardActivity.this, common.getInfo());

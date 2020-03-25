@@ -56,9 +56,13 @@ public class MyMsgListAdapter extends SuperAdapter<MyMsg> {
             if(hasMsg.getType().equals(item.getMessageType())){
                 if(hasMsg.getCount() > 0){
                     holder.setVisibility(R.id.iv_new_msg,View.VISIBLE);
-                    holder.setText(R.id.iv_new_msg,String.valueOf(hasMsg.getCount()));
+                    if(hasMsg.getCount() > 99){
+                        holder.setText(R.id.iv_new_msg,"...");
+                    }else{
+                        holder.setText(R.id.iv_new_msg,String.valueOf(hasMsg.getCount()));
+                    }
                 }else{
-                    holder.setVisibility(R.id.iv_new_msg,View.GONE);
+                    holder.setVisibility(R.id.iv_new_msg,View.INVISIBLE);
                 }
 
             }

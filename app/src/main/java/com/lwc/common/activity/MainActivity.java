@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.controler.http.RequestValue;
 import com.lwc.common.fragment.InformationFragment;
@@ -185,9 +186,10 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
-        Sofia.with(this)
-                .statusBarBackground(Color.WHITE)
-                .statusBarDarkFont();
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.white)
+                .statusBarDarkFont(true)
+                .navigationBarColor(R.color.white).init();
     }
 
     public void registerMessageReceiver() {
@@ -418,6 +420,7 @@ public class MainActivity extends BaseFragmentActivity {
                         signView.setVisibility(View.GONE);
                     }
                 }
+                startUptateAPP();
             }
 
             @Override

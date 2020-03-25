@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:background="@color/bg_f7"
+	android:background="@color/f0_gray_line"
 	android:layout_width="match_parent"
 	android:orientation="vertical"
 	android:layout_height="match_parent"
@@ -50,7 +50,7 @@
 			android:layout_centerVertical="true"
 			android:background="@null"
 			android:button="@drawable/wallet_switch_btn"
-			android:checked="true"
+			android:checked="false"
 			android:layout_marginRight="@dimen/dp_15"
 			android:textOff=""
 			android:textOn=""/>
@@ -59,6 +59,7 @@
 		android:id="@+id/rl_ali_pay"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="1px"
 		android:background="@drawable/selector_item_bg">
 		<ImageView
 			android:id="@+id/iv_alipay"
@@ -98,6 +99,7 @@
 			android:layout_centerVertical="true"
 			android:background="@null"
 			android:button="@drawable/wallet_switch_btn"
+			android:checked="true"
 			android:layout_marginRight="@dimen/dp_15"
 			android:textOff=""
 			android:textOn=""/>
@@ -188,7 +190,7 @@
 		android:layout_height="wrap_content"
 		android:background="@color/white"
 		android:layout_marginTop="@dimen/dp_4"
-		android:visibility="gone">
+		android:visibility="visible">
 		<TextView
 			android:id="@+id/tv_alipay_txt"
 			android:textColor="@color/all_black"
@@ -200,7 +202,6 @@
 			android:text="支付宝账号:"
 			android:gravity="center_vertical"
 			android:textSize="@dimen/sp_15"/>
-
 		<EditText
 			android:id="@+id/et_alipay"
 			android:layout_width="match_parent"

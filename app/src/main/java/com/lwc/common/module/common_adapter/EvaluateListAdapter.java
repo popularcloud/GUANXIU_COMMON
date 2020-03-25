@@ -2,10 +2,13 @@ package com.lwc.common.module.common_adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.hedgehog.ratingbar.RatingBar;
 import com.lwc.common.R;
 import com.lwc.common.module.bean.Evaluate;
+import com.lwc.common.utils.ImageLoaderUtil;
+import com.lwc.common.widget.CircleImageView;
 
 import org.byteam.superadapter.SuperAdapter;
 import org.byteam.superadapter.SuperViewHolder;
@@ -41,5 +44,8 @@ public class EvaluateListAdapter extends SuperAdapter<Evaluate> {
         if (!TextUtils.isEmpty(item.getOrderContactName())) {
             holder.setText(R.id.txtName, item.getOrderContactName().substring(0, 1)+"**");
         }
+
+     /*   CircleImageView imageView = holder.getView(R.id.imgHead);
+        ImageLoaderUtil.getInstance().displayFromNet(context,item.getMaintenanceHeadImage(),imageView);*/
     }
 }

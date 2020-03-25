@@ -1,5 +1,6 @@
 package com.lwc.common.module.integral.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
 import com.lwc.common.module.integral.adapter.IntegralOrderAdapter;
@@ -83,12 +85,15 @@ public class IntegralOrderActivity extends BaseActivity implements IntegralOrder
 
     }
 
+    @SuppressLint("ResourceType")
     @Override
     protected void initStatusBar() {
         super.initStatusBar();
-        Sofia.with(this)
-                .statusBarBackground(Color.parseColor("#fb5251"))
-                .statusBarLightFont();
+
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.red_fb52)
+                .statusBarDarkFont(true)
+                .navigationBarColor(R.color.white).init();
     }
 
     private void initRecycleView() {

@@ -228,10 +228,13 @@ public class MineFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if(isVisibleToUser && getActivity() != null){
             getUserInfor();
-
             ((MainActivity)getActivity()).hasMessage();
+            ImmersionBar.with(getActivity())
+                    .statusBarColor(R.color.blue_9ff)
+                    .statusBarDarkFont(true)
+                    .navigationBarColor(R.color.white).init();
         }
     }
 

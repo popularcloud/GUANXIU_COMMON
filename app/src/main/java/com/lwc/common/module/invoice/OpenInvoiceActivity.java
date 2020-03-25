@@ -86,6 +86,7 @@ public class OpenInvoiceActivity extends BaseActivity {
 	TextView tv_geren_head;
 	private String orderIds;
 	private String totalManey;
+	private String invoiceOperationType = "order";  // order   package
 
 	private String invoiceType="1";
 	private String invoiceTitelType="1";
@@ -281,6 +282,13 @@ public class OpenInvoiceActivity extends BaseActivity {
 		params.put("invoice_content", tv_content.getText().toString().trim());
 		params.put("invoice_amount", Utils.cheng(totalManey, "100"));
 		params.put("invoice_orders", orderIds);
+
+		if("order".equals(invoiceOperationType)){
+			params.put("buy_type", "1");
+		}else{
+			params.put("buy_type", "2");
+		}
+
 		if (invoiceTitelType.equals("1")) {
 			params.put("duty_paragraph", duty);
 		}
@@ -316,6 +324,10 @@ public class OpenInvoiceActivity extends BaseActivity {
 	protected void initGetData() {
 		orderIds = getIntent().getStringExtra("invoiceOrderIds");
 		totalManey = getIntent().getStringExtra("totalManey");
+		invoiceOperationType = getIntent().getStringExtra("invoiceOperationType");
+		if("package".endsWith(invoiceOperationType)){
+			tv_content.setText("维修套餐费");
+		}
 		tv_money.setText(Utils.getMoney(totalManey)+" 元");
 		getInvoiceInfoList();
 	}

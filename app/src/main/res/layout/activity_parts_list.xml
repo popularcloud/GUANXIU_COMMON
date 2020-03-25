@@ -33,7 +33,7 @@
             android:textSize="@dimen/sp_12"
             android:textColor="@color/all_black"
             android:drawablePadding="3dp"
-            android:drawableLeft="@drawable/ic_filter"
+            android:drawableRight="@drawable/ic_filter"
             android:layout_gravity="right|center_vertical"/>
     </FrameLayout>
     <!--<TextView android:id="@+id/tctTip"

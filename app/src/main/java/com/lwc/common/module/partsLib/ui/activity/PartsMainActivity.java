@@ -109,7 +109,9 @@ public class PartsMainActivity extends BaseActivity implements PartsMainView{
         public void onImageClick(ADInfo info, int position, View imageView) {
             // 点击图片后,有内链和外链的区别
             Bundle bundle = new Bundle();
-            if (!TextUtils.isEmpty(info.getAdvertisingUrl()))
+            if (TextUtils.isEmpty(info.getAdvertisingUrl())){
+                return;
+            }
                 bundle.putString("url", info.getAdvertisingUrl());
             if (!TextUtils.isEmpty(info.getAdvertisingTitle()))
                 bundle.putString("title", info.getAdvertisingTitle());

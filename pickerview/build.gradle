@@ -5,12 +5,12 @@ apply plugin: 'com.novoda.bintray-release'//添加插件
 
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '29.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 25
+        minSdkVersion 23
+        targetSdkVersion 26
         versionCode 21
         versionName "3.2.4"
     }
@@ -44,5 +44,5 @@ publish {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 }

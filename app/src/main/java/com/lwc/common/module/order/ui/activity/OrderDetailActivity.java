@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.activity.MainActivity;
 import com.lwc.common.controler.http.RequestValue;
@@ -83,12 +84,6 @@ public class OrderDetailActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  /*      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //setTranslucentStatus(this, true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintDrawable(getResources().getDrawable(R.drawable.title_bg_new));
-        }*/
         setContentView(R.layout.activity_order_detail);
         activity = this;
         ButterKnife.bind(this);
@@ -112,9 +107,10 @@ public class OrderDetailActivity extends BaseFragmentActivity {
 
 
     protected void initStatusBar(){
-        Sofia.with(this)
-                .statusBarBackground(Color.parseColor("#FFFFFF"))
-                .statusBarDarkFont();
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.white)
+                .statusBarDarkFont(true)
+                .navigationBarColor(R.color.white).init();
     }
     /**
      * 获取订单详情

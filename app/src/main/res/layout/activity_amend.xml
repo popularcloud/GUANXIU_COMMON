@@ -5,34 +5,40 @@
     android:background="@color/bg1"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
+    <include layout="@layout/include_title_noline" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_46"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
-        <ImageView
-            android:onClick="onBack"
-            android:id="@+id/img_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/dp_15"
-            android:src="@drawable/ic_black_back" />
+            <TextView
+                android:id="@+id/tv_select_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="东莞"
+                android:padding="15dp"
+                android:textColor="@color/color_33"
+                android:textSize="15sp"
+                android:drawableRight="@drawable/ic_select_address_down"
+                android:drawableLeft="@drawable/ic_location_gray"
+                android:drawablePadding="6dp"
+                android:layout_gravity="center_vertical"
+                />
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="@dimen/dp_29"
-                android:layout_marginRight="10dp"
+                android:layout_height="@dimen/dp_33"
+                android:layout_marginRight="15dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/edit_search_round_bg"
+                android:background="@drawable/edit_search_round_bg_8"
                 android:layout_gravity="center_vertical">
                 <EditText
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/dp_29"
                     android:layout_marginLeft="5dp"
-                    android:hint="输入地点关键字搜索"
+                    android:hint="查找小区/大厦/学校等"
                     android:textColor="@color/gray_99"
                     android:textColorHint="@color/gray_99"
                     android:id="@+id/et_search"
@@ -47,26 +53,38 @@
                     android:visibility="gone"
                     android:src="@drawable/bbs_icon_delete_image"/>
             </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="搜索"
-            android:textSize="@dimen/sp_15"
-            android:textColor="@color/all_black"
-            android:layout_marginLeft="@dimen/dp_9"
-            android:layout_marginRight="@dimen/dp_15" />
     </LinearLayout>
 
-    <com.lwc.common.module.repairs.view.AutoListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/lv_list"
-        android:cacheColorHint="@color/black_66"
-        android:layout_marginTop="@dimen/dp_4"
-        android:listSelector="@color/black_66"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-    </com.lwc.common.module.repairs.view.AutoListView>
-
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <FrameLayout
+            android:id="@+id/fl_map"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <com.amap.api.maps.MapView
+                android:id="@+id/my_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_select_center_address"/>
+        </FrameLayout>
+        <com.lwc.common.module.repairs.view.AutoListView
+                android:layout_width="match_parent"
+                android:id="@+id/lv_list"
+                android:cacheColorHint="@color/black_66"
+                android:layout_marginTop="@dimen/dp_4"
+                android:listSelector="@color/black_66"
+                android:divider="@color/f0_gray_line"
+                android:dividerHeight="1px"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="visible"/>
+    </LinearLayout>
 </LinearLayout>

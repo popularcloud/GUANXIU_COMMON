@@ -1,7 +1,6 @@
 package com.lwc.common.fragment;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,7 +25,6 @@ import com.lwc.common.module.BaseFragment;
 import com.lwc.common.utils.IntentUtil;
 import com.lwc.common.utils.Utils;
 import com.lwc.common.view.MyTextView;
-import com.yanzhenjie.sofia.Sofia;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,8 +72,11 @@ public class InformationFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-            ImmersionBar.with(getActivity()).statusBarColor(R.color.white).statusBarDarkFont(true).init();
+        if(isVisibleToUser && getActivity()!=null){
+            ImmersionBar.with(getActivity())
+                    .statusBarColor(R.color.white)
+                    .statusBarDarkFont(true)
+                    .navigationBarColor(R.color.white).init();
         }
     }
 

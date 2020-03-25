@@ -1,4 +1,4 @@
-include ':app', ':matisse', ':mzbanner', ':shareandthirdlogin'
+include ':app', ':matisse', ':mzbanner', ':shareandthirdlogin', ':runtimepermissions-lib'
 include ':refreshlayout'
 include ':pickerview'
 

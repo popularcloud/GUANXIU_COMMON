@@ -598,9 +598,16 @@ public class LoginActivity extends BaseActivity implements AMapLocationListener 
                 Common common = JsonUtil.parserGsonToObject(response, Common.class);
                 switch (common.getStatus()) {
                     case "1":
-                        List<Address> addresses = JsonUtil.parserGsonToArray(JsonUtil.getGsonValueByKey(response, "data"), new TypeToken<ArrayList<Address>>() {
-                        });
-                        DataSupport.saveAll(addresses);
+                        String data = JsonUtil.getGsonValueByKey(response, "data");
+                        if(!TextUtils.isEmpty(data)){
+                            List<Address> addresses = JsonUtil.parserGsonToArray(data, new TypeToken<ArrayList<Address>>() {
+                            });
+                            DataSupport.saveAll(addresses);
+                        }else{
+                            List<Address> addresses = new ArrayList<>();
+                            DataSupport.deleteAll(Address.class);
+                        }
+
                         break;
                     default:
                         break;

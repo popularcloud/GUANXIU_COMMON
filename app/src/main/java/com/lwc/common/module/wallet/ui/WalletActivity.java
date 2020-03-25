@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
 import com.lwc.common.adapter.TradingRecordAdapter;
@@ -114,9 +116,10 @@ public class WalletActivity extends BaseActivity {
 	@Override
 	protected void initStatusBar() {
 		//super.initStatusBar();
-		Sofia.with(this)
-				.statusBarBackground(Color.parseColor("#00000000"))
-				.invasionStatusBar();
+		ImmersionBar.with(this)
+				.statusBarColor(R.color.btn_blue_nomal)
+				.statusBarDarkFont(true)
+				.navigationBarColor(R.color.white).init();
 	}
 
 	private void getHistory() {

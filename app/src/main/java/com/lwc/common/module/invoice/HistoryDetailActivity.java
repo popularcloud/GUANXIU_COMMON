@@ -92,8 +92,12 @@ public class HistoryDetailActivity extends BaseActivity {
 				break;
 			case R.id.rl_order_list:
 				Bundle bundle = new Bundle();
-				bundle.putSerializable("invoiceHistoryIds", invoiceHistory.getInvoiceOrders());
-				IntentUtil.gotoActivity(HistoryDetailActivity.this, InvoiceOrderActivity.class, bundle);
+				bundle.putString("invoiceHistoryIds", invoiceHistory.getInvoiceOrders());
+				if("1".equals( invoiceHistory.getBuyType())){
+					IntentUtil.gotoActivity(HistoryDetailActivity.this, InvoiceOrderActivity.class, bundle);
+				}else{
+					IntentUtil.gotoActivity(HistoryDetailActivity.this, InvoicePackageActivity.class, bundle);
+				}
 				break;
 		}
 	}

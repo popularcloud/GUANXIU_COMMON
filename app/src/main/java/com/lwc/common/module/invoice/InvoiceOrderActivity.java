@@ -54,7 +54,7 @@ public class InvoiceOrderActivity extends BaseActivity {
 
 	@Override
 	protected int getContentViewId(Bundle savedInstanceState) {
-		return R.layout.activity_invoice_order_list;
+		return R.layout.activity_invoice_history;
 	}
 
 	@Override
@@ -80,6 +80,7 @@ public class InvoiceOrderActivity extends BaseActivity {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("curPage", page+"");
 		params.put("ids", invoiceHistoryIds);
+
 		HttpRequestUtils.httpRequest(this, "InvoiceOrderList", RequestValue.GET_INVOICE_ORDER_LIST, params, "GET", new HttpRequestUtils.ResponseListener() {
 			@Override
 			public void getResponseData(String result) {
@@ -130,9 +131,10 @@ public class InvoiceOrderActivity extends BaseActivity {
 		adapter.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(View itemView, int viewType, int position) {
-				Bundle bundle = new Bundle();
-				bundle.putString("orderId", myOrders.get(position).getOrderId());
-				IntentUtil.gotoActivity(InvoiceOrderActivity.this, OrderDetailActivity.class,bundle);
+					Bundle bundle = new Bundle();
+					bundle.putString("orderId", myOrders.get(position).getOrderId());
+					IntentUtil.gotoActivity(InvoiceOrderActivity.this, OrderDetailActivity.class,bundle);
+
 			}
 		});
 		recyclerView.setAdapter(adapter);
