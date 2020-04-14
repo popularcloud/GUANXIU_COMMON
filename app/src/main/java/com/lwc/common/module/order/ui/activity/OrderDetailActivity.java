@@ -183,7 +183,7 @@ public class OrderDetailActivity extends BaseFragmentActivity {
         if (isShow) {
             imgRight.setVisibility(View.VISIBLE);
           //  imgRight.setImageResource(R.drawable.bohao);
-            ImageLoaderUtil.getInstance().displayFromLocal(OrderDetailActivity.this,imgRight,R.drawable.bohao, Utils.dip2px(OrderDetailActivity.this,18));
+            ImageLoaderUtil.getInstance().displayFromLocal(OrderDetailActivity.this,imgRight,R.drawable.bohao, Utils.dip2px(OrderDetailActivity.this,18),Utils.dip2px(OrderDetailActivity.this,18));
             imgRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

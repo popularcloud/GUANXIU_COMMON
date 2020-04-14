@@ -7,19 +7,17 @@ import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
-import com.lwc.common.activity.MainActivity;
 import com.lwc.common.module.bean.PackageBean;
 import com.lwc.common.module.integral.activity.IntegralMainActivity;
 import com.lwc.common.module.repairs.ui.activity.ApplyForMaintainActivity;
 import com.lwc.common.utils.DialogUtil;
 import com.lwc.common.utils.IntentUtil;
 import com.lwc.common.utils.SharedPreferencesUtils;
-import com.lwc.common.utils.ToastUtil;
 import com.lwc.common.utils.Utils;
 
 import java.text.ParseException;
@@ -51,7 +49,10 @@ public class PackageDetailActivity extends BaseActivity {
 	TextView tv_money;
 	@BindView(R.id.btn_gm)
 	Button btnGm;
+	@BindView(R.id.ll_content_bg)
+	FrameLayout ll_content_bg;
 	private PackageBean pack;
+	private int position;
 
 	@Override
 	protected int getContentViewId(Bundle savedInstanceState) {
@@ -71,7 +72,27 @@ public class PackageDetailActivity extends BaseActivity {
 	@Override
 	protected void init() {
 		pack = (PackageBean)getIntent().getSerializableExtra("package");
+		position = getIntent().getIntExtra("position",0);
 		int type = getIntent().getIntExtra("type", 0);
+
+
+		//判读背景和按钮的颜色
+		if((position+1)%5 == 0){
+			ll_content_bg.setBackgroundResource(R.drawable.circle_bg_8px_05);
+			btnGm.setBackgroundResource(R.drawable.btn_bg_8px_05);
+		}else if((position+1)%5 == 4){
+			ll_content_bg.setBackgroundResource(R.drawable.circle_bg_8px_04);
+			btnGm.setBackgroundResource(R.drawable.btn_bg_8px_04);
+		}else if((position+1)%5 == 3){
+			ll_content_bg.setBackgroundResource(R.drawable.circle_bg_8px_03);
+			btnGm.setBackgroundResource(R.drawable.btn_bg_8px_03);
+		}else if((position+1)%5 == 2){
+			ll_content_bg.setBackgroundResource(R.drawable.circle_bg_8px_02);
+			btnGm.setBackgroundResource(R.drawable.btn_bg_8px_02);
+		}else if((position+1)%5 == 1){
+			ll_content_bg.setBackgroundResource(R.drawable.circle_bg_8px_01);
+			btnGm.setBackgroundResource(R.drawable.btn_bg_8px_01);
+		}
 
 		tvDesc.setText(pack.getRemark());
 		String count;
@@ -92,32 +113,26 @@ public class PackageDetailActivity extends BaseActivity {
 		tvDistrict.setText("减免地区："+pack.getTownNames());
 		if (type != 1) {
 			tvTime.setText("有效期："+pack.getValidDay()+"天（购买后显示日期）");
-//			btnGm.setVisibility(View.VISIBLE);
-			tv_money.setVisibility(View.VISIBLE);
 
-			String content="¥ "+Utils.getMoney(pack.getPackagePrice());
-			SpannableStringBuilder stringBuilder=new SpannableStringBuilder(content);
-			AbsoluteSizeSpan ab=new AbsoluteSizeSpan(Utils.dip2px(this,6),true);
-			//文本字体绝对的大小
-			stringBuilder.setSpan(ab,0,1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-			tv_money.setText(stringBuilder);
+			tv_money.setText(pack.getPackagePrice()+"元");
 
 			btnGm.setText("立即购买");
 			btnGm.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 
-					//判断是否为机关用户(套餐仅个人用户可使用)
-					if("3".equals(SharedPreferencesUtils.getInstance(PackageDetailActivity.this).loadString("user_role"))){
-						ToastUtil.showToast(PackageDetailActivity.this,"套餐仅限个人用户使用");
-						return;
+					if(pack.getPackageType() == 4){
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("packageBean", pack);
+						IntentUtil.gotoActivity(PackageDetailActivity.this, PackageRepairActivity.class, bundle);
+						//overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+					}else{
+						Bundle bundle2 = new Bundle();
+						bundle2.putString("packageId", pack.getPackageId());
+						bundle2.putString("money", Utils.cheng(pack.getPackagePrice(), "100"));
+						IntentUtil.gotoActivityForResult(PackageDetailActivity.this, PayActivity.class, bundle2, 1602);
+						//overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 					}
-
-					Bundle bundle2 = new Bundle();
-					bundle2.putString("packageId", pack.getPackageId());
-					bundle2.putString("money", Utils.cheng(pack.getPackagePrice(), "100"));
-					IntentUtil.gotoActivityForResult(PackageDetailActivity.this, PayActivity.class, bundle2, 1602);
-					overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 				}
 			});
 		} else {
@@ -130,12 +145,12 @@ public class PackageDetailActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 			btnGm.setText("立即使用");
-			tv_money.setVisibility(View.INVISIBLE);
+			//tv_money.setVisibility(View.INVISIBLE);
 			btnGm.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					IntentUtil.gotoActivityForResult(PackageDetailActivity.this, ApplyForMaintainActivity.class, 1520);
-					overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+					//overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 				}
 			});
 		}
@@ -178,4 +193,5 @@ public class PackageDetailActivity extends BaseActivity {
 	protected void onResume() {
 		super.onResume();
 	}
+
 }

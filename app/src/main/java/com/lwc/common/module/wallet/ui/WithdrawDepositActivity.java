@@ -282,10 +282,10 @@ public class WithdrawDepositActivity extends BaseActivity {
 		params.put("transactionAmount", Utils.cheng(money, "100"));
 		if (tBtnSecretWechat.isChecked()) {
 			params.put("transactionMeans", "3");
-			params.put("openid", alipayAccount);
+			params.put("openid", mOpenId==null?"":mOpenId);
 		} else if (tBtnSecretAlipay.isChecked()) {
 			params.put("transactionMeans", "2");
-			params.put("aliToken", alipayAccount);
+			params.put("aliToken", alipayAccount==null?"":alipayAccount);
 		}
 		HttpRequestUtils.httpRequest(this, "applyDeposit 申请提现", RequestValue.POST_WITHDRAW_DEPOSIT, params, "POST", new HttpRequestUtils.ResponseListener() {
 			@Override

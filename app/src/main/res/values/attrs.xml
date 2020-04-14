@@ -157,4 +157,12 @@
         <attr name="group_padding_right" format="dimension" />
         <attr name="group_has_header" format="boolean" />
     </declare-styleable>
+
+    <string-array name="ctype">
+        <item>请选择服务器</item>
+        <item>https://47.97.217.243</item>
+        <item>https://www.ls-mx.com</item>
+        <item>https://192.168.3.110:8082</item>
+        <item>https://192.168.3.120:8082</item>
+    </string-array>
 </resources>

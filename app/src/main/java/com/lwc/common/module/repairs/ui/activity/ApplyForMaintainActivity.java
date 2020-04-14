@@ -23,6 +23,7 @@ import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
 import com.lwc.common.activity.ImageBrowseActivity;
 import com.lwc.common.activity.InformationDetailsActivity;
+import com.lwc.common.activity.MainActivity;
 import com.lwc.common.adapter.MyGridViewPhotoAdpter;
 import com.lwc.common.bean.Menu;
 import com.lwc.common.bean.PickerView;
@@ -231,7 +232,7 @@ public class ApplyForMaintainActivity extends BaseActivity {
         if (addressesList.size() == 0) {
             checkedAdd = null;
             lLayout0.setVisibility(View.GONE);
-            txtAddress.setText("请选择维修地址");
+            txtAddress.setText("请添加维修地址");
         } else {
             setDefaultAddress();
             lLayout0.setVisibility(View.VISIBLE);
@@ -276,7 +277,7 @@ public class ApplyForMaintainActivity extends BaseActivity {
             ToastUtil.showToast(this,"请选择设备类型");
             return;
         }
-        HttpRequestUtils.httpRequest(this, "getRepairses", RequestValue.MALFUNCTION+"?deviceMold="+ deviceMold, null, "GET", new HttpRequestUtils.ResponseListener() {
+        HttpRequestUtils.httpRequest(this, "getRepairses", RequestValue.MALFUNCTION+"?deviceMold="+ deviceMold + "&clientType=person", null, "GET", new HttpRequestUtils.ResponseListener() {
             @Override
             public void getResponseData(String response) {
                 Common common = JsonUtil.parserGsonToObject(response, Common.class);
@@ -368,8 +369,8 @@ public class ApplyForMaintainActivity extends BaseActivity {
             checkedMan.setDeviceTypeName(checkedRep.getDeviceTypeName());
             malfunctionArrayList.add(checkedMan);
 
-            if(checkedRep.getDeviceMode() != null){
-                deviceMold = checkedRep.getDeviceMode();
+            if(checkedRep.getDeviceTypeMold() != null){
+                deviceMold = checkedRep.getDeviceTypeMold();
                 if(deviceMold == 1){
                     txtDeviceType.setText("办公设备");
                 }else if(deviceMold == 3){
@@ -624,7 +625,6 @@ public class ApplyForMaintainActivity extends BaseActivity {
         final String imgPath = imgs;
         remark = edtMalfunction.getText().toString();
 
-
             //如果是数据恢复
             if(isDataReset && ll_sendType.getVisibility() == View.VISIBLE){
                 if(TextUtils.isEmpty(sendTypeStr)){
@@ -642,6 +642,10 @@ public class ApplyForMaintainActivity extends BaseActivity {
                 }else{
                     remark = remark +"配送方式：自行送达";
                 }
+            }
+
+            if(MainActivity.mainFragment.newestOrders != null && MainActivity.mainFragment.newestOrders.size() > 0){
+                ToastUtil.showToast(ApplyForMaintainActivity.this,"你已有订单在进行中了");
             }
 
             if (!TextUtils.isEmpty(guangboStr) && !TextUtils.isEmpty(orderMsg)) {

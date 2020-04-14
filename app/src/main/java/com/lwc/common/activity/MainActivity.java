@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -23,7 +21,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.gyf.immersionbar.ImmersionBar;
@@ -33,6 +30,7 @@ import com.lwc.common.fragment.InformationFragment;
 import com.lwc.common.fragment.MainFragment;
 import com.lwc.common.fragment.MineFragment;
 import com.lwc.common.fragment.MyOrderFragment;
+import com.lwc.common.fragment.NewMainFragment;
 import com.lwc.common.module.BaseFragmentActivity;
 import com.lwc.common.module.bean.ADInfo;
 import com.lwc.common.module.bean.ActivityBean;
@@ -43,9 +41,7 @@ import com.lwc.common.module.bean.Update;
 import com.lwc.common.module.bean.User;
 import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
 import com.lwc.common.module.integral.activity.IntegralMainActivity;
-import com.lwc.common.module.login.ui.LoadingActivity;
 import com.lwc.common.module.login.ui.LoginActivity;
-import com.lwc.common.module.login.ui.RegisterActivity;
 import com.lwc.common.module.mine.SignInActivity;
 import com.lwc.common.utils.ApkUtil;
 import com.lwc.common.utils.DialogUtil;
@@ -62,9 +58,6 @@ import com.lwc.common.widget.CouponDialog;
 import com.lwc.common.widget.CustomDialog;
 import com.lwc.common.widget.CustomViewPager;
 import com.lwc.common.widget.FloatDragView;
-import com.wkp.runtimepermissions.callback.PermissionCallBack;
-import com.wkp.runtimepermissions.util.RuntimePermissionUtil;
-import com.yanzhenjie.sofia.Sofia;
 
 import org.litepal.crud.DataSupport;
 
@@ -85,7 +78,6 @@ import butterknife.OnClick;
  * @Copyright: lwc
  */
 public class MainActivity extends BaseFragmentActivity {
-
 
     @BindView(R.id.cViewPager)
     CustomViewPager cViewPager;
@@ -109,10 +101,20 @@ public class MainActivity extends BaseFragmentActivity {
     ImageView ib_show_new_user;
     @BindView(R.id.iv_dialog_close)
     ImageView iv_dialog_close;
+
+    /**
+     * fragment相关
+     */
     private HashMap<Integer, Fragment> fragmentHashMap;
+    public static NewMainFragment mainFragment;
+    private MineFragment mineFragment;
     private HashMap rButtonHashMap;
+
+    /**
+     * 用户信息相关
+     */
     private SharedPreferencesUtils preferencesUtils;
-    private User user;
+    public static User user;
 
     //极光推送参数
     public static boolean isForeground = false;
@@ -121,19 +123,41 @@ public class MainActivity extends BaseFragmentActivity {
     public static final String KEY_UPDATE_USER = "update_user_info";
     public static final String MESSAGE_RECEIVED_ACTION = "com.lwc.common.MESSAGE_RECEIVED_ACTION";
     private MessageReceiver mMessageReceiver;
-    //    private Intent mServiceIntent;
-    private MainFragment mainFragment;
-    private int version;
-    private String isForce;
-    private MineFragment mineFragment;
+
+    /**
+     * 获取当前实例
+     */
     public static MainActivity activity;
-    private boolean isGetUserInfo = true;
-    private boolean isRedShow = true;
+
+    /**
+     * 都是为了防止多次加载用户信息的 逻辑有点奇怪  没时间改了
+     */
+    private boolean isGetUserInfo = true;//过滤获取多次用户信息
+    private boolean isRedShow = true; //是否显示了红包
+
+    /**
+     * 活动对象
+     */
     private ActivityBean ab;
+
+    /**
+     * 优化券弹窗
+     */
     private CouponDialog dialog;
+    /**
+     * 优惠券集合
+     */
     private List<Coupon> listC = new ArrayList<>();
+
+    /**
+     * 签到图片按钮
+     */
     private ImageView signView;
 
+
+    /**
+     * 广播接收器
+     */
     public class MessageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -145,12 +169,13 @@ public class MainActivity extends BaseFragmentActivity {
                 if (user != null) {
                     getUserInfor();
                     if (mainFragment != null) {
-                        mainFragment.getGb();
+                       // mainFragment.getGb();
                     }
                 }
             }
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,8 +185,11 @@ public class MainActivity extends BaseFragmentActivity {
         ButterKnife.bind(this);
 
         activity = this;
+
         initView();
+
         openDoubleClickToExit();
+
         addFragmenInList();
         addRadioButtonIdInList();
         bindViewPage(fragmentHashMap);
@@ -239,7 +267,7 @@ public class MainActivity extends BaseFragmentActivity {
                         });
                         if (activityBeans != null && activityBeans.size() > 0) {
                             DataSupport.saveAll(activityBeans);
-                            for (int i=0; i<activityBeans.size();i++) {
+                            for (int i = 0; i < activityBeans.size(); i++) {
                                 if (activityBeans.get(i).getCoupons() != null && activityBeans.get(i).getCoupons().size() > 0) {
                                     DataSupport.saveAll(activityBeans.get(i).getCoupons());
                                 }
@@ -251,6 +279,7 @@ public class MainActivity extends BaseFragmentActivity {
                         break;
                 }
             }
+
             @Override
             public void returnException(Exception e, String msg) {
             }
@@ -266,8 +295,8 @@ public class MainActivity extends BaseFragmentActivity {
             for (int i = 0; i < list.size(); i++) {
                 ab = list.get(i);
                 if (ab.getRewardFashion().equals("2") && (TextUtils.isEmpty(ab.getConditionIndex()) || ab.getConditionIndex().replace("/", "").equals(RequestValue.REGISTER2.replace("/", "")) || ab.getConditionIndex().equals("null"))) {
-                    if(ab.getConditionIndex().replace("/", "").equals(RequestValue.REGISTER2.replace("/", ""))){
-                        if("1".equals(SharedPreferencesUtils.getParam(MainActivity.this,"isNew","0"))){
+                    if (ab.getConditionIndex().replace("/", "").equals(RequestValue.REGISTER2.replace("/", ""))) {
+                        if ("1".equals(SharedPreferencesUtils.getParam(MainActivity.this, "isNew", "0"))) {
                             SharedPreferencesUtils.setParam(MainActivity.this, "isNew", "0");
                             for (int j = 0; j < listCoupon.size(); j++) {
                                 Coupon coupon = listCoupon.get(j);
@@ -276,7 +305,7 @@ public class MainActivity extends BaseFragmentActivity {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         for (int j = 0; j < listCoupon.size(); j++) {
                             Coupon coupon = listCoupon.get(j);
                             if (coupon.getActivityId().trim().equals(ab.getActivityId().trim())) {
@@ -350,7 +379,7 @@ public class MainActivity extends BaseFragmentActivity {
                             if (user != null && !TextUtils.isEmpty(id)) {
                                 user.setRoleId(id);
                             }
-                            if(user != null){
+                            if (user != null) {
                                 preferencesUtils.saveObjectData(user);
                             }
                             //判断是否为新用户
@@ -365,7 +394,7 @@ public class MainActivity extends BaseFragmentActivity {
                 }
                 if (isRedShow)
                     getMyActivity();
-                    //findCoupen();
+                //findCoupen();
             }
 
             @Override
@@ -391,7 +420,7 @@ public class MainActivity extends BaseFragmentActivity {
      * 往fragmentHashMap中添加 Fragment
      */
     private void addFragmenInList() {
-        mainFragment = new MainFragment();
+        mainFragment = new NewMainFragment();
         mineFragment = new MineFragment();
         fragmentHashMap = new HashMap<>();
         fragmentHashMap.put(0, mainFragment);
@@ -413,10 +442,10 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 cViewPager.setChecked(rButtonHashMap, position);
-                if(signView != null){
-                    if(position == 0){
+                if (signView != null) {
+                    if (position == 0) {
                         signView.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         signView.setVisibility(View.GONE);
                     }
                 }
@@ -430,25 +459,23 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
 
-
     int type = 0;
+
     @OnClick({R.id.radio_home, R.id.radio_order, R.id.radio_news, R.id.radio_mine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.radio_home:
-                mainFragment.setGone(true);
                 cViewPager.setCurrentItem(0, false);
                 if (type != 0) {
-                    mainFragment.getNewestOrder();
+                    ///mainFragment.getNewestOrder();
                 }
                 type = 0;
                 break;
             case R.id.radio_news:
                 cViewPager.setCurrentItem(1, false);
-                mainFragment.setGone(false);
                 if (type == 0)
-                   // mainFragment.updateBar(true);
-                type = 2;
+                    // mainFragment.updateBar(true);
+                    type = 2;
                 break;
             case R.id.radio_order:
 //                if (user == null) {
@@ -459,18 +486,16 @@ public class MainActivity extends BaseFragmentActivity {
 //                    IntentUtil.gotoActivity(this, LoginActivity.class);
 //                    break;
 //                }
-                mainFragment.setGone(false);
                 cViewPager.setCurrentItem(2, false);
                 if (type == 0)
                     //mainFragment.updateBar(true);
-                type = 1;
+                    type = 1;
                 break;
             case R.id.radio_mine:
-                mainFragment.setGone(false);
                 cViewPager.setCurrentItem(3, false);
                 if (type == 0)
-                   // mainFragment.updateBar(true);
-                type = 3;
+                    // mainFragment.updateBar(true);
+                    type = 3;
                 break;
         }
     }
@@ -513,10 +538,12 @@ public class MainActivity extends BaseFragmentActivity {
                     case "1":
                         Update update = JsonUtil.parserGsonToObject(JsonUtil.getGsonValueByKey(response, "data"), Update.class);
                         if (update != null && !TextUtils.isEmpty(update.getVersionCode())) {
-                          //  String versionCode = preferencesUtils.loadString("versionCode");
+                            //  String versionCode = preferencesUtils.loadString("versionCode");
                             String versionCode = String.valueOf(getAppVersionCode(MainActivity.this));
-                            version = Integer.valueOf(update.getVersionCode());
-
+                            /**
+                             * 线上的版本号
+                             */
+                            int version = Integer.valueOf(update.getVersionCode());
 
                             if (versionCode != null && update.getVersionCode().equals(versionCode)) {
                                 return;
@@ -527,7 +554,7 @@ public class MainActivity extends BaseFragmentActivity {
                                 if (mineFragment != null) {
                                     mineFragment.updateVersionCode();
                                 }
-                                startUpdateDialog(update,akpPath);
+                                startUpdateDialog(update, akpPath);
                             }
                         }
                         break;
@@ -543,21 +570,21 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
 
-    private void startUpdateDialog(Update update,final String akpPath){
-        isForce = update.getIsForce();
+    private void startUpdateDialog(Update update, final String akpPath) {
+        String isForce = update.getIsForce(); //是否强制更新
         if (isForce.equals("1")) {
             DialogUtil.showUpdateAppDg(MainActivity.this, "版本更新", "立即更新", update.getMessage(), new CustomDialog.OnClickListener() {
 
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
-                    checkpInstallPrmission(akpPath,dialog);
+                    checkpInstallPrmission(akpPath, dialog);
                 }
             });
         } else {
             DialogUtil.showMessageUp(MainActivity.this, "版本更新", "立即更新", "稍后再说", update.getMessage(), new CustomDialog.OnClickListener() {
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
-                    checkpInstallPrmission(akpPath,dialog);
+                    checkpInstallPrmission(akpPath, dialog);
                 }
             }, null);
         }
@@ -566,25 +593,25 @@ public class MainActivity extends BaseFragmentActivity {
     /**
      * 检查是否有安装权限
      */
-    private void checkpInstallPrmission(final String apkPath,CustomDialog updateDialog){
+    private void checkpInstallPrmission(final String apkPath, CustomDialog updateDialog) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(getPackageManager().canRequestPackageInstalls()){
-                ApkUtil.downloadAPK(MainActivity.this,apkPath);
+            if (getPackageManager().canRequestPackageInstalls()) {
+                ApkUtil.downloadAPK(MainActivity.this, apkPath);
                 updateDialog.dismiss();
-            }else{
+            } else {
                 updateDialog.dismiss();
                 DialogUtil.showMessageUp(MainActivity.this, "授予安装权限", "立即设置", "取消", "检测到您没有授予安装应用的权限，请在设置页面授予", new CustomDialog.OnClickListener() {
                     @Override
                     public void onClick(CustomDialog dialog, int id, Object object) {
-                        Uri uri = Uri.parse("package:"+getPackageName());
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,uri);
+                        Uri uri = Uri.parse("package:" + getPackageName());
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, uri);
                         startActivityForResult(intent, 19900);
                         dialog.dismiss();
                     }
                 }, null);
             }
-        }else{
-            ApkUtil.downloadAPK(MainActivity.this,apkPath);
+        } else {
+            ApkUtil.downloadAPK(MainActivity.this, apkPath);
             updateDialog.dismiss();
         }
     }
@@ -613,7 +640,7 @@ public class MainActivity extends BaseFragmentActivity {
                             IntentUtil.gotoActivity(MainActivity.this, IntegralMainActivity.class);
                         }
                     }, null, true);
-        }else if(requestCode == 19900 && resultCode == RESULT_OK){ //设置成功返回
+        } else if (requestCode == 19900 && resultCode == RESULT_OK) { //设置成功返回
 
         }
     }
@@ -708,20 +735,20 @@ public class MainActivity extends BaseFragmentActivity {
                         for (int i = 0; i < current.size(); i++) {
                             HasMsg hasMsg = current.get(i);
                             if ("0".equals(hasMsg.getType())) {
-                                if(hasMsg.isHasMessage()){
+                                if (hasMsg.isHasMessage()) {
                                     iv_red_dian.setVisibility(View.VISIBLE);
-                                    if(hasMsg.getCount() > 99){
+                                    if (hasMsg.getCount() > 99) {
                                         iv_red_dian.setText("...");
-                                    }else{
+                                    } else {
                                         iv_red_dian.setText(String.valueOf(hasMsg.getCount()));
                                     }
-                                    if(mineFragment != null){
+                                    if (mineFragment != null) {
                                         mineFragment.updateNewMsg(hasMsg);
                                     }
 
-                                }else{
+                                } else {
                                     iv_red_dian.setVisibility(View.GONE);
-                                    if(mineFragment != null){
+                                    if (mineFragment != null) {
                                         mineFragment.updateNewMsg(null);
                                     }
                                 }
@@ -729,8 +756,8 @@ public class MainActivity extends BaseFragmentActivity {
                             }
                         }
                     }
-                }else{
-                    if(mineFragment != null){
+                } else {
+                    if (mineFragment != null) {
                         mineFragment.updateNewMsg(null);
                     }
                 }
@@ -738,7 +765,7 @@ public class MainActivity extends BaseFragmentActivity {
 
             @Override
             public void returnException(Exception e, String msg) {
-                if(mineFragment != null){
+                if (mineFragment != null) {
                     mineFragment.updateNewMsg(null);
                 }
             }

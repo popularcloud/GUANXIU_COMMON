@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
+import com.lwc.common.utils.ImageLoaderUtil;
 import com.lwc.common.view.MatrixImageView;
 
 import butterknife.BindView;
@@ -43,8 +44,9 @@ public class FindInvoiceActivity extends BaseActivity {
 	@Override
 	protected void initGetData() {
 		url = getIntent().getStringExtra("url");
-		Glide.with(this).load(url).error(R.drawable.loading_bg).fitCenter().priority( Priority.HIGH)
-				.into(miv);
+	/*	Glide.with(this).load(url).error(R.drawable.loading_bg).fitCenter().priority( Priority.HIGH)
+				.into(miv);*/
+		ImageLoaderUtil.getInstance().displayFromNetD(this,url,miv,R.drawable.loading_bg);
 	}
 
 	@Override

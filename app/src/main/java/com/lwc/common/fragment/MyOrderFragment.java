@@ -1,6 +1,5 @@
 package com.lwc.common.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -21,7 +20,6 @@ import com.lwc.common.module.order.ui.fragment.ProceedFragment;
 import com.lwc.common.utils.Utils;
 import com.lwc.common.view.MyTextView;
 import com.lwc.common.widget.CustomViewPager;
-import com.yanzhenjie.sofia.Sofia;
 
 import java.util.HashMap;
 

@@ -1,6 +1,5 @@
 package com.lwc.common.module.order.ui.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,9 +12,9 @@ import com.lwc.common.R;
 import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
 import com.lwc.common.module.order.ui.fragment.ExpPackageFragment;
 import com.lwc.common.module.order.ui.fragment.UsePackageFragment;
+import com.lwc.common.module.order.ui.fragment.UseRecordPackageFragment;
 import com.lwc.common.view.MyTextView;
 import com.lwc.common.widget.CustomViewPager;
-import com.yanzhenjie.sofia.Sofia;
 
 import java.util.HashMap;
 
@@ -39,16 +38,21 @@ public class MyPackageActivity extends com.lwc.common.module.BaseFragmentActivit
 	RadioButton rBtnUnderway;
 	@BindView(R.id.rBtnExpires)
 	RadioButton rBtnExpires;
+	@BindView(R.id.rBtnUseRecord)
+	RadioButton rBtnUseRecord;
 	@BindView(R.id.viewLine1)
 	View viewLine1;
 	@BindView(R.id.viewLine2)
 	View viewLine2;
+	@BindView(R.id.viewLine3)
+	View viewLine3;
 	@BindView(R.id.cViewPager)
 	CustomViewPager cViewPager;
 	private HashMap rButtonHashMap;
 	private HashMap<Integer, Fragment> fragmentHashMap;
 	private UsePackageFragment unusedFragment;
 	private ExpPackageFragment expiresFragment;
+	private UseRecordPackageFragment useRecordPackageFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +81,12 @@ public class MyPackageActivity extends com.lwc.common.module.BaseFragmentActivit
 	private void addFragmenInList() {
 		fragmentHashMap = new HashMap<>();
 		unusedFragment = new UsePackageFragment();
+		useRecordPackageFragment = new UseRecordPackageFragment();
 		expiresFragment = new ExpPackageFragment();
+
 		fragmentHashMap.put(0, unusedFragment);
-		fragmentHashMap.put(1, expiresFragment);
+		fragmentHashMap.put(1, useRecordPackageFragment);
+		fragmentHashMap.put(2, expiresFragment);
 	}
 
 	/**
@@ -89,18 +96,26 @@ public class MyPackageActivity extends com.lwc.common.module.BaseFragmentActivit
 		rButtonHashMap = new HashMap<>();
 		rButtonHashMap.put(0, rBtnUnderway);
 		rButtonHashMap.put(1, rBtnExpires);
+		rButtonHashMap.put(2, rBtnUnderway);
 	}
 
-	@OnClick({R.id.rBtnUnderway, R.id.rBtnExpires, R.id.img_back})
+	@OnClick({R.id.rBtnUnderway, R.id.rBtnExpires,R.id.rBtnUseRecord, R.id.img_back})
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.rBtnUnderway:
 				showLineView(1);
 				cViewPager.setCurrentItem(0);
+				rBtnUnderway.setChecked(true);
 				break;
-			case R.id.rBtnExpires:
+			case R.id.rBtnUseRecord:
 				showLineView(2);
 				cViewPager.setCurrentItem(1);
+				rBtnUseRecord.setChecked(true);
+				break;
+			case R.id.rBtnExpires:
+				showLineView(3);
+				cViewPager.setCurrentItem(2);
+				rBtnExpires.setChecked(true);
 				break;
 			case R.id.img_back:
 				onBackPressed();
@@ -120,10 +135,17 @@ public class MyPackageActivity extends com.lwc.common.module.BaseFragmentActivit
 			case 1:
 				viewLine1.setVisibility(View.VISIBLE);
 				viewLine2.setVisibility(View.INVISIBLE);
+				viewLine3.setVisibility(View.INVISIBLE);
 				break;
 			case 2:
 				viewLine2.setVisibility(View.VISIBLE);
 				viewLine1.setVisibility(View.INVISIBLE);
+				viewLine3.setVisibility(View.INVISIBLE);
+				break;
+			case 3:
+				viewLine3.setVisibility(View.VISIBLE);
+				viewLine1.setVisibility(View.INVISIBLE);
+				viewLine2.setVisibility(View.INVISIBLE);
 				break;
 		}
 	}

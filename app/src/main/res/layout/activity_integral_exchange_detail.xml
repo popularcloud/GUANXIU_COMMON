@@ -84,7 +84,7 @@
             android:id="@+id/iv_header"
             android:layout_width="78dp"
             android:layout_height="78dp"
-            android:src="@drawable/home_map"/>
+            android:src="@drawable/home_integral"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

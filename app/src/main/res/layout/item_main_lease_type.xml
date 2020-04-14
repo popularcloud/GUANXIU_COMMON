@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/tv_office_equipment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="36dp"
+            android:paddingRight="15dp"
+            android:background="@color/white"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="15dp"
+            android:drawableLeft="@drawable/ic_blue_line"
+            android:drawablePadding="@dimen/dp_6"
+            android:textColor="@color/black"
+            android:text="设备租赁"
+            android:textSize="@dimen/sp_15" />
+        <TextView
+            android:id="@+id/tv_electric"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="36dp"
+            android:paddingRight="15dp"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:paddingLeft="15dp"
+            android:text="查看全部"
+            android:drawablePadding="@dimen/dp_6"
+            android:textColor="@color/btn_blue_nomal"
+            android:drawableRight="@drawable/ic_blue_right_arrow"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+    <!--<View
+        style="@style/line_c8Style"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="#fff"
+        android:visibility="visible">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_height="@dimen/dp_185" />
+        <LinearLayout
+            android:id="@+id/points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewpager"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" />
+    </RelativeLayout>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_repair_type"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginRight="@dimen/dp_14"
+        android:layout_height="@dimen/dp_80"/>
+</LinearLayout>

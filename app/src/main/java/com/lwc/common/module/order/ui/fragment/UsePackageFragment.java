@@ -37,7 +37,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 /**
  * Created by 何栋 on 2017/10/15.
  * 294663966@qq.com
- * 使用中套餐
+ * 待使用套餐
  */
 public class UsePackageFragment extends BaseFragment {
 
@@ -79,7 +79,7 @@ public class UsePackageFragment extends BaseFragment {
 
     private void bindRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MyPackageListAdapter(getContext(), packageBeanList, R.layout.item_my_package);
+        adapter = new MyPackageListAdapter(getContext(), packageBeanList, R.layout.item_my_package,2);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {

@@ -75,14 +75,14 @@ public class ExpPackageFragment extends BaseFragment {
 
     private void bindRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MyPackageListAdapter(getContext(), packageBeanList, R.layout.item_my_package);
+        adapter = new MyPackageListAdapter(getContext(), packageBeanList, R.layout.item_my_package,3);
         adapter.setType(2);
         recyclerView.setAdapter(adapter);
     }
 
     private void getPackageList() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("type", "2");
+        map.put("type", "3");
         HttpRequestUtils.httpRequest(getActivity(), "getPackageList", RequestValue.GET_USER_PACKAGE_LIST, map, "GET", new HttpRequestUtils.ResponseListener() {
             @Override
             public void getResponseData(String result) {

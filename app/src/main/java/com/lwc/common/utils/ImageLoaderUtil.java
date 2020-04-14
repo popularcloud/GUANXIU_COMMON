@@ -7,8 +7,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.lwc.common.R;
 
 import java.io.File;
@@ -33,54 +34,86 @@ public class ImageLoaderUtil implements ImageLoaderInterface {
         return loader;
     }
     public void displayFromNetD(Context context, String url, ImageView imageView) {
-        if (context != null) {
-            Glide.with(context).load(url).error(R.drawable.default_portrait_100).fitCenter().priority(Priority.HIGH)
+        if (context != null && imageView != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .fitCenter()
+                    .error(R.drawable.default_portrait_100)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(url)
+                    .thumbnail(0.8f)
+                    .apply(mRequestOptions)
                     .into(imageView);
         }
     }
 
-    public void displayLongPic(final Context context, String url, final ImageView imageView) {
-        if (context != null) {
-            Glide.with(context).load(url).downloadOnly(new SimpleTarget<File>() {
-                @Override
-                public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(resource.getAbsolutePath(),getBitmapOption(1));
-                    Glide.with(context).load(new File(resource.getAbsolutePath())).override(bitmap.getWidth(),bitmap.getHeight()).into(imageView);
-                   // imageView.setImageBitmap(bitmap);
-                }
-            });
-
+    public void displayFromNetD(Context context, String url, ImageView imageView,int defaultImg) {
+        if (context != null && imageView != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .fitCenter()
+                    .error(defaultImg)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(url)
+                    .thumbnail(0.8f)
+                    .apply(mRequestOptions)
+                    .into(imageView);
         }
     }
-
-    private BitmapFactory.Options getBitmapOption(int inSampleSize) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPurgeable = true;
-        options.inSampleSize = inSampleSize;
-        return options;
-    }
-
-
     @Override
     public void displayFromNet(Context context, String url, ImageView imageView) {
-        if (context != null) {
-            Glide.with(context).load(url).thumbnail(0.6f).error(R.drawable.default_portrait_100).override(140, 140).fitCenter().priority( Priority.HIGH)
+        if (context != null && imageView != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .override(140,140)
+                    .fitCenter()
+                    .error(R.drawable.default_portrait_100)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(url)
+                    .apply(mRequestOptions)
+                    .thumbnail(0.5f)
+                    .into(imageView);
+        }
+    }
+
+    public void displayFromNet(Context context, String url, ImageView imageView,int defaultImg) {
+        if (context != null && imageView != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .override(140,140)
+                    .fitCenter()
+                    .error(defaultImg)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(url)
+                    .apply(mRequestOptions)
+                    .thumbnail(0.5f)
+                    .into(imageView);
+        }
+    }
+
+    public void displayFromNetNoWidth(Context context, String url, ImageView imageView,int defaultImg) {
+        if (context != null && imageView != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .error(defaultImg)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(url)
+                    .apply(mRequestOptions)
                     .into(imageView);
         }
     }
 
     @Override
-    public void displayFromNet(Context context, String url, ImageView imageView,int imageResouse) {
-        if (context != null) {
-            Glide.with(context).load(url).thumbnail(0.6f).error(imageResouse).override(140, 140).fitCenter().priority( Priority.HIGH)
-                    .into(imageView);
-        }
-    }
-
-    @Override
-    public void displayFromNetMin(Context context, String url, ImageView imageView) {
-        if (context != null) {
-            Glide.with(context).load(url).thumbnail(0.1f).error(R.drawable.default_portrait_100).override(60, 60).fitCenter().priority( Priority.HIGH)
+    public void displayFromNet6(Context context, String url, ImageView imageView) {
+        if (context != null && imageView != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .override(140,140)
+                    .priority(Priority.HIGH)
+                    .error(R.drawable.default_portrait_100)
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(url).apply(mRequestOptions).thumbnail(0.5f)
                     .into(imageView);
         }
     }
@@ -88,31 +121,84 @@ public class ImageLoaderUtil implements ImageLoaderInterface {
     @Override
     public void displayFromLocal(Context context, ImageView imageView,
                                  int resourceId) {
-        if (context != null) {
-            Glide.with(context).load(resourceId).fitCenter().into(imageView);
+        if (context != null && imageView != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(resourceId).apply(mRequestOptions).into(imageView);
         }
     }
 
     @Override
     public void displayFromLocal(Context context, ImageView imageView, String path) {
         if (context != null) {
-            Glide.with(context).load(new File(path)).fitCenter().into(imageView);
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(new File(path)).apply(mRequestOptions).into(imageView);
         }
     }
 
-
     @Override
-    public void displayFromLocal(Context context, ImageView imageView,
-                                 int resourceId,int size) {
+    public void displayFromLocal(Context context, ImageView imageView, String path,int width,int height) {
         if (context != null) {
-            Glide.with(context).load(resourceId).fitCenter().override(size,size).into(imageView);
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .fitCenter()
+                    .override(width,height)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(new File(path)).apply(mRequestOptions).into(imageView);
+        }
+    }
+
+    public void displayFromLocal(Context context, ImageView imageView, int resId,int width,int height) {
+        if (context != null) {
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .fitCenter()
+                    .override(width,height)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(resId).apply(mRequestOptions).into(imageView);
         }
     }
 
     @Override
     public void displayFromFile(Context context, ImageView imageView, File file) {
         if (context != null) {
-            Glide.with(context).load(file).fitCenter().into(imageView);
+            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            Glide.with(context).load(file).apply(mRequestOptions).into(imageView);
+        }
+    }
+
+    public void displayFromNetDCircular(Context context, String url, ImageView imageView,int defaultImg) {
+        if (context != null && imageView != null) {
+            //圆角头像
+            RequestOptions mRequestOptions = RequestOptions.bitmapTransform(new RoundedCorners(8))
+                    .error(defaultImg)
+                    .placeholder(defaultImg);
+            Glide.with(context).load(url)
+                    .apply(mRequestOptions)//圆角半径
+                    .thumbnail(0.8f)
+                    .into(imageView);
+        }
+    }
+
+    public void displayFromNetDCircularT(Context context, String url, ImageView imageView,int defaultImg) {
+        if (context != null && imageView != null) {
+            //圆角头像
+            RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                    .error(defaultImg)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(false);//不做内存缓存
+            Glide.with(context).load(url)
+                    .apply(mRequestOptions)//圆角半径
+                    .thumbnail(0.8f)
+                    .into(imageView);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.lwc.common.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,9 +13,10 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.lwc.common.R;
 import com.lwc.common.bean.NearBean;
 import com.lwc.common.module.bean.Repairman;
@@ -78,12 +80,17 @@ public class MyMapUtil {
                             } else {
                                 ll_head_bg.setBackgroundResource(R.drawable.icon_map_new_commen);
                             }
-                            Glide.with(mainActivity).load(picture).
-                                    placeholder(R.drawable.icon_default_portrait)
+
+
+                            RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
                                     .error(R.drawable.icon_default_portrait)
-                                    .into(new SimpleTarget<GlideDrawable>() {
+                                    .placeholder(R.drawable.icon_default_portrait)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                                    .skipMemoryCache(true);//不做内存缓存
+                            Glide.with(mainActivity).load(picture)
+                                    .into(new SimpleTarget<Drawable>() {
                                         @Override
-                                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                        public void onResourceReady(Drawable resource, Transition<? super Drawable> glideAnimation) {
                                             //展示图片
                                             imgHead.setImageDrawable(resource);
 //                                                Bitmap bitmap = convertViewToBitmap(view);

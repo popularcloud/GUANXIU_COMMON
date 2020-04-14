@@ -32,6 +32,8 @@ public class DialogStyle1 extends Dialog {
         //去掉标题栏
         Window win = getWindow();
         win.requestFeature(Window.FEATURE_NO_TITLE);
+
+        win.setBackgroundDrawableResource(android.R.color.transparent);
         this.context = context;
         this.setContentView(LayoutInflater.from(context).inflate(R.layout.dialog1_text, null));
         initViews();

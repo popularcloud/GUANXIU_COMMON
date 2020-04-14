@@ -92,7 +92,7 @@ public class UserGuideActivity extends BaseActivity {
 			tv_rightNow.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					finish();
+					IntentUtil.gotoActivityAndFinish(UserGuideActivity.this, MainActivity.class);
 				}
 			});
 			webview.setVisibility(View.GONE);

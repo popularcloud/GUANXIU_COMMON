@@ -107,7 +107,7 @@ public class SelectPackageListActivity extends BaseActivity {
 			but_no.setText("不使用套餐");
 			getselectMealList();
 			tv_msg.setBackgroundResource(R.drawable.no_pachage);
-			adapter = new MyPackageListAdapter(this, myMeals, R.layout.item_my_package);
+			adapter = new MyPackageListAdapter(this, myMeals, R.layout.item_my_package,4);
 			adapter.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(View itemView, int viewType, int position) {

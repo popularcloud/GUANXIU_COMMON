@@ -177,4 +177,19 @@
     <color name="blue_9ff">#3599ff</color>
     <color name="red_39">#fb4939</color>
     <color name="cp_alpha_gray">#CC646464</color>
+
+
+    <!-- 套餐 背景-->
+    <color name="package_bg_01">#FFF3E2</color>
+    <color name="package_bg_02">#E2F0F5</color>
+    <color name="package_bg_03">#E9F0FF</color>
+    <color name="package_bg_04">#F0E6FF</color>
+    <color name="package_bg_05">#FFF1F1</color>
+
+    <color name="package_btn_01">#8B795F</color>
+    <color name="package_btn_02">#547E7D</color>
+    <color name="package_btn_03">#5883AA</color>
+    <color name="package_btn_04">#9977D5</color>
+    <color name="package_btn_05">#DC8787</color>
+
 </resources>

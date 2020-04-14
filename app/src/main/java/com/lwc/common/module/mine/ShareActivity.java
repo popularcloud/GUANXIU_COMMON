@@ -12,10 +12,15 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.reflect.TypeToken;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
@@ -109,12 +114,15 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 			FLink = "http://www.lsh-sd.com:9999/download.jsp";
 		}
 		if (!TextUtils.isEmpty(urlPhoto)){
-			Glide.with(this).load(urlPhoto).
-					placeholder(R.drawable.share_logo)
+			RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
 					.error(R.drawable.share_logo)
-					.into(new SimpleTarget<GlideDrawable>() {
+					.placeholder(R.drawable.share_logo)
+					.diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+					.skipMemoryCache(true);//不做内存缓存
+			Glide.with(this).load(urlPhoto)
+					.into(new SimpleTarget<Drawable>() {
 						@Override
-						public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+						public void onResourceReady(Drawable resource, Transition<? super Drawable> glideAnimation) {
 							drawable = resource;
 						}
 					});

@@ -28,9 +28,6 @@ public interface ImageLoaderInterface {
      */
     void displayFromLocal(Context context, ImageView imageView, String path);
 
-
-    void displayFromLocal(Context context, ImageView imageView, int resourceId,int size);
-
     /**
      * 加载File文件
      * @param context
@@ -47,13 +44,16 @@ public interface ImageLoaderInterface {
     void displayFromNet(Context context, String url, ImageView imageView);
 
     /**
-     * 加载网络图片并设置默认图片
-     * @param context
-     * @param url
-     * @param imageView
-     * @param imageResouse
+     * 加载网络图片
+     * @param path       图片地址
+     * @param imageView 控件id
      */
-    void displayFromNet(Context context, String url, ImageView imageView,int imageResouse);
+    void displayFromLocal(Context context, ImageView imageView, String path,int width,int height);
 
-    void displayFromNetMin(Context context, String url, ImageView imageView) ;
+    /**
+     * 加载网络图片
+     * @param url       图片地址
+     * @param imageView 控件id
+     */
+    void displayFromNet6(Context context, String url, ImageView imageView);
 }

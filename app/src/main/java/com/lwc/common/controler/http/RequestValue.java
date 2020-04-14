@@ -167,6 +167,11 @@ public class RequestValue {
     public static final String SUBMIT_ORDER = "/new/order/save";
 
     /**
+     * 地理位置
+     */
+    public static final String JUDGEREGION = "/package/judgeRegion";
+
+    /**
      * 注册2
      */
     public static final String REGISTER2 = "/user/register_2_9";
@@ -442,6 +447,11 @@ public class RequestValue {
     public static final String GET_TYPE_ALL_BY_UPER = "/type/getAll";
 
     /**
+     * 获取所有的维修类型
+     */
+    public static final String GET_TYPE_ALL__2 = "/type/getAll_2";
+
+    /**
      * 分享订单
      */
     public static final String GET_ORDER_ORDERSHARE = "/order/orderShare";
@@ -535,4 +545,14 @@ public class RequestValue {
      * 绑定邀请二维码
      */
     public static final String GET_USER_BINDASSOCIATIONINFO= "/user/bindAssociationInfo";
+
+    /**
+     * 获取租赁设备类型
+     */
+    public static final String SCAN_GETLEASEDEVICETYPES = "/scan/getLeaseDeviceTypes";
+
+    /**
+     * 获取租赁广告图
+     */
+    public static final String LEASEMANAGE_GETLEASEIMAGES = "/leaseManage/getLeaseImages";
 }

@@ -257,19 +257,19 @@ public class MineFragment extends BaseFragment {
             if(!TextUtils.isEmpty(user.getBanlance())){
                 tv_money.setText(user.getBanlance());
             }else{
-                tv_money.setText("——");
+                tv_money.setText("- -");
             }
 
             if(!TextUtils.isEmpty(user.getUserIntegral())){
                 tv_integral.setText(Utils.chu(user.getUserIntegral(),"100"));
             }else{
-                tv_integral.setText("——");
+                tv_integral.setText("- -");
             }
 
             if(!TextUtils.isEmpty(user.getCoupon())){
                 tv_couponValue.setText(user.getCoupon());
             }else{
-                tv_couponValue.setText("——");
+                tv_couponValue.setText("- -");
             }
             //取消性别显示
        /* if ("1".equals(user.getUserSex())) {

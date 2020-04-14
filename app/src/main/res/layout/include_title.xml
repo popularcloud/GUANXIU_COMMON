@@ -51,7 +51,7 @@
         android:visibility="gone"
         android:src="@drawable/red_mention" />
     <View android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
+        android:layout_height="1px"
         android:background="@color/f0_gray_line"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

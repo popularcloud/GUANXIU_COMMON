@@ -91,7 +91,7 @@ public class Order implements Serializable{
     private String packageId;
     private String packagePrice;
     private String packageName;
-
+    private String orderCount;
 
 
     public String getHardwareCost() {
@@ -492,5 +492,13 @@ public class Order implements Serializable{
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public String getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(String orderCount) {
+        this.orderCount = orderCount;
     }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/tv_office_equipment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="36dp"
+            android:paddingRight="15dp"
+            android:background="@color/white"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="15dp"
+            android:drawableLeft="@drawable/ic_blue_line"
+            android:drawablePadding="@dimen/dp_6"
+            android:textColor="@color/black"
+            android:text="套餐"
+            android:textSize="@dimen/sp_15" />
+        <TextView
+            android:id="@+id/tv_electric"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="36dp"
+            android:paddingRight="15dp"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:paddingLeft="15dp"
+            android:text="更多套餐"
+            android:drawablePadding="@dimen/dp_6"
+            android:textColor="@color/btn_blue_nomal"
+            android:drawableRight="@drawable/ic_blue_right_arrow"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_meal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -99,7 +99,7 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <meta-data
             tools:node="replace"
             android:name="android.support.VERSION"
-            android:value="26.0.2"
+            android:value="26.1.0"
             />
         <activity
             android:name=".module.login.ui.LoadingActivity"
@@ -585,6 +585,9 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <activity android:name=".module.repairs.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name=".module.order.ui.activity.NewPackageListActivity" />
+        <activity android:name=".module.order.ui.activity.PackageRepairActivity"/>
+        <activity android:name=".module.repairs.ui.activity.RepairsTypeActivity" />
     </application>
 
 </manifest>

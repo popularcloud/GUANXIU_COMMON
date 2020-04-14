@@ -43,8 +43,7 @@ public class ToastUtil {
 
 			@Override
 			public void twoClick() {
-					Matisse
-							.from(context)
+					Matisse.from(context)
 							.choose(MimeType.ofImage())//照片视频全部显示
 							.countable(true)//有序选择图片
 							.maxSelectable(count)//最大选择数量为9

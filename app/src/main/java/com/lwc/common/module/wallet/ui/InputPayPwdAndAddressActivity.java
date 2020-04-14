@@ -63,10 +63,17 @@ public class InputPayPwdAndAddressActivity extends BaseActivity {
 		ButterKnife.bind(this);
 		String money = getIntent().getStringExtra("need_integral");
 		String title = getIntent().getStringExtra("title");
+		int type = getIntent().getIntExtra("title",0);
+
+		if(type == 1){
+			tv_integral.setText(Utils.chu(money,"100")+"元");
+		}else{
+			tv_integral.setText(Utils.chu(money,"100")+"积分");
+		}
 		if (!TextUtils.isEmpty(title)) {
 			tv_way.setText(title);
 		}
-		tv_integral.setText(Utils.chu(money,"100")+"积分");
+
 	}
 
 

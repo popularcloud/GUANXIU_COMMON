@@ -107,7 +107,7 @@ import butterknife.OnClick;
  */
 public class MainFragment extends BaseFragment implements AMapLocationListener {
 
-    public static MainFragment mainFragment;
+
     @BindView(R.id.txtActionbarTitle)
     MyTextView txtActionbarTitle;//标题栏
     @BindView(R.id.imgRight)
@@ -116,7 +116,6 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
     ImageView iv_refresh;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;//附近工程师列表
-
     @BindView(R.id.ad_view)
     ImageCycleView mAdView;//轮播图
     @BindView(R.id.banner_normal)
@@ -133,8 +132,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
     @BindView(R.id.title_layout)
     ViewGroup titleContainer;
 
-
-    @BindView(R.id.ll_order)//最新订
+    @BindView(R.id.ll_order)//最新订单
     LinearLayout llGetOrderMention;
 
     //滚动套餐布局数据
@@ -163,31 +161,57 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
 
     @BindView(R.id.btn_factory_after)
     TextView btn_factory_after;
+
+    /**
+     * 当前实例
+     */
+    public static MainFragment mainFragment;
+
     private List<Repairs> listDatas01;//总的数据源  设备类型
     private List<Repairs> listDatas02;//总的数据源  设备类型
 
-    //声明AMapLocationClient类对象
+    //定位相关
     public AMapLocationClient mLocationClient = null;
-    private ImageLoaderUtil imageLoaderUtil;
-    private SharedPreferencesUtils preferencesUtils;
-    private ArrayList<PackageBean> listI = new ArrayList<>();
-    private ArrayList<ADInfo> infos = new ArrayList<>();//广告轮播图
-    private ArrayList<Repairman> repairmanArrayList = new ArrayList<>();//附近工程师列表
-    private ArrayList<BroadcastBean> list;//广播通知
-    private User user;
-    private ArrayList<Order> newestOrders;
-    private boolean isTrue = false, gone = true;
     private Location mLocation;
 
-    private NearbyRepairAdapter adapter;
-    private int curPage=1, pages, status, number = 0;
-    private Dialog dialog;
+    private SharedPreferencesUtils preferencesUtils;
+    private User user;
 
-    private ImageView[] ivPoints;//小圆点图片的集合
-    private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
-    private int totalPage, mPageSize = 8;//每页显示的最大的数量
-    private Long deviceMold = 1L;
+    //套餐列表
+    private ArrayList<PackageBean> listI = new ArrayList<>();
+
+    //广告轮播图列表
+    private ArrayList<ADInfo> infos = new ArrayList<>();
+
+    //附近工程师列表
+    private ArrayList<Repairman> repairmanArrayList = new ArrayList<>();
+    private NearbyRepairAdapter adapter;
+    private int curPage=1, pages, number = 0;
+
+    //广播通知列表
+    private ArrayList<BroadcastBean> list;
+
+    //最新订单状态
+    private ArrayList<Order> newestOrders;
+
+    //滚动广播是否滚动
+    private boolean isTrue = false;
+
+    //对话框
+    private Dialog dialog;
     private ShowImgWithBtnDialog showImgWithBtnDialog;
+
+
+    //小圆点图片的集合
+    private ImageView[] ivPoints;
+    //GridView作为一个View对象添加到ViewPager集合中
+    private List<View> viewPagerList;
+    //每页显示的最大的数量
+    private int totalPage, mPageSize = 8;
+    private Long deviceMold = 1L;
+
+
+
 
     @Nullable
     @Override
@@ -201,10 +225,11 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initEngines(view);
         init();
-        setListener();
+
+        //获取滚动公告信息
         getGb();
+
         getAdvertising();
         getTypeAll();
         setAnyBarAlpha(0);
@@ -296,19 +321,10 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
 
     @Override
     public void init() {
-
-        if(user!= null){
-                btn_factory_after.setText("配件库");
-                Drawable drawable = getActivity().getResources().getDrawable(R.drawable.ic_part_store);
-                drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
-                btn_factory_after.setCompoundDrawables(null, drawable, null, null);
-
-        }
-
-        //机关单位隐藏家用电器，个人版显示
-        tv_electric.setVisibility(View.VISIBLE);
-
-       txtActionbarTitle.setText("首页");
+        txtActionbarTitle.setText("首页");
+        preferencesUtils = SharedPreferencesUtils.getInstance(getContext());
+        user = preferencesUtils.loadObjectData(User.class);
+        //初始化扫一扫
         imgRight.setImageResource(R.drawable.sweep_code);
         imgRight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -317,8 +333,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
                     IntentUtil.gotoActivityForResult(getActivity(), CaptureActivity.class, 8869);
             }
         });
-        initLocation();
-
+        //初始化附近工程师适配器
         if (adapter == null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             adapter = new NearbyRepairAdapter(getContext(), repairmanArrayList, R.layout.item_nearby_repairman);
@@ -334,6 +349,8 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
             });
             recyclerView.setAdapter(adapter);
         }
+        //开始定位
+        initLocation();
     }
 
     private void initMZBanner() {
@@ -382,11 +399,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
     }
 
     @Override
-    public void initEngines(View view) {
-        preferencesUtils = SharedPreferencesUtils.getInstance(getContext());
-        user = preferencesUtils.loadObjectData(User.class);
-        imageLoaderUtil = ImageLoaderUtil.getInstance();
-    }
+    public void initEngines(View view) { }
 
     @Override
     public void getIntentData() {
@@ -456,7 +469,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
 
         @Override
         public void displayImage(final String imageURL, final ImageView imageView) {
-            imageLoaderUtil.displayFromNetD(getActivity(), imageURL, imageView);// 使用ImageLoader对图片进行加装！
+            ImageLoaderUtil.getInstance().displayFromNetD(getActivity(), imageURL, imageView);// 使用ImageLoader对图片进行加装！
         }
     };
 
@@ -629,7 +642,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
                 public void onItemClick(AdapterView<?> arg0, View arg1,
                                         int position, long arg3) {
                     final Repairs obj = (Repairs)gridView.getItemAtPosition(position);
-                    obj.setDeviceMode(deviceMold);
+                    obj.setDeviceTypeMold(deviceMold);
                     user = preferencesUtils.loadObjectData(User.class);
                     //测试 先注释掉 发布版本的时候记得判断权限
                     if (user == null) {
@@ -802,9 +815,8 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
     private void getAdvertising() {
         Map<String,String> params = new HashMap<>();
         params.put("local","1");
-        //角色为个人
-        params.put("role","4");
-        HttpRequestUtils.httpRequest(getActivity(), "getAdvertising", RequestValue.GET_ADVERTISING, params, "GET", new HttpRequestUtils.ResponseListener() {
+        params.put("role","4");//角色为个人
+        HttpRequestUtils.httpRequest(getActivity(), "获取广告轮播图", RequestValue.GET_ADVERTISING, params, "GET", new HttpRequestUtils.ResponseListener() {
 
             @Override
             public void getResponseData(String response) {
@@ -820,6 +832,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
                         LLog.i("getAdvertising" + common.getInfo());
                         break;
                 }
+
                 getMealList();
             }
 
@@ -867,6 +880,10 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
             }
         });
     }
+
+    /**
+     * 获取滚动公告信息
+     */
     public void getGb() {
         isTrue = false;
         HttpRequestUtils.httpRequest(getActivity(), "getGb", RequestValue.GET_ANNUNCIATE, null, "GET", new HttpRequestUtils.ResponseListener() {
@@ -954,6 +971,9 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
         }
     };
 
+    /**
+     * 获取套餐信息
+     */
     private void getMealList() {
         String user_role = (String) SharedPreferencesUtils.getParam(getContext(),"user_role","0");
         if(!"3".equals(user_role)){
@@ -995,11 +1015,6 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
             }
         });
     }
-
-    public void setGone(boolean gone) {
-        this.gone = gone;
-    }
-
 
     /**
      * 弹出邀请注册提示框

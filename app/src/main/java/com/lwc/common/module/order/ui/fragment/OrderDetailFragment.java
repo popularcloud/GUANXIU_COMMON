@@ -97,6 +97,10 @@ public class OrderDetailFragment extends BaseFragment implements IOrderDetailFra
     RelativeLayout rl_qtf;
     @BindView(R.id.tv_qtf)
     TextView tv_qtf;
+    @BindView(R.id.rl_package_price)
+    RelativeLayout rl_package_price;
+    @BindView(R.id.tv_package_price)
+    TextView tv_package_price;
     @BindView(R.id.tv_smf)
     TextView tv_smf;
     @BindView(R.id.tv_title)
@@ -230,6 +234,14 @@ public class OrderDetailFragment extends BaseFragment implements IOrderDetailFra
     @Override
     public void setDeviceDetailInfor(Order myOrder) {
         LLog.i(myOrder.toString());
+
+        if(!TextUtils.isEmpty(myOrder.getPackagePrice())){
+            tv_package_price.setText(Utils.getMoney(Utils.chu(myOrder.getPackagePrice(),"100"))+"元");
+        }else{
+            rl_package_price.setVisibility(View.GONE);
+        }
+
+
         if (!TextUtils.isEmpty(myOrder.getMaintenanceName())) {
             tv_jdr.setText(myOrder.getMaintenanceName());
             ll_jdr.setVisibility(View.VISIBLE);

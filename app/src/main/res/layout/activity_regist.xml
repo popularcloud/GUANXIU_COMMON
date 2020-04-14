@@ -18,7 +18,7 @@
             android:layout_marginTop="@dimen/dp_37"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="@drawable/btn_round_white_bg">
+            android:background="@drawable/btn_round_white_bg_line_cc">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_44"
@@ -73,7 +73,7 @@
                 android:layout_marginRight="@dimen/dp_19"
                 android:textColor="@color/black_66"
                 android:textColorHint="@color/gray_99"
-                android:background="@drawable/btn_round_white_bg"
+                android:background="@drawable/btn_round_white_bg_line_cc"
                 android:textSize="@dimen/sp_15"
                 android:hint="输入验证码" />
 
@@ -108,7 +108,7 @@
             android:layout_marginTop="@dimen/dp_18"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="@drawable/btn_round_white_bg">
+            android:background="@drawable/btn_round_white_bg_line_cc">
 
             <EditText
                 android:id="@+id/edtInvite"

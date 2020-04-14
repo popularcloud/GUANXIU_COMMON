@@ -52,7 +52,7 @@ public class ImageCycleView extends LinearLayout {
 	/**
 	 * 图片轮播指示器控件
 	 */
-	private ViewGroup mGroup;
+	public ViewGroup mGroup;
 
 	/**
 	 * 图片轮播指示器-个图

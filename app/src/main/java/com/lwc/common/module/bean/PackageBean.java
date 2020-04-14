@@ -18,7 +18,7 @@ public class PackageBean implements Serializable {
     /**
      * packageId:套餐ID
      * packageName:套餐名称
-     * packageType:套餐类型（1.上门 2.维修 3.上门维修）
+     * packageType:套餐类型 （1.上门 2.维修 3.上门维修 4.套餐报修）
      * remissionCount:减免次数(0:无限）
      * townName:可用的镇名称,多个用",“分隔
      * remark:备注
@@ -32,11 +32,18 @@ public class PackageBean implements Serializable {
     private int remissionCount;
     private String townNames;
     private String remark;
+    private String remarkT;
     private String expirationTime;
     private String createTime;
     private int residueRemissionCount;
     private String packagePrice;//套餐价格
     private int validDay;//套餐有效期/天
+    private int deviceTypeMold;
+    private String repairId;
+    private String deviceId;
+    private String packageLabel;
+
+
     /**
      * isValid : 0 是否可以使用  0否 1是
      * errorMsg : 不可用原因
@@ -173,5 +180,46 @@ public class PackageBean implements Serializable {
 
     public void setOnSelect(boolean onSelect) {
         isOnSelect = onSelect;
+    }
+
+    public int getDeviceTypeMold() {
+        return deviceTypeMold;
+    }
+
+    public void setDeviceTypeMold(int deviceTypeMold) {
+        this.deviceTypeMold = deviceTypeMold;
+    }
+
+    public String getRepairId() {
+        return repairId;
+    }
+
+    public void setRepairId(String repairId) {
+        this.repairId = repairId;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+
+    public String getRemarkT() {
+        return remarkT;
+    }
+
+    public void setRemarkT(String remarkT) {
+        this.remarkT = remarkT;
+    }
+
+    public String getPackageLabel() {
+        return packageLabel;
+    }
+
+    public void setPackageLabel(String packageLabel) {
+        this.packageLabel = packageLabel;
     }
 }

@@ -13,20 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.google.gson.reflect.TypeToken;
+import com.bumptech.glide.request.transition.Transition;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
-import com.lwc.common.activity.RedPacketActivity;
 import com.lwc.common.controler.http.RequestValue;
-import com.lwc.common.module.bean.ActivityBean;
-import com.lwc.common.module.bean.Common;
-import com.lwc.common.module.bean.Coupon;
 import com.lwc.common.utils.HttpRequestUtils;
-import com.lwc.common.utils.IntentUtil;
-import com.lwc.common.utils.JsonUtil;
 import com.lwc.common.utils.SharedPreferencesUtils;
 import com.lwc.common.utils.ToastUtil;
 import com.lwc.common.view.TileButton;
@@ -37,11 +31,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
-import org.litepal.crud.DataSupport;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SimpleShareActivity extends BaseActivity implements OnClickListener {
 	private RelativeLayout layoutShare;
@@ -110,12 +100,15 @@ public class SimpleShareActivity extends BaseActivity implements OnClickListener
 			FLink = "http://www.lsh-sd.com:9999/download.jsp";
 		}
 		if (!TextUtils.isEmpty(urlPhoto)){
-			Glide.with(this).load(urlPhoto).
-					placeholder(R.drawable.share_logo)
+			RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
 					.error(R.drawable.share_logo)
-					.into(new SimpleTarget<GlideDrawable>() {
+					.placeholder(R.drawable.share_logo)
+					.diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+					.skipMemoryCache(true);//不做内存缓存
+			Glide.with(this).load(urlPhoto)
+					.into(new SimpleTarget<Drawable>() {
 						@Override
-						public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+						public void onResourceReady(Drawable resource, Transition<? super Drawable> glideAnimation) {
 							drawable = resource;
 						}
 					});

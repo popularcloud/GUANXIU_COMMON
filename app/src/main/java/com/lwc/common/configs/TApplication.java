@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.lwc.common.utils.LLog;
+import com.lwc.common.utils.SharedPreferencesUtils;
 import com.lwc.common.wxapi.WXContants;
 import com.taobao.sophix.SophixManager;
 import com.tencent.bugly.crashreport.CrashReport;

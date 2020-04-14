@@ -1,5 +1,9 @@
 package com.lwc.common.configs;
 
+import com.lwc.common.utils.SharedPreferencesUtils;
+
+import java.security.PublicKey;
+
 /**
  * 服务端配置类
  * 
@@ -16,11 +20,14 @@ public class ServerConfig {
 	public static final String RESPONSE_STATUS_SUCCESS = "1";
 
 	/*************************** 服务器地址 ****************************/
-//	public final static String DOMAIN = "https://47.97.217.243";
+	//public final static String DOMAIN = "https://47.97.217.243";
 	//public final static String DOMAIN = "http://192.168.0.116";
-	public final static String DOMAIN = "https://www.ls-mx.com";
+	//public static String DOMAIN = "https://www.ls-mx.com";
 	//正式服务器
+	//public static String DOMAIN = (String) SharedPreferencesUtils.getParam(TApplication.context,"serviceIp","https://www.ls-mx.com");
+	public final static String DOMAIN = "https://www.ls-mx.com";
 	public final static String SERVER_API_URL = DOMAIN+"/api";
+
 	//测试服务器
 	//	public static String SERVER_API_URL = "http://119.23.215.51/api";
 //	 public final static String SERVER_API_URL = "http://192.168.2.166/api";
@@ -52,5 +59,10 @@ public class ServerConfig {
 	public static final int REQUEST_CODE_IMAGE_PREVIEW = 15;
 	/** 压缩图片完毕完毕 */
 	public static final int WHAT_COMPRESS_IMAGE_FINISH = 20;
+
+
+	static {
+
+	}
 
 }

@@ -1,6 +1,8 @@
 package com.lwc.common.module.setting.ui;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +12,9 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.lwc.common.R;
@@ -18,6 +22,7 @@ import com.lwc.common.activity.BaseActivity;
 import com.lwc.common.activity.InformationDetailsActivity;
 import com.lwc.common.configs.ServerConfig;
 import com.lwc.common.module.bean.User;
+import com.lwc.common.module.login.ui.LoginActivity;
 import com.lwc.common.utils.DialogUtil;
 import com.lwc.common.utils.IntentUtil;
 import com.lwc.common.utils.LogUtil;
@@ -53,6 +58,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	TextView txtUserAgreement;
 	@BindView(R.id.iv_red)
 	ImageView iv_red;
+	@BindView(R.id.spinner1)
+	Spinner spinner1;
 
 	private User user;
 	private SpUtil sp;
@@ -81,6 +88,39 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 				sp.getSPValue(SettingActivity.this.getString(R.string.spkey_file_is_ring) + user.getUserId(), true)
 						? R.drawable.shezhi_anniu2 : R.drawable.shezhi_anniu1);
 
+		final String[] services = getResources().getStringArray(R.array.ctype);
+		spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if(position < services.length){
+					if(position != 0){
+						SharedPreferencesUtils.setParam(SettingActivity.this,"serviceIp",services[position]);
+						Intent intent = getPackageManager()
+								.getLaunchIntentForPackage(getApplication().getPackageName());
+						PendingIntent restartIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+						AlarmManager mgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+						mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 2000, restartIntent); // 1秒钟后重启应用
+
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								try {
+									Thread.sleep(5000);
+									System.exit(0);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+							}
+						}).start();
+					}
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				SharedPreferencesUtils.setParam(SettingActivity.this,"serviceIp","https://www.ls-mx.com");
+			}
+		});
 	}
 
 	private void setNotifiImgBack(){

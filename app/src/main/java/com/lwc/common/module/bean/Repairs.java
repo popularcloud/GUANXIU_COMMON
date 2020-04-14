@@ -1,5 +1,7 @@
 package com.lwc.common.module.bean;
 
+import android.support.annotation.NonNull;
+
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
@@ -9,12 +11,12 @@ import java.io.Serializable;
  * 294663966@qq.com
  * 维修类型
  */
-public class Repairs extends DataSupport implements Serializable{
+public class Repairs extends DataSupport implements Serializable,Comparable<Repairs>{
 
     private String deviceTypeId;
     private String deviceTypeName;
     private String deviceTypeIcon;
-    private Long deviceMode;
+    private Long deviceTypeMold; //1.办公 3家电
     public Repairs(String repairsId, String devicename, String deviceTypeIcon) {
         this.deviceTypeId = repairsId;
         this.deviceTypeName = devicename;
@@ -45,12 +47,12 @@ public class Repairs extends DataSupport implements Serializable{
         this.deviceTypeIcon = deviceTypeIcon;
     }
 
-    public Long getDeviceMode() {
-        return deviceMode;
+    public Long getDeviceTypeMold() {
+        return deviceTypeMold;
     }
 
-    public void setDeviceMode(Long deviceMode) {
-        this.deviceMode = deviceMode;
+    public void setDeviceTypeMold(Long deviceTypeMold) {
+        this.deviceTypeMold = deviceTypeMold;
     }
 
     @Override
@@ -60,5 +62,10 @@ public class Repairs extends DataSupport implements Serializable{
                 ", deviceTypeName='" + deviceTypeName + '\'' +
                 ", deviceTypeIcon='" + deviceTypeIcon + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Repairs o) {
+        return deviceTypeMold.compareTo(o.deviceTypeMold);
     }
 }

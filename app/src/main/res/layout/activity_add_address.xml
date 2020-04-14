@@ -124,12 +124,12 @@
 
        </LinearLayout>-->
 
-        <View
+<!--        <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#e3e2e6" />
+            android:background="#e3e2e6" />-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_44"

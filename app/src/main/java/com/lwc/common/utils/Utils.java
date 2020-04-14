@@ -88,6 +88,9 @@ public class Utils {
     }
 
     public static boolean gotoLogin(User user, Context context) {
+
+        Log.d("联网成功","没有登录跳到登录"+context.getPackageName());
+
         if (user == null) {
             SharedPreferencesUtils.getInstance(context).saveString("token", "");
             IntentUtil.gotoActivity(context, LoginActivity.class);
