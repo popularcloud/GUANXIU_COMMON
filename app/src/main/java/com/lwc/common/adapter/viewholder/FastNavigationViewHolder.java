@@ -13,6 +13,7 @@ import com.lwc.common.R;
 import com.lwc.common.activity.MainActivity;
 import com.lwc.common.module.bean.BroadcastBean;
 import com.lwc.common.module.integral.activity.IntegralMainActivity;
+import com.lwc.common.module.lease_parts.activity.LeaseHomeActivity;
 import com.lwc.common.module.order.ui.activity.NewPackageListActivity;
 import com.lwc.common.module.order.ui.activity.PackageListActivity;
 import com.lwc.common.module.repairs.ui.activity.ApplyForMaintainActivity;
@@ -134,10 +135,10 @@ public class FastNavigationViewHolder extends BaseViewHolder{
         switch (view.getId()){
             case R.id.ll_repairs:
                 if (Utils.gotoLogin(MainActivity.user,MainActivity.activity)) {
-                 //   if ((MainActivity.user.getRoleId() != null && MainActivity.user.getRoleId().equals("5"))) {
+                 //   if ((LeaseHomeActivity.user.getRoleId() != null && LeaseHomeActivity.user.getRoleId().equals("5"))) {
                         IntentUtil.gotoActivity(MainActivity.activity, ApplyForMaintainActivity.class);
                  /*   } else {
-                        ToastUtil.showLongToast(MainActivity.activity,"您没有权限报修！");
+                        ToastUtil.showLongToast(LeaseHomeActivity.activity,"您没有权限报修！");
                     }*/
                 }
                 break;
@@ -150,7 +151,8 @@ public class FastNavigationViewHolder extends BaseViewHolder{
                     IntentUtil.gotoActivity(MainActivity.activity, IntegralMainActivity.class);
                 break;
             case R.id.ll_lease:
-                ToastUtil.showToast(MainActivity.activity,"功能开发中...");
+                //ToastUtil.showToast(MainActivity.activity,"功能开发中...");
+                IntentUtil.gotoActivity(MainActivity.activity, LeaseHomeActivity.class);
                 break;
             case R.id.ll_customer_service:
                 dialog = DialogUtil.dialog(MainActivity.activity, "拨打客服电话", "拨号", "取消", "400-881-0769", new View.OnClickListener() {

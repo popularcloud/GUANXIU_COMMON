@@ -356,7 +356,7 @@ public class SystemUtil {
 	private Intent gotoHuaweiPermission() {
 		Intent intent = new Intent();
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");//华为权限管理
+		ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.LeaseHomeActivity");//华为权限管理
 		intent.setComponent(comp);
 		return intent;
 	}

@@ -521,8 +521,8 @@ public class InformationDetailsActivity extends BaseActivity {
 
 	@Override
 	public void finish() {
-	/*	if (MainActivity.activity == null) {
-			IntentUtil.gotoActivity(this, MainActivity.class);
+	/*	if (LeaseHomeActivity.activity == null) {
+			IntentUtil.gotoActivity(this, LeaseHomeActivity.class);
 		}*/
 		super.finish();
 	}

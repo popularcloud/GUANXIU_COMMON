@@ -120,6 +120,25 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
                 <data android:scheme="hcic06" />
             </intent-filter>
         </activity>
+        <!--<activity
+            android:name=".module.lease_parts.activity.LeaseHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppSplash"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="hcic06" />
+            </intent-filter>
+        </activity>-->
         <activity
             android:name=".activity.UserGuideActivity"
             android:screenOrientation="portrait"
@@ -588,6 +607,8 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <activity android:name=".module.order.ui.activity.NewPackageListActivity" />
         <activity android:name=".module.order.ui.activity.PackageRepairActivity"/>
         <activity android:name=".module.repairs.ui.activity.RepairsTypeActivity" />
+
+        <activity android:name=".module.lease_parts.activity.LeaseHomeActivity" />
     </application>
 
 </manifest>

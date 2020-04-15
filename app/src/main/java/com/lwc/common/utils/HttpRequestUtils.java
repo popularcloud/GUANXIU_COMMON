@@ -877,7 +877,7 @@ public class HttpRequestUtils {
 ////									DemoHelper.getInstance().logout(true, null);
 //									context.startActivity(new Intent(context,
 //											LoginActivity2.class));
-//									if (context instanceof MainActivity || context instanceof MyActivity||context instanceof BuyCarActivity||context instanceof MoreCarSourceActivity||context instanceof CarsourceActivity) {
+//									if (context instanceof LeaseHomeActivity || context instanceof MyActivity||context instanceof BuyCarActivity||context instanceof MoreCarSourceActivity||context instanceof CarsourceActivity) {
 //										return;
 //									}
 //									context.finish();

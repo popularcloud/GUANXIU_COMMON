@@ -1,6 +1,7 @@
 package com.lwc.common.adapter.viewholder;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -36,14 +37,17 @@ public class AdvertisementsViewHolder extends BaseViewHolder{
         List<IndexAdBean> indexAdBeans = (List<IndexAdBean>) data;
         for(int i = 0;i< 4;i++){
             IndexAdBean indexAdBean = indexAdBeans.get(i);
+
+            String imgUrl = TextUtils.isEmpty(indexAdBean.getLeaseUrl())?"":indexAdBean.getLeaseUrl().replace("https","http");
+
             if(indexAdBean.getImageLocalhost() == 1){
-                ImageLoaderUtil.getInstance().displayFromNetD(context,indexAdBean.getLeaseImageUrl(),iv_top,R.drawable.img_default_load);
+                ImageLoaderUtil.getInstance().displayFromNetD(context,imgUrl,iv_top,R.drawable.img_default_load);
             }else if(indexAdBean.getImageLocalhost() == 2){
-                ImageLoaderUtil.getInstance().displayFromNetD(context,indexAdBean.getLeaseImageUrl(),iv_bottom,R.drawable.img_default_load);
+                ImageLoaderUtil.getInstance().displayFromNetD(context,imgUrl,iv_bottom,R.drawable.img_default_load);
             }else if(indexAdBean.getImageLocalhost() == 3){
-                ImageLoaderUtil.getInstance().displayFromNetD(context,indexAdBean.getLeaseImageUrl(),iv_left,R.drawable.img_default_load);
+                ImageLoaderUtil.getInstance().displayFromNetD(context,imgUrl,iv_left,R.drawable.img_default_load);
             }else if(indexAdBean.getImageLocalhost() == 4){
-                ImageLoaderUtil.getInstance().displayFromNetD(context,indexAdBean.getLeaseImageUrl(),iv_right,R.drawable.img_default_load);
+                ImageLoaderUtil.getInstance().displayFromNetD(context,imgUrl,iv_right,R.drawable.img_default_load);
             }
         }
     }

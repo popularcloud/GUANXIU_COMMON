@@ -67,7 +67,7 @@ public class MealTypeViewHolder extends BaseViewHolder{
             }
         });
 
-    /*    if(MainActivity.mainFragment.newestOrders != null && MainActivity.mainFragment.newestOrders.size() > 0){
+    /*    if(LeaseHomeActivity.mainFragment.newestOrders != null && LeaseHomeActivity.mainFragment.newestOrders.size() > 0){
             rv_meal.setPadding(0,0,0, DisplayUtil.dip2px(context,100));
         }*/
     }

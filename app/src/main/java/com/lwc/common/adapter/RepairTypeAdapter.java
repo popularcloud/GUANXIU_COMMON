@@ -39,7 +39,7 @@ public class RepairTypeAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ItemRepairTypeViewHolder holder1 = (ItemRepairTypeViewHolder) holder;
         holder1.item_name.setText(repairsList.get(position).getDeviceTypeName() + "");
-        ImageLoaderUtil.getInstance().displayFromNet(mContext, repairsList.get(position).getDeviceTypeIcon(),  holder1.item_image);
+        ImageLoaderUtil.getInstance().displayFromNet(mContext, repairsList.get(position).getDeviceTypeIcon().replace("https","http"),  holder1.item_image);
 
         holder1.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

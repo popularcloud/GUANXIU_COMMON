@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/include_search_title" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_176">
+            <LinearLayout
+                android:id="@+id/user_head_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.lwc.common.view.ImageCycleView
+                    android:id="@+id/ad_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_176"
+                    android:scaleType="centerCrop"
+                    android:tag="overScroll"/>
+            </LinearLayout>
+        </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_repair_type"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginRight="@dimen/dp_14"
+        android:layout_height="@dimen/dp_80"/>
+</LinearLayout>
