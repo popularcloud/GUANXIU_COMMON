@@ -2,30 +2,131 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:background="@color/f0_gray_line"
+    android:orientation="vertical">
     <include layout="@layout/include_search_title" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_176">
-            <LinearLayout
-                android:id="@+id/user_head_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <com.lwc.common.view.ImageCycleView
-                    android:id="@+id/ad_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_176"
-                    android:scaleType="centerCrop"
-                    android:tag="overScroll"/>
-            </LinearLayout>
-        </RelativeLayout>
+    <include layout="@layout/layout_main_head_bg" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_repair_type"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_14"
-        android:layout_marginRight="@dimen/dp_14"
+        android:paddingLeft="@dimen/dp_14"
+        android:background="@color/white"
+        android:paddingRight="@dimen/dp_14"
         android:layout_height="@dimen/dp_80"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_sel01"
+            android:text="精彩推荐"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sel02"
+            android:text="特惠出租"
+            android:gravity="center"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/color_33"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sel03"
+            android:text="超值电脑"
+            android:gravity="center"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/color_33"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sel04"
+            android:text="猜你喜欢"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/color_33"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_7"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_line01"
+                android:background="@color/red_money"
+                android:layout_width="30dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+               />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_line02"
+                android:background="@color/red_money"
+                android:layout_width="30dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_line03"
+                android:background="@color/red_money"
+                android:layout_width="30dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:gravity="center"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_line04"
+                android:background="@color/red_money"
+                android:layout_width="30dp"
+                android:layout_height="2dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <com.lwc.common.widget.CustomViewPager
+        android:id="@+id/vp_goodList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

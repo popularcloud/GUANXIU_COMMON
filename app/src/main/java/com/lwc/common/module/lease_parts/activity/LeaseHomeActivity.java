@@ -77,8 +77,6 @@ public class LeaseHomeActivity extends BaseFragmentActivity {
 
         initView();
 
-        openDoubleClickToExit();
-
         addFragmenInList();
         addRadioButtonIdInList();
         bindViewPage(fragmentHashMap);

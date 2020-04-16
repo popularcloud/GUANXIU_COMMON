@@ -3,6 +3,7 @@ package com.lwc.common.module.lease_parts.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import com.lwc.common.utils.JsonUtil;
 import com.lwc.common.utils.LLog;
 import com.lwc.common.utils.Utils;
 import com.lwc.common.view.ImageCycleView;
+import com.lwc.common.widget.CustomViewPager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +43,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class LeaseHomeFragment extends BaseFragment{
@@ -57,7 +60,28 @@ public class LeaseHomeFragment extends BaseFragment{
     ImageCycleView mAdView;
     @BindView(R.id.rv_repair_type)
     RecyclerView rv_repair_type;
+    @BindView(R.id.vp_goodList)
+    CustomViewPager vp_goodList;
 
+    @BindView(R.id.tv_sel01)
+    TextView tv_sel01;
+    @BindView(R.id.tv_sel02)
+    TextView tv_sel02;
+    @BindView(R.id.tv_sel03)
+    TextView tv_sel03;
+    @BindView(R.id.tv_sel04)
+    TextView tv_sel04;
+    @BindView(R.id.tv_line01)
+    TextView tv_line01;
+    @BindView(R.id.tv_line02)
+    TextView tv_line02;
+    @BindView(R.id.tv_line03)
+    TextView tv_line03;
+    @BindView(R.id.tv_line04)
+    TextView tv_line04;
+
+
+    private TextView selTextView;
     /**
      * 轮播图数据
      */
@@ -73,13 +97,16 @@ public class LeaseHomeFragment extends BaseFragment{
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        init();
     }
 
     @Override
@@ -89,17 +116,18 @@ public class LeaseHomeFragment extends BaseFragment{
 
     @Override
     protected void lazyLoad() {
-        img_back.setImageResource(R.drawable.arrow_left);
-        tv_search.setTextColor(Color.parseColor("#1481ff"));
-
-        //getWheelPic();
-
-        //getLeaseType();
     }
 
     @Override
     public void init() {
 
+        img_back.setImageResource(R.drawable.arrow_left);
+        tv_search.setTextColor(Color.parseColor("#1481ff"));
+        tv_search.setText("搜索");
+
+        getWheelPic();
+
+        getLeaseType();
     }
 
     @Override
@@ -115,6 +143,58 @@ public class LeaseHomeFragment extends BaseFragment{
     @Override
     public void setListener() {
 
+    }
+
+    @OnClick({R.id.tv_sel01,R.id.tv_sel02,R.id.tv_sel03,R.id.tv_sel04})
+    public void onBtnClick(View view){
+        switch (view.getId()){
+            case R.id.tv_sel01:
+                changeText((TextView) view,1);
+                break;
+            case R.id.tv_sel02:
+                changeText((TextView) view,2);
+                break;
+            case R.id.tv_sel03:
+                changeText((TextView) view,3);
+                break;
+            case R.id.tv_sel04:
+                changeText((TextView) view,4);
+                break;
+        }
+    }
+
+    private void changeText(TextView view,int position){
+        view.setTextColor(Color.parseColor("#000000"));
+        if(selTextView != null){
+            selTextView.setTextColor(Color.parseColor("#333333"));
+            selTextView = view;
+        }
+        switch (position){
+            case 1:
+                tv_line01.setVisibility(View.VISIBLE);
+                tv_line02.setVisibility(View.GONE);
+                tv_line03.setVisibility(View.GONE);
+                tv_line04.setVisibility(View.GONE);
+                break;
+            case 2:
+                tv_line01.setVisibility(View.GONE);
+                tv_line02.setVisibility(View.VISIBLE);
+                tv_line03.setVisibility(View.GONE);
+                tv_line04.setVisibility(View.GONE);
+                break;
+            case 3:
+                tv_line01.setVisibility(View.GONE);
+                tv_line02.setVisibility(View.GONE);
+                tv_line03.setVisibility(View.VISIBLE);
+                tv_line04.setVisibility(View.GONE);
+                break;
+            case 4:
+                tv_line01.setVisibility(View.GONE);
+                tv_line02.setVisibility(View.GONE);
+                tv_line03.setVisibility(View.GONE);
+                tv_line04.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
      /*
@@ -183,7 +263,7 @@ public class LeaseHomeFragment extends BaseFragment{
 
         @Override
         public void displayImage(final String imageURL, final ImageView imageView) {
-            ImageLoaderUtil.getInstance().displayFromNetD(MainActivity.activity, imageURL, imageView);// 使用ImageLoader对图片进行加装！
+            ImageLoaderUtil.getInstance().displayFromNetD(getActivity(), imageURL, imageView);// 使用ImageLoader对图片进行加装！
         }
     };
 
@@ -217,6 +297,9 @@ public class LeaseHomeFragment extends BaseFragment{
         });
     }
 
+    /**
+     * 设置租赁设备类型
+     */
     public void setLeaseType(){
         // 布局管理器
         PagerGridLayoutManager layoutManager = new PagerGridLayoutManager(1, 5, PagerGridLayoutManager.HORIZONTAL);
@@ -230,4 +313,6 @@ public class LeaseHomeFragment extends BaseFragment{
         RepairTypeAdapter repairTypeAdapter = new RepairTypeAdapter(getContext(),myLeaseTypeLists);
         rv_repair_type.setAdapter(repairTypeAdapter);
     }
+
+
 }

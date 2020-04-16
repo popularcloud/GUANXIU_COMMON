@@ -38,7 +38,7 @@ public class AdvertisementsViewHolder extends BaseViewHolder{
         for(int i = 0;i< 4;i++){
             IndexAdBean indexAdBean = indexAdBeans.get(i);
 
-            String imgUrl = TextUtils.isEmpty(indexAdBean.getLeaseUrl())?"":indexAdBean.getLeaseUrl().replace("https","http");
+            String imgUrl = indexAdBean.getLeaseUrl();
 
             if(indexAdBean.getImageLocalhost() == 1){
                 ImageLoaderUtil.getInstance().displayFromNetD(context,imgUrl,iv_top,R.drawable.img_default_load);
