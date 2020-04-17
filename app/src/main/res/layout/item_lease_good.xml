@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingBottom="@dimen/dp_13"
+    android:background="@color/white">
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="@dimen/dp_169"
+        android:layout_height="@dimen/dp_169"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_default_load" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/black"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:maxLines="2"
+        android:text="酷睿8核1060吃鸡显卡酷睿8核1060吃鸡显卡"/>
+    <TextView
+        android:id="@+id/tv_spc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_11"
+        android:textColor="@color/gray_99"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:text="i5 16G 集显"/>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/red_money"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:text="￥300元起"/>
+    <com.lwc.common.widget.TagsLayout
+        android:id="@+id/tl_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_vertical" />
+</LinearLayout>

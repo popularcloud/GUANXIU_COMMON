@@ -606,6 +606,8 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <activity android:name=".module.order.ui.activity.NewPackageListActivity" />
         <activity android:name=".module.order.ui.activity.PackageRepairActivity"/>
         <activity android:name=".module.repairs.ui.activity.RepairsTypeActivity" />
+        <activity android:name=".module.lease_parts.activity.LeaseGoodsListActivity" />
+        <activity android:name=".module.lease_parts.activity.LeaseGoodsDetailActivity" />
 
        <!-- <activity android:name=".module.lease_parts.activity.LeaseHomeActivity" />-->
     </application>

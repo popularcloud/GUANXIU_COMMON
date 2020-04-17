@@ -3,12 +3,14 @@ package com.lwc.common.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.os.IBinder;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 
 import com.lwc.common.configs.TApplication;
+import com.lwc.common.module.bean.Common;
 
 import java.lang.reflect.Field;
 
@@ -62,6 +64,17 @@ public class DisplayUtil {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (dpValue * scale + 0.5f);
 	}
+
+	/**
+	 * 根据手机分辨率将sp转成px
+	 * @param context
+	 * @param spValue
+	 * @return
+	 */
+	public static int sp2px(Context context, int spValue) {
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
+	}
+
 
 	/**
 	 * 根据手机的分辨率从 px(像素) 的单位 转成为 dp

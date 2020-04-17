@@ -3,6 +3,7 @@ package com.lwc.common.module.lease_parts.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,10 +22,15 @@ import com.lwc.common.activity.InformationDetailsActivity;
 import com.lwc.common.activity.MainActivity;
 import com.lwc.common.adapter.RepairTypeAdapter;
 import com.lwc.common.controler.http.RequestValue;
+import com.lwc.common.fragment.InformationFragment;
+import com.lwc.common.fragment.MineFragment;
+import com.lwc.common.fragment.MyOrderFragment;
+import com.lwc.common.fragment.NewMainFragment;
 import com.lwc.common.module.BaseFragment;
 import com.lwc.common.module.bean.ADInfo;
 import com.lwc.common.module.bean.Common;
 import com.lwc.common.module.bean.Repairs;
+import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
 import com.lwc.common.module.integral.activity.IntegralLuckDrawActivity;
 import com.lwc.common.utils.DisplayUtil;
 import com.lwc.common.utils.HttpRequestUtils;
@@ -80,8 +86,8 @@ public class LeaseHomeFragment extends BaseFragment{
     @BindView(R.id.tv_line04)
     TextView tv_line04;
 
+    private HashMap<Integer, Fragment> fragmentHashMap = new HashMap<>();
 
-    private TextView selTextView;
     /**
      * 轮播图数据
      */
@@ -128,6 +134,8 @@ public class LeaseHomeFragment extends BaseFragment{
         getWheelPic();
 
         getLeaseType();
+
+        initViewpager();
     }
 
     @Override
@@ -149,50 +157,61 @@ public class LeaseHomeFragment extends BaseFragment{
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_sel01:
-                changeText((TextView) view,1);
+                changeText(1);
                 break;
             case R.id.tv_sel02:
-                changeText((TextView) view,2);
+                changeText(2);
                 break;
             case R.id.tv_sel03:
-                changeText((TextView) view,3);
+                changeText(3);
                 break;
             case R.id.tv_sel04:
-                changeText((TextView) view,4);
+                changeText(4);
                 break;
         }
     }
 
-    private void changeText(TextView view,int position){
-        view.setTextColor(Color.parseColor("#000000"));
-        if(selTextView != null){
-            selTextView.setTextColor(Color.parseColor("#333333"));
-            selTextView = view;
-        }
+    private void changeText(int position){
         switch (position){
             case 1:
                 tv_line01.setVisibility(View.VISIBLE);
+                tv_sel01.setTextColor(Color.parseColor("#000000"));
                 tv_line02.setVisibility(View.GONE);
+                tv_sel02.setTextColor(Color.parseColor("#333333"));
                 tv_line03.setVisibility(View.GONE);
+                tv_sel03.setTextColor(Color.parseColor("#333333"));
                 tv_line04.setVisibility(View.GONE);
+                tv_sel04.setTextColor(Color.parseColor("#333333"));
                 break;
             case 2:
                 tv_line01.setVisibility(View.GONE);
+                tv_sel01.setTextColor(Color.parseColor("#333333"));
                 tv_line02.setVisibility(View.VISIBLE);
+                tv_sel02.setTextColor(Color.parseColor("#000000"));
                 tv_line03.setVisibility(View.GONE);
+                tv_sel03.setTextColor(Color.parseColor("#333333"));
                 tv_line04.setVisibility(View.GONE);
+                tv_sel04.setTextColor(Color.parseColor("#333333"));
                 break;
             case 3:
                 tv_line01.setVisibility(View.GONE);
+                tv_sel02.setTextColor(Color.parseColor("#333333"));
                 tv_line02.setVisibility(View.GONE);
+                tv_sel02.setTextColor(Color.parseColor("#333333"));
                 tv_line03.setVisibility(View.VISIBLE);
+                tv_sel02.setTextColor(Color.parseColor("#000000"));
                 tv_line04.setVisibility(View.GONE);
+                tv_sel02.setTextColor(Color.parseColor("#333333"));
                 break;
             case 4:
                 tv_line01.setVisibility(View.GONE);
+                tv_sel02.setTextColor(Color.parseColor("#333333"));
                 tv_line02.setVisibility(View.GONE);
+                tv_sel02.setTextColor(Color.parseColor("#333333"));
                 tv_line03.setVisibility(View.GONE);
+                tv_sel02.setTextColor(Color.parseColor("#333333"));
                 tv_line04.setVisibility(View.VISIBLE);
+                tv_sel02.setTextColor(Color.parseColor("#000000"));
                 break;
         }
     }
@@ -314,5 +333,42 @@ public class LeaseHomeFragment extends BaseFragment{
         rv_repair_type.setAdapter(repairTypeAdapter);
     }
 
+    /**
+     * 初始化列表
+     */
+    private void initViewpager() {
+
+        addFragmenInList();
+
+        //是否滑动
+        vp_goodList.setPagingEnabled(false);
+        vp_goodList.setOffscreenPageLimit(4);//最多缓存4个页面
+        vp_goodList.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragmentHashMap));
+        vp_goodList.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                changeText(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        vp_goodList.setCurrentItem(0, false);
+    }
+
+    /**
+     * 往fragmentHashMap中添加 Fragment
+     */
+    private void addFragmenInList() {
+        fragmentHashMap.put(0, new LeaseGoodListFragment());
+        fragmentHashMap.put(1, new LeaseGoodListFragment());
+        fragmentHashMap.put(2, new LeaseGoodListFragment());
+        fragmentHashMap.put(3, new LeaseGoodListFragment());
+    }
 
 }

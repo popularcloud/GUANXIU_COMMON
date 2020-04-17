@@ -279,7 +279,7 @@ public class NewMainFragment extends BaseFragment {
                         repairsList.clear();
                         int first = 0;
                         int tow = 0;
-                       /* if(presentRepairsList != null && presentRepairsList.size() > 0){
+                        if(presentRepairsList != null && presentRepairsList.size() > 0){
                             for(int i = 0;i < presentRepairsList.size();i++){
                                 Repairs repairs = presentRepairsList.get(i);
                                 if(repairs.getDeviceTypeMold() == 1){//办公
@@ -302,7 +302,7 @@ public class NewMainFragment extends BaseFragment {
                             }
                             Collections.sort(repairsList);
                             mainContentAdapter.setRepairTypeData(repairsList);
-                        }*/
+                        }
                         getLeaseType();
                         break;
                     default:

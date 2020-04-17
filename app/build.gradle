@@ -221,4 +221,6 @@ dependencies {
 
     //可控的阴影效果
     implementation 'io.github.meetsl:SCardView:1.0'
+
+    implementation 'com.github.yhaolpz:SlideAdapter:1.0.0'
 }

@@ -7,11 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
 
 import com.lwc.common.R;
 import com.lwc.common.module.BaseFragment;
+import com.lwc.common.module.lease_parts.adapter.LeaseGoodsAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +35,9 @@ public class LeaseGoodListFragment extends BaseFragment{
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        init();
     }
 
     @Override
@@ -53,8 +52,9 @@ public class LeaseGoodListFragment extends BaseFragment{
 
     @Override
     public void init() {
-
         rv_goods.setLayoutManager(new GridLayoutManager(getContext(),2));
+        LeaseGoodsAdapter leaseGoodsAdapter = new LeaseGoodsAdapter(getContext());
+        rv_goods.setAdapter(leaseGoodsAdapter);
     }
 
     @Override

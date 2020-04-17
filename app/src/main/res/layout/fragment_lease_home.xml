@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/f0_gray_line"
     android:orientation="vertical">
-    <include layout="@layout/include_search_title" />
+    <include layout="@layout/include_search_title_lease" />
     <include layout="@layout/layout_main_head_bg" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_repair_type"
@@ -128,5 +128,5 @@
     <com.lwc.common.widget.CustomViewPager
         android:id="@+id/vp_goodList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 </LinearLayout>
