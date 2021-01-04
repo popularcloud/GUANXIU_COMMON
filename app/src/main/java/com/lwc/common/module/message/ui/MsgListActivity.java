@@ -15,6 +15,7 @@ import com.lwc.common.controler.http.RequestValue;
 import com.lwc.common.module.bean.Common;
 import com.lwc.common.module.bean.MyMsg;
 import com.lwc.common.module.common_adapter.MsgListAdapter;
+import com.lwc.common.module.lease_parts.activity.LeaseOrderDetailActivity;
 import com.lwc.common.module.order.ui.activity.OrderDetailActivity;
 import com.lwc.common.utils.BGARefreshLayoutUtils;
 import com.lwc.common.utils.HttpRequestUtils;
@@ -60,6 +61,7 @@ public class MsgListActivity extends BaseActivity {
         BGARefreshLayoutUtils.initRefreshLayout(this, mBGARefreshLayout);
     }
 
+
     @Override
     protected void init() {
     }
@@ -76,6 +78,8 @@ public class MsgListActivity extends BaseActivity {
                 setTitle("活动消息");
             } else if (myMsg.getMessageType().equals("4")) {
                 setTitle("订单消息");
+            } else if (myMsg.getMessageType().equals("5")) {
+                setTitle("租赁消息");
             }
         } else {
             ToastUtil.showLongToast(this,"数据错误，请稍候重试!");
@@ -96,7 +100,11 @@ public class MsgListActivity extends BaseActivity {
                 readMsg(msg.getObjectId());
 
                 if (!TextUtils.isEmpty(type) && type.equals("1")) {
-//                    IntentUtil.gotoActivity(MsgListActivity.this, VesionActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title",msg.getMessageTitle());
+                    bundle.putString("content",msg.getMessageContent());
+                    bundle.putString("time",msg.getCreateTime());
+                    IntentUtil.gotoActivity(MsgListActivity.this, SystemMsgActivity.class,bundle);
                 } else if (!TextUtils.isEmpty(type) && (type.equals("2") || type.equals("3"))) {
                     Bundle bundle = new Bundle();
                     bundle.putString("url", msg.getClickUrl());
@@ -110,6 +118,14 @@ public class MsgListActivity extends BaseActivity {
                     Bundle bundle2 = new Bundle();
                     bundle2.putString("orderId", msg.getObjectId());
                     IntentUtil.gotoActivity(MsgListActivity.this, OrderDetailActivity.class, bundle2);
+                }else if (!TextUtils.isEmpty(type) && type.equals("5")) {
+                    Bundle bundle2 = new Bundle();
+
+                    if(!TextUtils.isEmpty(msg.getObjectId())){
+                        String[] orderIds= msg.getObjectId().split(",");
+                        bundle2.putString("order_id",orderIds[0]);
+                        IntentUtil.gotoActivity(MsgListActivity.this, LeaseOrderDetailActivity.class,bundle2);
+                    }
                 }
             }
         });

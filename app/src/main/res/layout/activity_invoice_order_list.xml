@@ -36,6 +36,16 @@
 			android:gravity="center"
 			android:text="套餐开票"
 			android:textColor="@drawable/blue_or_black_selector" />
+		<RadioButton
+			android:id="@+id/rBtnLease"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:textSize="@dimen/sp_14"
+			android:button="@null"
+			android:gravity="center"
+			android:text="租赁开票"
+			android:textColor="@drawable/blue_or_black_selector" />
 
 	</RadioGroup>
 
@@ -43,7 +53,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="1dp"
 		android:orientation="horizontal">
-
 		<View
 			android:id="@+id/viewLine1"
 			android:layout_width="0dp"
@@ -51,7 +60,13 @@
 			android:layout_weight="1"
 			android:background="@color/btn_blue_nomal"
 			android:visibility="visible" />
-
+		<View
+			android:id="@+id/viewLine2"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="@color/btn_blue_nomal"
+			android:visibility="invisible" />
 		<View
 			android:id="@+id/viewLine3"
 			android:layout_width="0dp"

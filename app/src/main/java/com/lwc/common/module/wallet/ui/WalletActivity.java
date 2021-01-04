@@ -1,6 +1,5 @@
 package com.lwc.common.module.wallet.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
@@ -28,7 +26,6 @@ import com.lwc.common.utils.LLog;
 import com.lwc.common.utils.SharedPreferencesUtils;
 import com.lwc.common.utils.ToastUtil;
 import com.lwc.common.utils.Utils;
-import com.yanzhenjie.sofia.Sofia;
 
 import org.byteam.superadapter.OnItemClickListener;
 import org.json.JSONObject;
@@ -119,7 +116,7 @@ public class WalletActivity extends BaseActivity {
 		ImmersionBar.with(this)
 				.statusBarColor(R.color.btn_blue_nomal)
 				.statusBarDarkFont(true)
-				.navigationBarColor(R.color.white).init();
+				.init();
 	}
 
 	private void getHistory() {

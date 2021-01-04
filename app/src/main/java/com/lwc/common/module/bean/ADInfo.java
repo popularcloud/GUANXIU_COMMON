@@ -24,6 +24,11 @@ public class ADInfo implements Serializable{
 
 	}
 
+	public ADInfo(String advertisingId,String advertisingImageUrl){
+		this.advertisingId = advertisingId;
+		this.advertisingImageUrl = advertisingImageUrl;
+	}
+
 	public ADInfo(String imgUrl){
 		advertisingImageUrl = imgUrl;
 	}

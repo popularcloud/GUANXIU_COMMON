@@ -2,38 +2,42 @@ package com.lwc.common.module.lease_parts.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.lwc.common.R;
-import com.lwc.common.adapter.ScreenItemAdapter;
-import com.lwc.common.adapter.ScreenItemTypeAdapter;
-import com.lwc.common.bean.AccessoriesTypeAll;
+import com.lwc.common.adapter.LeaseScreenItemAdapter;
+import com.lwc.common.adapter.LeaseScreenItemTypeAdapter;
 import com.lwc.common.bean.MyScreenItemBean;
 import com.lwc.common.controler.http.RequestValue;
 import com.lwc.common.module.BaseFragment;
 import com.lwc.common.module.bean.Common;
-import com.lwc.common.module.partsLib.ui.activity.PartsListActivity;
+import com.lwc.common.module.lease_parts.activity.LeaseGoodsListActivity;
+import com.lwc.common.module.lease_parts.bean.LeaseTypeBean;
 import com.lwc.common.utils.HttpRequestUtils;
 import com.lwc.common.utils.JsonUtil;
 import com.lwc.common.utils.ToastUtil;
 import com.lwc.common.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author younge
@@ -44,10 +48,11 @@ public class LeaseFilterFragment extends BaseFragment{
 
     private DrawerLayout mDrawerLayout;
     private FrameLayout mDrawerContent;
-    private Button btn_reset;
-    private Button btn_confirm;
+    private TextView btn_reset;
+    private TextView btn_confirm;
     private LinearLayout ll_screening_contents;
     private String typeIds = "";
+    private String typeDetailId = "";
     private StringBuilder ohterSeach = new StringBuilder();
     private int SHOW_HEIGHT;
     private Context mContext;
@@ -64,16 +69,27 @@ public class LeaseFilterFragment extends BaseFragment{
         SHOW_HEIGHT = Utils.dip2px(getContext(),45);
         initView(view);
         initEvent();
+
+        Log.d("调用方法","onCreateView");
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("调用方法","onAttach");
     }
 
     private void initEvent() {
         btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawerLayout.closeDrawer(mDrawerContent);
-                typeIds = "";
+               // mDrawerLayout.closeDrawer(mDrawerContent);
                 ohterSeach.setLength(0);
+                selectTypeView = null;
+                selectPositon = -1;
+
+                getSearchCondition();
             }
         });
 
@@ -86,7 +102,7 @@ public class LeaseFilterFragment extends BaseFragment{
                     otherString = ohterSeach.substring(0,index);
                 }
                 mDrawerLayout.closeDrawer(mDrawerContent);
-                ((PartsListActivity)getActivity()).onDefiniteScreen(typeIds.toString(),otherString);
+                ((LeaseGoodsListActivity)getActivity()).onDefiniteScreen(typeIds.toString(),otherString);
             }
         });
     }
@@ -95,9 +111,23 @@ public class LeaseFilterFragment extends BaseFragment{
         mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         mDrawerContent = (FrameLayout) getActivity().findViewById(R.id.drawer_content);
         ll_screening_contents = (LinearLayout) view.findViewById(R.id.ll_screening_contents);
-        btn_reset = (Button) view.findViewById(R.id.btn_reset);
-        btn_confirm = (Button) view.findViewById(R.id.btn_confirm);
+        btn_reset = (TextView) view.findViewById(R.id.btn_reset);
+        btn_confirm = (TextView) view.findViewById(R.id.btn_confirm);
         typeIds = getArguments().getString("typeId","");
+        typeDetailId = getArguments().getString("typeDetailId","");
+
+        getSearchCondition();
+    }
+
+    public void updateSearchCondition(String typeId,String typeDetailId){
+
+        if(!TextUtils.isEmpty(typeId)){
+            this.typeIds = typeId;
+        }
+
+        if(!TextUtils.isEmpty(typeDetailId)){
+            this.typeDetailId = typeDetailId;
+        }
 
         getSearchCondition();
     }
@@ -107,18 +137,23 @@ public class LeaseFilterFragment extends BaseFragment{
      *
      */
     private void getSearchCondition(){
-        String netUrl = RequestValue.GET_ACCESSORIESTYPEALL;
+        String netUrl = RequestValue.LEASEMANAGE_GETLEASETYPEALL;
         ohterSeach.setLength(0);
+        Map<String,String> params = new HashMap<>();
         if(!TextUtils.isEmpty(typeIds)){
-            netUrl = netUrl +"?type_id=" + typeIds;
+            params.put("device_type_id",typeIds);
         }
-        HttpRequestUtils.httpRequest(getActivity(), "getAccessoriesTypeAll",netUrl,null, "GET", new HttpRequestUtils.ResponseListener() {
+
+        if(!TextUtils.isEmpty(typeDetailId)){
+            params.put("type_detail_id",typeDetailId);
+        }
+        HttpRequestUtils.httpRequest(getActivity(), "租赁商品筛选内容",netUrl,params, "GET", new HttpRequestUtils.ResponseListener() {
             @Override
             public void getResponseData(String response) {
                 Common common = JsonUtil.parserGsonToObject(response, Common.class);
                 switch (common.getStatus()) {
                     case "1":
-                        AccessoriesTypeAll accessoriesTypeAll = JsonUtil.parserGsonToObject(JsonUtil.getGsonValueByKey(response, "data"), AccessoriesTypeAll.class);
+                        LeaseTypeBean accessoriesTypeAll = JsonUtil.parserGsonToObject(JsonUtil.getGsonValueByKey(response, "data"),LeaseTypeBean.class);
                         onLoadUI(accessoriesTypeAll);
                         break;
                     default:
@@ -138,7 +173,7 @@ public class LeaseFilterFragment extends BaseFragment{
     protected void lazyLoad() {
     }
 
-    private void onLoadUI(AccessoriesTypeAll accessoriesTypeAll){
+    private void onLoadUI(LeaseTypeBean accessoriesTypeAll){
         if(mContext == null){
             return;
         }
@@ -148,7 +183,7 @@ public class LeaseFilterFragment extends BaseFragment{
         /**
          * 一级分类
          */
-        if(accessoriesTypeAll != null && accessoriesTypeAll.getTypes().size() > 0){
+        if(accessoriesTypeAll != null && accessoriesTypeAll.getTypes() != null && accessoriesTypeAll.getTypes().size() > 0){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout baseLinearLayout = new LinearLayout(mContext);
             params.setMargins(0,20,0,0);
@@ -158,48 +193,58 @@ public class LeaseFilterFragment extends BaseFragment{
             TextView txtTitle = new TextView(mContext);
             txtTitle.setPadding(20,20,0,0);
             txtTitle.setGravity(Gravity.LEFT);
-            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
+            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
             txtTitle.setText("类型");
+            txtTitle.setTextColor(getResources().getColor(R.color.black));
+            txtTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
             LinearLayout.LayoutParams txtTitleParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
             txtTitle.setLayoutParams(txtTitleParams);
             baseLinearLayout.addView(txtTitle);
 
             final TextView txtAll = new TextView(mContext);
             txtAll.setPadding(0,20,40,0);
-            txtAll.setText("全部");
+            txtAll.setText("");
             txtAll.setGravity(Gravity.RIGHT);
-            txtAll.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
+            txtAll.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
             LinearLayout.LayoutParams txtAllParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
-            txtAll.setLayoutParams(txtAllParams);
+
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_up_select);
+            drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+            txtAll.setCompoundDrawables(null,null,drawable,null);
+
+            //txtAll.setLayoutParams(txtAllParams);
+
             baseLinearLayout.addView(txtAll);
 
             ll_screening_contents.addView(baseLinearLayout);
 
-            final GridView gridView = new GridView(mContext);
-            LinearLayout.LayoutParams gridViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SHOW_HEIGHT);
-            gridViewParams.setMargins(10,20,10,0);
-            gridView.setLayoutParams(gridViewParams);
-            gridView.setHorizontalSpacing(20);
-            gridView.setVerticalSpacing(20);
-            gridView.setNumColumns(3);
-            /*gridView.addView(gridView);*/
 
             final List<MyScreenItemBean> types = new ArrayList<>();
             for (int i = 0;i< accessoriesTypeAll.getTypes().size();i++){
-                MyScreenItemBean myScreenItemBean = new MyScreenItemBean(accessoriesTypeAll.getTypes().get(i).getType_name(),accessoriesTypeAll.getTypes().get(i).getType_id());
+                MyScreenItemBean myScreenItemBean = new MyScreenItemBean(accessoriesTypeAll.getTypes().get(i).getTypeDetailName(),accessoriesTypeAll.getTypes().get(i).getTypeDetailId());
                if(!TextUtils.isEmpty(myScreenItemBean.getId())){
-                   if(myScreenItemBean.getId().equals(typeIds)){
+                   if(myScreenItemBean.getId().equals(typeDetailId)){
                        myScreenItemBean.setSelect(true);
                    }
                }
                 types.add(myScreenItemBean);
             }
 
-            if(types.size() <= 3 ){
-                txtAll.setVisibility(View.INVISIBLE);
-            }
+            final GridView gridView = new GridView(mContext);
 
-            gridView.setAdapter(new ScreenItemTypeAdapter(mContext,types));
+            int line = types.size()/3;
+            if(types.size() % 3 > 0){
+                line = line + 1;
+            }
+            LinearLayout.LayoutParams gridViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SHOW_HEIGHT*line);
+            gridViewParams.setMargins(10,20,10,0);
+            gridView.setLayoutParams(gridViewParams);
+            gridView.setHorizontalSpacing(20);
+            gridView.setVerticalSpacing(20);
+            gridView.setNumColumns(3);
+            gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+
+            gridView.setAdapter(new LeaseScreenItemTypeAdapter(mContext,types));
             ll_screening_contents.addView(gridView);
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -210,14 +255,13 @@ public class LeaseFilterFragment extends BaseFragment{
 
                     if(!myScreenItemBean.isSelect()){
                         myScreenItemBean.setSelect(true);
-                        textView.setBackgroundResource(R.drawable.grid_item_selected);
+                        textView.setBackgroundResource(R.drawable.button_red_round_shape);
                         textView.setTextColor(Color.parseColor("#ff3a3a"));
-                        typeIds = myScreenItemBean.getId().trim();
 
                         //处理上一次的item
                         if(selectTypeView != null){
                             selectTypeView.setTextColor(Color.parseColor("#333333"));
-                            selectTypeView.setBackgroundResource(R.drawable.button_scrren_normal);
+                            selectTypeView.setBackgroundResource(R.drawable.button_gray_round_shape_f0);
                         }
                         if(selectPositon != -1){
                             types.get(selectPositon).setSelect(false);
@@ -227,141 +271,152 @@ public class LeaseFilterFragment extends BaseFragment{
                         selectTypeView = textView;
                         selectPositon = position;
 
-                        getSearchCondition();
+                        //getSearchCondition();
                     }
 
-                    /*if(myScreenItemBean.isSelect()){
-                        textView.setBackgroundResource(R.drawable.button_scrren_normal);
+                    if(myScreenItemBean.isSelect()){
+                        textView.setBackgroundResource(R.drawable.button_gray_round_shape_f0);
                         textView.setTextColor(Color.parseColor("#333333"));
                         myScreenItemBean.setSelect(false);
-                        int txtIndex = typeIds.indexOf(myScreenItemBean.getId());
-                        typeIds.delete(txtIndex,txtIndex+myScreenItemBean.getId().length()+1);
                     }else{
-                        textView.setBackgroundResource(R.drawable.button_scrren_select);
+                        textView.setBackgroundResource(R.drawable.button_red_round_shape);
                         textView.setTextColor(Color.parseColor("#ff3a3a"));
                         types.get(position).setSelect(true);
-                        typeIds.append(myScreenItemBean.getId().trim()+"|");
-                    }*/
+                    }
+
+                    typeDetailId = myScreenItemBean.getId();
+                    getSearchCondition();
                 }
             });
 
             txtAll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(gridView.getHeight() > SHOW_HEIGHT){
-                        LinearLayout.LayoutParams gridViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SHOW_HEIGHT);
-                        gridViewParams.setMargins(10,20,10,0);
-                        gridView.setLayoutParams(gridViewParams);
-                        txtAll.setText("全部");
+                    if(gridView.getVisibility() == View.VISIBLE){
+                        gridView.setVisibility(View.GONE);
+
+                        Drawable drawable = getResources().getDrawable(R.drawable.ic_down_select);
+                        drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+                        txtAll.setCompoundDrawables(null,null,drawable,null);
+                      //  txtAll.setText("全部");
                     }else{
-                        int line = types.size()/3;
-                        if(types.size() % 3 > 0){
-                            line = line + 1;
-                        }
-                        LinearLayout.LayoutParams gridViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SHOW_HEIGHT*line);
-                        gridViewParams.setMargins(10,20,10,0);
-                        gridView.setLayoutParams(gridViewParams);
-                        txtAll.setText("收起");
+                        gridView.setVisibility(View.VISIBLE);
+
+                        Drawable drawable = getResources().getDrawable(R.drawable.ic_up_select);
+                        drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+                        txtAll.setCompoundDrawables(null,null,drawable,null);
+                      //  txtAll.setText("收起");
                     }
 
                 }
             });
-        }
 
-        /**
-         * 二级分类
-         */
-        if(accessoriesTypeAll != null && accessoriesTypeAll.getAttributes().size() > 0){
-            for(int i = 0;i < accessoriesTypeAll.getAttributes().size(); i++){
-                AccessoriesTypeAll.AttributesBean attributesBean = accessoriesTypeAll.getAttributes().get(i);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0,20,0,0);
-                LinearLayout baseLinearLayout = new LinearLayout(mContext);
-                baseLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                baseLinearLayout.setLayoutParams(params);
+            /**
+             * 二级分类
+             */
+            if(accessoriesTypeAll != null && accessoriesTypeAll.getAttributes() != null && accessoriesTypeAll.getAttributes().size() > 0){
+                List<LeaseTypeBean.AttributesBean> attributesBeanList = accessoriesTypeAll.getAttributes();
+                for(int i = 0;i < attributesBeanList.size(); i++){
+                    LeaseTypeBean.AttributesBean attributesBean = attributesBeanList.get(i);
+                    LinearLayout.LayoutParams paramsAttribute = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    paramsAttribute.setMargins(0,20,0,0);
+                    LinearLayout baseLinearLayoutAttribute = new LinearLayout(mContext);
+                    baseLinearLayoutAttribute.setOrientation(LinearLayout.HORIZONTAL);
+                    baseLinearLayoutAttribute.setLayoutParams(paramsAttribute);
 
-                TextView txtTitle = new TextView(mContext);
-                txtTitle.setPadding(20,20,0,0);
-                txtTitle.setGravity(Gravity.LEFT);
-                txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
-                txtTitle.setText(attributesBean.getAttribute_name());
-                LinearLayout.LayoutParams txtTitleParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
-                txtTitle.setLayoutParams(txtTitleParams);
-                baseLinearLayout.addView(txtTitle);
+                    TextView txtTitleAttribute = new TextView(mContext);
+                    txtTitleAttribute.setPadding(20,20,0,0);
+                    txtTitleAttribute.setGravity(Gravity.LEFT);
+                    txtTitleAttribute.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
+                    txtTitleAttribute.setText(attributesBean.getAttributeName());
+                    txtTitleAttribute.setTextColor(getResources().getColor(R.color.black));
+                    txtTitleAttribute.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
+                    LinearLayout.LayoutParams txtTitleParamsAttribute = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+                    txtTitleAttribute.setLayoutParams(txtTitleParamsAttribute);
+                    baseLinearLayoutAttribute.addView(txtTitleAttribute);
 
-                final TextView txtAll = new TextView(mContext);
-                txtAll.setPadding(0,20,40,0);
-                txtAll.setText("全部");
-                txtAll.setGravity(Gravity.RIGHT);
-                txtAll.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
-                LinearLayout.LayoutParams txtAllParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
-                txtAll.setLayoutParams(txtAllParams);
-                baseLinearLayout.addView(txtAll);
+                    final TextView txtAllAttribute = new TextView(mContext);
+                    txtAllAttribute.setPadding(0,20,40,0);
+                    txtAllAttribute.setText("");
+                    txtAllAttribute.setGravity(Gravity.RIGHT);
+                    txtAllAttribute.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
+                    LinearLayout.LayoutParams txtAllParamsAttribute = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
 
-                ll_screening_contents.addView(baseLinearLayout);
+                    Drawable drawableAttribute = getResources().getDrawable(R.drawable.ic_up_select);
+                    drawableAttribute.setBounds(0,0,drawableAttribute.getMinimumWidth(),drawableAttribute.getMinimumHeight());
+                    txtAllAttribute.setCompoundDrawables(null,null,drawableAttribute,null);
 
-                final GridView gridView = new GridView(mContext);
-                LinearLayout.LayoutParams gridViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, SHOW_HEIGHT);
-                gridViewParams.setMargins(10,20,10,0);
-                gridView.setLayoutParams(gridViewParams);
-                gridView.setHorizontalSpacing(20);
-                gridView.setVerticalSpacing(20);
-                gridView.setNumColumns(3);
+                    txtAllAttribute.setLayoutParams(txtAllParamsAttribute);
+                    baseLinearLayoutAttribute.addView(txtAllAttribute);
 
-                final List<MyScreenItemBean> types = new ArrayList<>();
-                for (int j = 0;j< attributesBean.getOptions().size();j++){
-                    types.add(new MyScreenItemBean(attributesBean.getOptions().get(j).getOptions_name(),attributesBean.getOptions().get(j).getOptions_id()));
-                }
+                    ll_screening_contents.addView(baseLinearLayoutAttribute);
 
-                if(types.size() <= 3 ){
-                    txtAll.setVisibility(View.INVISIBLE);
-                }
+                    final GridView gridViewAttribute = new GridView(mContext);
 
-                gridView.setAdapter(new ScreenItemAdapter(mContext,types));
-                ll_screening_contents.addView(gridView);
-
-                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        TextView textView = (TextView) view.findViewById(R.id.tv_content);
-                        if(types.get(position).isSelect()){
-                            textView.setBackgroundResource(R.drawable.button_scrren_normal);
-                            textView.setTextColor(Color.parseColor("#333333"));
-                            types.get(position).setSelect(false);
-                            String txtItem = textView.getText().toString().trim();
-                            int txtIndex = ohterSeach.indexOf(txtItem);
-                            ohterSeach.delete(txtIndex,txtIndex+txtItem.length()+1);
-                        }else{
-                            textView.setBackgroundResource(R.drawable.grid_item_selected);
-                            textView.setTextColor(Color.parseColor("#ff3a3a"));
-                            types.get(position).setSelect(true);
-                            ohterSeach.append(textView.getText().toString().trim()+"|");
-                        }
+                    final List<MyScreenItemBean> typesAttribute = new ArrayList<>();
+                    for (int j = 0;j< attributesBean.getOptions().size();j++){
+                        typesAttribute.add(new MyScreenItemBean(attributesBean.getOptions().get(j).getOptions_name(),attributesBean.getOptions().get(j).getOptions_id()));
                     }
-                });
 
-                txtAll.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(gridView.getHeight() > SHOW_HEIGHT){
-                            LinearLayout.LayoutParams gridViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SHOW_HEIGHT);
-                            gridViewParams.setMargins(10,20,10,0);
-                            gridView.setLayoutParams(gridViewParams);
-                            txtAll.setText("全部");
-                        }else{
-                            int line = types.size()/3;
-                            if(types.size() % 3 > 0){
-                                line = line + 1;
+                    int lineAttribute = typesAttribute.size()/3;
+                    if(typesAttribute.size() % 3 > 0){
+                        lineAttribute = lineAttribute + 1;
+                    }
+                    LinearLayout.LayoutParams gridViewParamsAttribute = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SHOW_HEIGHT*lineAttribute);
+                    gridViewParamsAttribute.setMargins(10,20,10,0);
+                    gridViewAttribute.setLayoutParams(gridViewParamsAttribute);
+
+                    gridViewAttribute.setHorizontalSpacing(20);
+                    gridView.setVerticalSpacing(20);
+                    gridViewAttribute.setNumColumns(3);
+                    gridViewAttribute.setSelector(new ColorDrawable(Color.TRANSPARENT));
+
+                    gridViewAttribute.setAdapter(new LeaseScreenItemAdapter(mContext,typesAttribute));
+                    ll_screening_contents.addView(gridViewAttribute);
+
+                    gridViewAttribute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            TextView textView = (TextView) view.findViewById(R.id.tv_content);
+                            if(typesAttribute.get(position).isSelect()){
+                                textView.setBackgroundResource(R.drawable.button_gray_round_shape_f0_30);
+                                textView.setTextColor(Color.parseColor("#333333"));
+                                typesAttribute.get(position).setSelect(false);
+                                String txtItem = textView.getText().toString().trim();
+                                int txtIndex = ohterSeach.indexOf(txtItem);
+                                ohterSeach.delete(txtIndex,txtIndex+txtItem.length()+1);
+                            }else{
+                                textView.setBackgroundResource(R.drawable.button_red_round_shape_30);
+                                textView.setTextColor(Color.parseColor("#ff3a3a"));
+                                typesAttribute.get(position).setSelect(true);
+                                ohterSeach.append(textView.getText().toString().trim()+"|");
                             }
-                            LinearLayout.LayoutParams gridViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SHOW_HEIGHT*line);
-                            gridViewParams.setMargins(10,20,10,0);
-                            gridView.setLayoutParams(gridViewParams);
-                            txtAll.setText("收起");
                         }
-                    }
-                });
+                    });
+
+                    txtAllAttribute.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(gridViewAttribute.getVisibility() == View.VISIBLE){
+                                gridViewAttribute.setVisibility(View.GONE);
+                                Drawable drawable = getResources().getDrawable(R.drawable.ic_down_select);
+                                drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+                                txtAllAttribute.setCompoundDrawables(null,null,drawable,null);
+                                // txtAllAttribute.setText("全部");
+                            }else{
+                                gridViewAttribute.setVisibility(View.VISIBLE);
+                                Drawable drawable = getResources().getDrawable(R.drawable.ic_up_select);
+                                drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+                                txtAllAttribute.setCompoundDrawables(null,null,drawable,null);
+                                //txtAllAttribute.setText("收起");
+                            }
+                        }
+                    });
+                }
             }
         }
+
+
     }
 
     @Override

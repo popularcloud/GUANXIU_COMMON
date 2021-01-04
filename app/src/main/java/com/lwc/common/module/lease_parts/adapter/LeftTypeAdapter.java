@@ -8,30 +8,19 @@ import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.lwc.common.R;
-import com.lwc.common.module.lease_parts.bean.DrugBean;
-import com.lwc.common.module.lease_parts.bean.LeaseLeftBean;
-import com.lwc.common.utils.DisplayUtil;
-import com.lwc.common.utils.Utils;
+import com.lwc.common.module.lease_parts.bean.LeaseGoodsTypeBig;
 
 import org.byteam.superadapter.SuperAdapter;
 import org.byteam.superadapter.SuperViewHolder;
 
 import java.util.List;
 
-import kotlin.Unit;
-
-/**
- * User: Liumj(liumengjie@365tang.cn)
- * Date: 2016-10-11
- * Time: 15:19
- * describe:  左侧适配器
- */
-public class LeftTypeAdapter extends SuperAdapter<LeaseLeftBean> {
+public class LeftTypeAdapter extends SuperAdapter<LeaseGoodsTypeBig> {
 
 	private int selectPos = 0;
 	private Context mContext;
 
-	public LeftTypeAdapter(Context context, List<LeaseLeftBean> items, int layoutResId) {
+	public LeftTypeAdapter(Context context, List<LeaseGoodsTypeBig> items, int layoutResId) {
 		super(context, items, layoutResId);
 		mContext = context;
 	}
@@ -45,11 +34,11 @@ public class LeftTypeAdapter extends SuperAdapter<LeaseLeftBean> {
 	}
 
 	@Override
-	public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, LeaseLeftBean item) {
+	public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, LeaseGoodsTypeBig item) {
 
 		TextView tv_name = holder.itemView.findViewById(R.id.tv_name);
 
-		tv_name.setText(item.getName());
+		tv_name.setText(item.getDeviceTypeName());
 
 		if(layoutPosition == selectPos){
 			//tv_name.setTextColor(Color.parseColor("#000000"));
@@ -58,7 +47,7 @@ public class LeftTypeAdapter extends SuperAdapter<LeaseLeftBean> {
 			tv_name.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
 			tv_name.setBackgroundColor(Color.parseColor("#ffffff"));
 
-			Drawable drawable= mContext.getResources().getDrawable(R.drawable.ic_blue_line);
+			Drawable drawable= mContext.getResources().getDrawable(R.drawable.ic_red_rectangle);
 			drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 			tv_name.setCompoundDrawables(drawable,null,null,null);
 
@@ -68,9 +57,6 @@ public class LeftTypeAdapter extends SuperAdapter<LeaseLeftBean> {
 			tp.setFakeBoldText(false);
 			tv_name.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
 			tv_name.setBackgroundColor(Color.parseColor("#f0f1f6"));
-
-			Drawable drawable= mContext.getResources().getDrawable(R.drawable.ic_blue_line);
-			drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 			tv_name.setCompoundDrawables(null,null,null,null);
 		}
 	}

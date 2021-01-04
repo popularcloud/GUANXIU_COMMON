@@ -285,8 +285,10 @@ public class OpenInvoiceActivity extends BaseActivity {
 
 		if("order".equals(invoiceOperationType)){
 			params.put("buy_type", "1");
-		}else{
+		}else if("package".equals(invoiceOperationType)){
 			params.put("buy_type", "2");
+		}else{
+			params.put("buy_type", "3");
 		}
 
 		if (invoiceTitelType.equals("1")) {
@@ -325,8 +327,10 @@ public class OpenInvoiceActivity extends BaseActivity {
 		orderIds = getIntent().getStringExtra("invoiceOrderIds");
 		totalManey = getIntent().getStringExtra("totalManey");
 		invoiceOperationType = getIntent().getStringExtra("invoiceOperationType");
-		if("package".endsWith(invoiceOperationType)){
+		if("package".equals(invoiceOperationType)){
 			tv_content.setText("维修套餐费");
+		}else if("leaseOrder".equals(invoiceOperationType)){
+			tv_content.setText("设备租赁费用");
 		}
 		tv_money.setText(Utils.getMoney(totalManey)+" 元");
 		getInvoiceInfoList();

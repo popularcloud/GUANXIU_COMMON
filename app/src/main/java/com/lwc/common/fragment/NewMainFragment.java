@@ -359,7 +359,9 @@ public class NewMainFragment extends BaseFragment {
      * 获取广告位
      */
     public void getADList() {
-        HttpRequestUtils.httpRequest(getActivity(), "获取广告", RequestValue.LEASEMANAGE_GETLEASEIMAGES, null, "GET", new HttpRequestUtils.ResponseListener() {
+        Map<String,String> params = new HashMap<>();
+        params.put("lease_image_type","1");//租赁首页
+        HttpRequestUtils.httpRequest(getActivity(), "获取广告", RequestValue.LEASEMANAGE_GETLEASEIMAGES, params, "GET", new HttpRequestUtils.ResponseListener() {
             @Override
             public void getResponseData(String result) {
                 Common common = JsonUtil.parserGsonToObject(result, Common.class);
@@ -522,8 +524,7 @@ public class NewMainFragment extends BaseFragment {
                             img_back.setVisibility(View.GONE);
                             ImmersionBar.with(getActivity())
                                     .statusBarColor(R.color.white)
-                                    .statusBarDarkFont(true)
-                                    .navigationBarColor(R.color.white).init();
+                                    .statusBarDarkFont(true).init();
                         }
 
                     }else{

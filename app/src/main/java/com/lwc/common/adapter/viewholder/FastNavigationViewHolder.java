@@ -152,7 +152,8 @@ public class FastNavigationViewHolder extends BaseViewHolder{
                 break;
             case R.id.ll_lease:
                 //ToastUtil.showToast(MainActivity.activity,"功能开发中...");
-                IntentUtil.gotoActivity(MainActivity.activity, LeaseHomeActivity.class);
+                if (Utils.gotoLogin(MainActivity.user,MainActivity.activity))
+                    IntentUtil.gotoActivity(MainActivity.activity, LeaseHomeActivity.class);
                 break;
             case R.id.ll_customer_service:
                 dialog = DialogUtil.dialog(MainActivity.activity, "拨打客服电话", "拨号", "取消", "400-881-0769", new View.OnClickListener() {

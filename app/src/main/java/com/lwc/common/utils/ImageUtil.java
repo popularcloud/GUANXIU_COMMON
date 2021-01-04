@@ -17,10 +17,16 @@ import com.lwc.common.configs.FileConfig;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * 图片操作工具类
@@ -309,6 +315,46 @@ public class ImageUtil {
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
 		return BitmapFactory.decodeFile(filePath, options);
+	}
+
+	public static Bitmap loadBitmap(String filePath,int width,int height) {
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, options);
+		// Calculate inSampleSize
+		options.inSampleSize = calculateInSampleSize(options, width, height);
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(filePath, options);
+	}
+
+	private static Bitmap bitmap;
+	public static Bitmap returnBitMap(final String url){
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				URL imageurl = null;
+
+				try {
+					imageurl = new URL(url);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				try {
+					HttpURLConnection conn = (HttpURLConnection)imageurl.openConnection();
+					conn.setDoInput(true);
+					conn.connect();
+					InputStream is = conn.getInputStream();
+					bitmap = BitmapFactory.decodeStream(is);
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+		return bitmap;
 	}
 
 	/**
@@ -711,6 +757,23 @@ public class ImageUtil {
 
 	public static int clamp(int x, int a, int b) {
 		return (x < a) ? a : (x > b) ? b : x;
+	}
+
+	public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		bmp.compress(Bitmap.CompressFormat.PNG, 100, output);
+		if (needRecycle) {
+			bmp.recycle();
+		}
+
+		byte[] result = output.toByteArray();
+		try {
+			output.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 }

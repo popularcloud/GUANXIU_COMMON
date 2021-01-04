@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.UiThread;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.lwc.common.module.bean.PhotoToken;
 import com.lwc.common.module.bean.User;
 import com.lwc.common.utils.DialogUtil;
 import com.lwc.common.utils.FileUtil;
+import com.lwc.common.utils.GetImagePath;
 import com.lwc.common.utils.HttpRequestUtils;
 import com.lwc.common.utils.ImageLoaderUtil;
 import com.lwc.common.utils.IntentUtil;
@@ -177,20 +180,26 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case GlobalValue.REPAIRS_PHOTO_REQUESTCODE0:
-                    iconFile = PictureUtils.getFile(UserInfoActivity.this, data);
-                    SystemInvokeUtils.startImageZoom(this, Uri.fromFile(iconFile), uritempFile, GlobalValue.MODIFY_PHOTO_REQUESTCODE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        File path_pre = new File(GetImagePath.getPath(UserInfoActivity.this, data.getData()));
+                        try {
+                            Uri dataUri = FileProvider.getUriForFile(UserInfoActivity.this, getApplicationContext().getPackageName() +".fileProvider", path_pre);
+                            SystemInvokeUtils.startImageZoom(this,dataUri, uritempFile, GlobalValue.MODIFY_PHOTO_REQUESTCODE);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        File path_pre = new File(GetImagePath.getPath(UserInfoActivity.this, data.getData()));
+                        SystemInvokeUtils.startImageZoom(this,Uri.fromFile(path_pre), uritempFile, GlobalValue.MODIFY_PHOTO_REQUESTCODE);
+                    }
                     break;
                 case GlobalValue.REPAIRS_CAMERA_REQUESTCODE0:
-                    //上传图片
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    if (bitmap == null) {
-                        return;
-                    }
-                    try {
-                        iconFile = FileUtil.saveMyBitmap(bitmap);
-                        SystemInvokeUtils.startImageZoom(this, Uri.fromFile(iconFile), uritempFile, GlobalValue.MODIFY_PHOTO_REQUESTCODE);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    File file = new File(ToastUtil.path,ToastUtil.date);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        Uri inputUri = FileProvider.getUriForFile(UserInfoActivity.this, getApplicationContext().getPackageName() +".fileProvider", file);//通过FileProvider创建一个content类型的Uri
+                        SystemInvokeUtils.startImageZoom(this, inputUri, uritempFile, GlobalValue.MODIFY_PHOTO_REQUESTCODE);
+                    } else {
+                        SystemInvokeUtils.startImageZoom(this, Uri.fromFile(file), uritempFile, GlobalValue.MODIFY_PHOTO_REQUESTCODE);
                     }
                     break;
                 case GlobalValue.MODIFY_PHOTO_REQUESTCODE:

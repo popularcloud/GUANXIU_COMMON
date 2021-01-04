@@ -85,4 +85,9 @@ public class GlobalValue {
      */
     public static final int MODIFY_PHOTO_REQUESTCODE = 2002;
 
+    /**
+     * 裁剪功能
+     */
+    public static final int TAILORING_REQUESTCODE = 2003;
+
 }

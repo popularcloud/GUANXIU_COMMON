@@ -39,9 +39,9 @@ public abstract class BaseActivity extends FragmentActivity {
 	/** 广播过滤器 */
 	public IntentFilter filter;
 	public Bundle savedInstanceState;
-	private MyTextView txtActionbarTitle;
+	protected MyTextView txtActionbarTitle;
 	private TextView tvqd;
-	private ImageView imgRight;
+	protected ImageView imgRight;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +76,7 @@ public abstract class BaseActivity extends FragmentActivity {
 				.navigationBarBackgroundAlpha(0);*/
 		ImmersionBar.with(this)
 				.statusBarColor(R.color.white)
-				.statusBarDarkFont(true)
-				.navigationBarColor(R.color.white).init();
+				.statusBarDarkFont(true).init();
 	}
 
 	protected void setTitle(String title) {

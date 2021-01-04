@@ -29,6 +29,13 @@ public interface ImageLoaderInterface {
     void displayFromLocal(Context context, ImageView imageView, String path);
 
     /**
+     * 加载本地资源图片
+     * @param imageView 控件id
+     * @param path      图片路径
+     */
+     void displayFromLocalCircular(Context context, ImageView imageView, String path,int width,int height,int defaultImg);
+
+    /**
      * 加载File文件
      * @param context
      * @param imageView

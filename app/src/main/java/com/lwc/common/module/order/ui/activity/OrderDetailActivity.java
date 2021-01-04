@@ -1,7 +1,6 @@
 package com.lwc.common.module.order.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,20 +11,17 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.activity.MainActivity;
 import com.lwc.common.controler.http.RequestValue;
 import com.lwc.common.module.BaseFragmentActivity;
-import com.lwc.common.module.bean.AfterService;
 import com.lwc.common.module.bean.Common;
 import com.lwc.common.module.bean.Order;
 import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
 import com.lwc.common.module.order.ui.fragment.DeviceDetailFragment;
 import com.lwc.common.module.order.ui.fragment.OrderDetailFragment;
 import com.lwc.common.module.order.ui.fragment.OrderStateFragment;
-import com.lwc.common.utils.BGARefreshLayoutUtils;
 import com.lwc.common.utils.DialogUtil;
 import com.lwc.common.utils.HttpRequestUtils;
 import com.lwc.common.utils.ImageLoaderUtil;
@@ -37,11 +33,8 @@ import com.lwc.common.utils.Utils;
 import com.lwc.common.view.MyTextView;
 import com.lwc.common.widget.CustomDialog;
 import com.lwc.common.widget.CustomViewPager;
-import com.yanzhenjie.sofia.Sofia;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -213,19 +206,22 @@ public class OrderDetailActivity extends BaseFragmentActivity {
     private void addFragmenInList() {
         fragmentHashMap = new HashMap<>();
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", myOrder);
-
         OrderStateFragment orderStateFragment = new OrderStateFragment();
-        orderStateFragment.setArguments(bundle);
+        Bundle bundle1 = new Bundle();
+        bundle1.putSerializable("data", myOrder);
+        orderStateFragment.setArguments(bundle1);
         OrderDetailFragment orderDetailFragment = new OrderDetailFragment();
-        orderDetailFragment.setArguments(bundle);
+        Bundle bundle2 = new Bundle();
+        bundle2.putSerializable("data", myOrder);
+        orderDetailFragment.setArguments(bundle2);
 
         fragmentHashMap.put(0, orderStateFragment);
         fragmentHashMap.put(1, orderDetailFragment);
         if (myOrder.getStatusId().equals(""+Order.STATUS_YIWANCHENG) || myOrder.getStatusId().equals(""+Order.STATUS_YIPINGJIA) || myOrder.getStatusId().equals(""+Order.STATUS_SHOUHOU)) {
             DeviceDetailFragment deviceDetailFragment = new DeviceDetailFragment();
-            deviceDetailFragment.setArguments(bundle);
+            Bundle bundle3 = new Bundle();
+            bundle3.putSerializable("data", myOrder);
+            deviceDetailFragment.setArguments(bundle3);
             fragmentHashMap.put(2, deviceDetailFragment);
         }
     }

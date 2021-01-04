@@ -55,6 +55,7 @@ public class AddressManagerPresenter {
                         if(!TextUtils.isEmpty(data)){
                             addresses = JsonUtil.parserGsonToArray(data, new TypeToken<ArrayList<Address>>() {
                             });
+                            DataSupport.deleteAll(Address.class);
                             DataSupport.saveAll(addresses);
                         }else{
                             addresses = new ArrayList<>();

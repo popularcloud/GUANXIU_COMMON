@@ -24,5 +24,6 @@
     <item name="return_scan_result" type="id"/>
     <item name="radio_self" type="id"/>
     <item name="radio_send" type="id"/>
+    <item name="image_target" type="id"/>
 
 </resources>

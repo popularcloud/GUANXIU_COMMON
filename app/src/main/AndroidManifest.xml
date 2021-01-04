@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lwc.common">
 
- <!--   <permission
-        android:name="com.lwc.common.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -64,6 +61,7 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         android:networkSecurityConfig="@xml/network_security_config"
         android:persistent="true"
         android:resizeableActivity="true"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
@@ -99,10 +97,10 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <meta-data
             tools:node="replace"
             android:name="android.support.VERSION"
-            android:value="26.1.0"
+            android:value="26.0.2"
             />
-        <!--<activity
-            android:name=".module.login.ui.LoadingActivity"
+        <activity
+            android:name="com.lwc.common.module.login.ui.LoadingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppSplash"
             android:windowSoftInputMode="stateHidden|adjustPan">
@@ -119,8 +117,8 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
 
                 <data android:scheme="hcic06" />
             </intent-filter>
-        </activity>-->
-        <activity
+        </activity>
+        <!--<activity
             android:name=".module.lease_parts.activity.LeaseHomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
@@ -137,7 +135,7 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
 
                 <data android:scheme="hcic06" />
             </intent-filter>
-        </activity>
+        </activity>-->
         <activity
             android:name=".activity.UserGuideActivity"
             android:screenOrientation="portrait"
@@ -586,6 +584,7 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <!-- 确认订单 -->
         <activity android:name=".module.integral.activity.IntegralOrderConfirmActivity" />
         <activity android:name=".module.login.ui.BindPhoneActivity" />
+        <!-- 签到 -->
         <activity android:name=".module.mine.SignInActivity" />
         <!-- 收费标准 -->
         <activity android:name=".module.order.ui.activity.FeeStandardActivity" />
@@ -606,10 +605,50 @@ AndroidManifest.xml 文件中配置 allowBackup 标志(默认为 true )来设
         <activity android:name=".module.order.ui.activity.NewPackageListActivity" />
         <activity android:name=".module.order.ui.activity.PackageRepairActivity"/>
         <activity android:name=".module.repairs.ui.activity.RepairsTypeActivity" />
-        <activity android:name=".module.lease_parts.activity.LeaseGoodsListActivity" />
-        <activity android:name=".module.lease_parts.activity.LeaseGoodsDetailActivity" />
 
-       <!-- <activity android:name=".module.lease_parts.activity.LeaseHomeActivity" />-->
+        <!-- ####################################################租赁订单模块 -->
+        <!-- 商品列表 -->
+        <activity android:name=".module.lease_parts.activity.LeaseGoodsListActivity" android:launchMode="singleTask"/>
+        <!-- 商品详情 -->
+        <activity android:name=".module.lease_parts.activity.LeaseGoodsDetailActivity" />
+        <!-- 确认订单 -->
+        <activity android:name=".module.lease_parts.activity.ConfirmLeaseOrderActivity" />
+        <!-- 我的订单列表 -->
+        <activity android:name=".module.lease_parts.activity.MyLeaseOrderListActivity"  android:launchMode="singleTask"/>
+        <!-- 支付成功 -->
+        <activity android:name=".module.lease_parts.activity.PaySuccessActivity" />
+        <!-- 租赁订单详情 -->
+        <activity android:name=".module.lease_parts.activity.LeaseOrderDetailActivity" />
+        <!-- 商品搜索 -->
+        <activity android:name=".module.lease_parts.activity.LeaseSearchActivity" />
+        <!-- 待缴费列表 -->
+        <activity android:name=".module.lease_parts.activity.LeaseNeedPayActivity" />
+        <!-- 租赁认证 -->
+        <activity android:name=".module.lease_parts.activity.LeaseMsgAuthenticationActivity" />
+        <!-- 待缴费订单详情 -->
+        <activity android:name=".module.lease_parts.activity.LeaseOrderNeedPayDetailActivity" />
+        <!-- 租赁首页 -->
+        <activity android:name=".module.lease_parts.activity.LeaseHomeActivity" android:launchMode="singleTask"/>
+
+        <activity android:name=".module.lease_parts.activity.ShareType2Activity"  android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <!-- 我的收藏 -->
+        <activity android:name=".module.lease_parts.activity.MyCollectActivity" />
+        <!-- 租赁申请退货退款 -->
+        <activity android:name=".module.lease_parts.activity.LeaseApplyForRefundActivity" />
+        <!-- 租赁退货退款详情 -->
+        <activity android:name=".module.lease_parts.activity.LeaseOrderRefundDetailActivity" />
+        <!-- 选择退货退款 -->
+        <activity android:name=".module.lease_parts.activity.LeaseSelectReturnTypeActivity" />
+        <!-- 租赁认证信息通过页面 -->
+        <activity android:name=".module.lease_parts.activity.LeaseMsgAuthenticationAllowedActivity" />
+        <!-- 租赁所含订单列表 -->
+        <activity android:name=".module.invoice.InvoiceLeaseOrderActivity" />
+        <!-- 系统消息详情 -->
+        <activity android:name=".module.message.ui.SystemMsgActivity" />
+        <!-- 订单搜索 -->
+        <activity android:name=".module.lease_parts.activity.LeaseOrderSearchActivity" android:launchMode="singleTask"/>
     </application>
 
 </manifest>

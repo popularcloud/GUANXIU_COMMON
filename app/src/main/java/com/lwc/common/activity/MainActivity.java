@@ -216,8 +216,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         ImmersionBar.with(this)
                 .statusBarColor(R.color.white)
-                .statusBarDarkFont(true)
-                .navigationBarColor(R.color.white).init();
+                .statusBarDarkFont(true).init();
     }
 
     public void registerMessageReceiver() {
@@ -704,7 +703,9 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        if(mMessageReceiver != null){
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        }
         // 注销服务
 //        stopService(mServiceIntent);
     }

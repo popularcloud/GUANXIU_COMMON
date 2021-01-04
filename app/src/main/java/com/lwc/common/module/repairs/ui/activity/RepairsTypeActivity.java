@@ -52,7 +52,7 @@ public class RepairsTypeActivity extends BaseActivity {
 
 
 	public void getARepairType(){
-		HttpRequestUtils.httpRequest(this, "获取所有维修类型devicemold==1", RequestValue.MALFUNCTION+"?deviceMold="+ 1 + "&clientType=person", null, "GET", new HttpRequestUtils.ResponseListener() {
+		HttpRequestUtils.httpRequest(this, "获取所有维修类型devicemold==1", RequestValue.GET_TYPE_ALL__2+"?deviceMold="+ 1 + "&clientType=person", null, "GET", new HttpRequestUtils.ResponseListener() {
 			@Override
 			public void getResponseData(String response) {
 				Common common = JsonUtil.parserGsonToObject(response, Common.class);
@@ -87,7 +87,7 @@ public class RepairsTypeActivity extends BaseActivity {
 	}
 
 	public void getARepairType2(){
-		HttpRequestUtils.httpRequest(this, "获取所有维修类型devicemold==3", RequestValue.MALFUNCTION+"?deviceMold="+ 3 + "&clientType=person", null, "GET", new HttpRequestUtils.ResponseListener() {
+		HttpRequestUtils.httpRequest(this, "获取所有维修类型devicemold==3", RequestValue.GET_TYPE_ALL__2+"?deviceMold="+ 3 + "&clientType=person", null, "GET", new HttpRequestUtils.ResponseListener() {
 			@Override
 			public void getResponseData(String response) {
 				Common common = JsonUtil.parserGsonToObject(response, Common.class);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import com.zhihu.matisse.engine.impl.GlideEngine;
 public class ToastUtil {
 
 	private static Toast toast;
+	public static String path = Environment.getExternalStorageDirectory().getPath();
+	public static String date = "mypic.png";
 
 	/**
 	 * 显示选择图片

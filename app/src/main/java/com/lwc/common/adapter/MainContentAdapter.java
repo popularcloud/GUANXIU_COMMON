@@ -157,8 +157,8 @@ public class MainContentAdapter extends RecyclerView.Adapter {
                 }
                 break;
             case 3:
-                //if (leaseTypeData != null && leaseTypeData.size() > 0) {
-                if (false) {
+                if (leaseTypeData != null && leaseTypeData.size() > 0) {
+              //  if (false) {
                     baseViewHolder.bindViewHolder(leaseTypeData, mContext);
 
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) baseViewHolder.itemView.getLayoutParams();

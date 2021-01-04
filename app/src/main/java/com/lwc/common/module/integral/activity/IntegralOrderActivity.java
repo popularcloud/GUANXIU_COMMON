@@ -92,8 +92,7 @@ public class IntegralOrderActivity extends BaseActivity implements IntegralOrder
 
         ImmersionBar.with(this)
                 .statusBarColor(R.color.red_fb52)
-                .statusBarDarkFont(true)
-                .navigationBarColor(R.color.white).init();
+                .statusBarDarkFont(true).init();
     }
 
     private void initRecycleView() {

@@ -1,8 +1,11 @@
 package com.lwc.common.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +19,7 @@ import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.icu.text.DecimalFormat;
@@ -31,7 +35,9 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -89,7 +95,7 @@ public class Utils {
 
     public static boolean gotoLogin(User user, Context context) {
 
-        Log.d("联网成功","没有登录跳到登录"+context.getPackageName());
+        Log.d("联网成功", "没有登录跳到登录" + context.getPackageName());
 
         if (user == null) {
             SharedPreferencesUtils.getInstance(context).saveString("token", "");
@@ -100,7 +106,7 @@ public class Utils {
     }
 
 
-    public static boolean isLogin(){
+    public static boolean isLogin() {
 
         return false;
     }
@@ -228,6 +234,36 @@ public class Utils {
             if (minute < 60) {
                 second = time % 60;
                 timeStr = unitFormat(minute) + ":" + unitFormat(second);
+            } else {
+                hour = minute / 60;
+//				if (hour < 24) {
+                minute = minute % 60;
+                second = time - hour * 3600 - minute * 60;
+                timeStr = unitFormat(hour) + "小时" + unitFormat(minute) + "分" + unitFormat(second) + "秒";
+//				} else {
+//					int day = hour/24;
+//					hour = hour % 24;
+//					timeStr = day + "天" + hour + "小时";
+//				}
+
+            }
+        }
+        return timeStr;
+    }
+
+    public static String getTimeMill(long time) {
+        String timeStr = null;
+        long hour = 0;
+        long minute = 0;
+        long second = 0;
+        if (time <= 0)
+            return "00:00";
+        else {
+            minute = time / (1000 * 60);
+            if (minute < 60) {
+                second = (time % (1000 * 60)) / 1000;
+
+                timeStr = unitFormat(minute) + "分钟" + unitFormat(second) + "秒";
             } else {
                 hour = minute / 60;
 //				if (hour < 24) {
@@ -711,6 +747,33 @@ public class Utils {
         return builder;
     }
 
+    public static SpannableStringBuilder getSpannableStringBuilder(int start, int end, int color, String str, int textSize, boolean isBold) {
+        SpannableStringBuilder builder = new SpannableStringBuilder(str);
+        ForegroundColorSpan redSpan = new ForegroundColorSpan(color);
+        builder.setSpan(redSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
+    }
+
+    public static SpannableStringBuilder getSpannableStringBuilder(int start, int end, String str, int textSize, boolean isBold) {
+        SpannableStringBuilder builder = new SpannableStringBuilder(str);
+        builder.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
+    }
+
+    public static SpannableStringBuilder getSpannableStringBuilder(int start, int end, int color, int bgColor, String str, int textSize, boolean isBold) {
+        SpannableStringBuilder builder = new SpannableStringBuilder(str);
+        ForegroundColorSpan redSpan = new ForegroundColorSpan(color);
+        BackgroundColorSpan bgSpan = new BackgroundColorSpan(bgColor);
+        builder.setSpan(redSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(bgSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
+    }
+
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
@@ -966,14 +1029,14 @@ public class Utils {
     }
 
     public static String formatTwoPoint(Double str) {
-        if(str == 0d){
+        if (str == 0d) {
             return "0.00";
         }
         DecimalFormat df = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             df = new DecimalFormat("######0.00");
             return df.format(str);
-        }else{
+        } else {
             BigDecimal bg = new BigDecimal(str);
             double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             return String.valueOf(f1);
@@ -1009,11 +1072,10 @@ public class Utils {
     }
 
     private static void CallPhone(Context context, String phone) {
-        if (TextUtils.isEmpty(phone)) {
-            phone = "tel:4008810769";
+        if (!TextUtils.isEmpty(phone)) {
+            phone = "tel:"+phone;
         }
-        Intent intent = new Intent(
-                Intent.ACTION_CALL);
+        Intent intent = new Intent(Intent.ACTION_CALL);
         Uri data = Uri.parse(phone);
         intent.setData(data);
         context.startActivity(intent);
@@ -1068,5 +1130,26 @@ public class Utils {
             }
         }
         return statusBarHeight;
+    }
+
+    /**
+     * 复制内容到剪切板
+     *
+     * @param copyStr
+     * @return
+     */
+    public static boolean copy(String copyStr,Context context) {
+        try {
+            //获取剪贴板管理器
+            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            // 创建普通字符型ClipData
+            ClipData mClipData = ClipData.newPlainText("Label", copyStr);
+            // 将ClipData内容放到系统剪贴板里。
+            cm.setPrimaryClip(mClipData);
+            return true;
+        } catch (Exception e) {
+            Log.d("复制失败",e.getMessage());
+            return false;
+        }
     }
 }

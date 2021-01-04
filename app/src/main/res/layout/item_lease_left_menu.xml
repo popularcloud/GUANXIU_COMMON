@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/black"
-        android:drawableLeft="@drawable/ic_blue_line"
+        android:drawableLeft="@drawable/ic_red_rectangle"
         android:paddingBottom="@dimen/dp_17"
         android:paddingTop="@dimen/dp_17"
         android:gravity="center"

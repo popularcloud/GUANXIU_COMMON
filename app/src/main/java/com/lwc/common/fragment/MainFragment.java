@@ -253,16 +253,14 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
                     txtActionbarTitle.setTextColor(Color.parseColor("#000000"));
                     ImmersionBar.with(getActivity())
                             .statusBarColor(R.color.white)
-                            .statusBarDarkFont(true)
-                            .navigationBarColor(R.color.white).init();
+                            .statusBarDarkFont(true).init();
                 }else{
                     titleContainer.setBackgroundColor(Color.parseColor("#00000000"));
                     txtActionbarTitle.setVisibility(View.GONE);
                     ImmersionBar.with(getActivity())
                             .transparentStatusBar()
                             .statusBarDarkFont(true)
-                            .fitsSystemWindows(false)
-                            .navigationBarColor(R.color.white).init();
+                            .fitsSystemWindows(false).init();
                 }
                 setAnyBarAlpha(statusAlpha);
             }
@@ -276,8 +274,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
         if(isVisibleToUser && getActivity() != null){
             ImmersionBar.with(getActivity())
                     .statusBarColor(R.color.white)
-                    .statusBarDarkFont(true)
-                    .navigationBarColor(R.color.white).init();
+                    .statusBarDarkFont(true).init();
         }
     }
 

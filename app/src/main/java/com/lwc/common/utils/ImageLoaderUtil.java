@@ -153,6 +153,20 @@ public class ImageLoaderUtil implements ImageLoaderInterface {
         }
     }
 
+    @Override
+    public void displayFromLocalCircular(Context context, ImageView imageView, String path,int width,int height,int defaultImg) {
+        if (context != null) {
+            //圆角图标
+            RequestOptions mRequestOptions = RequestOptions.bitmapTransform(new RoundedCorners(8))
+                    .error(defaultImg)
+                    .placeholder(defaultImg);
+            Glide.with(context).load(new File(path))
+                    .apply(mRequestOptions)//圆角半径
+                    .thumbnail(0.8f)
+                    .into(imageView);
+        }
+    }
+
     public void displayFromLocal(Context context, ImageView imageView, int resId,int width,int height) {
         if (context != null) {
             RequestOptions mRequestOptions = RequestOptions.fitCenterTransform()
@@ -177,7 +191,7 @@ public class ImageLoaderUtil implements ImageLoaderInterface {
 
     public void displayFromNetDCircular(Context context, String url, ImageView imageView,int defaultImg) {
         if (context != null && imageView != null) {
-            //圆角头像
+            //圆角图标
             RequestOptions mRequestOptions = RequestOptions.bitmapTransform(new RoundedCorners(8))
                     .error(defaultImg)
                     .placeholder(defaultImg);
@@ -190,7 +204,7 @@ public class ImageLoaderUtil implements ImageLoaderInterface {
 
     public void displayFromNetDCircularT(Context context, String url, ImageView imageView,int defaultImg) {
         if (context != null && imageView != null) {
-            //圆角头像
+            //圆形头像
             RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
                     .error(defaultImg)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存

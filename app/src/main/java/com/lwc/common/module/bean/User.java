@@ -50,6 +50,8 @@ public class User implements Serializable{
     private String isNew;  //"isNew": "是否是新用户 0：否 1：是"
     private String userIntegral;
     private String coupon;
+    private String isCertification;  //（0：未申请 1.审核中 2.审核通过 3.审核失败）
+    private String collectionNum;  //购物车收藏数量
 
     public String getInviteCode() {
         return inviteCode;
@@ -333,5 +335,21 @@ public class User implements Serializable{
 
     public void setCoupon(String coupon) {
         this.coupon = coupon;
+    }
+
+    public String getIsCertification() {
+        return isCertification;
+    }
+
+    public void setIsCertification(String isCertification) {
+        this.isCertification = isCertification;
+    }
+
+    public String getCollectionNum() {
+        return collectionNum;
+    }
+
+    public void setCollectionNum(String collectionNum) {
+        this.collectionNum = collectionNum;
     }
 }

@@ -1,46 +1,23 @@
 package com.lwc.common.module.invoice;
 
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
 import com.lwc.common.R;
 import com.lwc.common.activity.BaseActivity;
-import com.lwc.common.controler.http.RequestValue;
-import com.lwc.common.module.bean.Common;
-import com.lwc.common.module.bean.InvoiceOrder;
 import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
-import com.lwc.common.module.common_adapter.InvoiceOrderListAdapter;
-import com.lwc.common.module.order.ui.fragment.FinishFragment;
-import com.lwc.common.module.order.ui.fragment.ProceedFragment;
-import com.lwc.common.utils.BGARefreshLayoutUtils;
-import com.lwc.common.utils.HttpRequestUtils;
 import com.lwc.common.utils.IntentUtil;
-import com.lwc.common.utils.JsonUtil;
-import com.lwc.common.utils.ToastUtil;
-import com.lwc.common.utils.Utils;
 import com.lwc.common.view.MyTextView;
 import com.lwc.common.widget.CustomViewPager;
 
-import org.byteam.superadapter.OnItemClickListener;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
  * 发票与报销
@@ -57,8 +34,12 @@ public class InvoiceActivity extends BaseActivity {
 	RadioButton rBtnUnderway;
 	@BindView(R.id.rBtnFinish)
 	RadioButton rBtnFinish;
+	@BindView(R.id.rBtnLease)
+	RadioButton rBtnLease;
 	@BindView(R.id.viewLine1)
 	View viewLine1;
+	@BindView(R.id.viewLine2)
+	View viewLine2;
 	@BindView(R.id.viewLine3)
 	View viewLine3;
 	@BindView(R.id.cViewPager)
@@ -68,6 +49,7 @@ public class InvoiceActivity extends BaseActivity {
 	private HashMap<Integer, Fragment> fragmentHashMap;
 	private OrderInvoiceFragment orderInvoiceFragment;
 	private PackageInvoiceFragment packageInvoiceFragment;
+	private LeaseInvoiceFragment leaseInvoiceFragment;
 
 	@Override
 	protected int getContentViewId(Bundle savedInstanceState) {
@@ -97,8 +79,10 @@ public class InvoiceActivity extends BaseActivity {
 		fragmentHashMap = new HashMap<>();
 		orderInvoiceFragment = new OrderInvoiceFragment();
 		packageInvoiceFragment = new PackageInvoiceFragment();
+		leaseInvoiceFragment = new LeaseInvoiceFragment();
 		fragmentHashMap.put(0, orderInvoiceFragment);
 		fragmentHashMap.put(1, packageInvoiceFragment);
+		fragmentHashMap.put(2, leaseInvoiceFragment);
 	}
 	@Override
 	protected void init() {
@@ -122,9 +106,10 @@ public class InvoiceActivity extends BaseActivity {
 		rButtonHashMap = new HashMap<>();
 		rButtonHashMap.put(0, rBtnUnderway);
 		rButtonHashMap.put(1, rBtnFinish);
+		rButtonHashMap.put(2, rBtnLease);
 	}
 
-	@OnClick({R.id.rBtnUnderway, R.id.rBtnFinish})
+	@OnClick({R.id.rBtnUnderway, R.id.rBtnFinish,R.id.rBtnLease})
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.rBtnUnderway:
@@ -134,6 +119,10 @@ public class InvoiceActivity extends BaseActivity {
 			case R.id.rBtnFinish:
 				showLineView(2);
 				cViewPager.setCurrentItem(1);
+				break;
+			case R.id.rBtnLease:
+				showLineView(3);
+				cViewPager.setCurrentItem(2);
 				break;
 		}
 	}
@@ -148,11 +137,18 @@ public class InvoiceActivity extends BaseActivity {
 		switch (num) {
 			case 1:
 				viewLine1.setVisibility(View.VISIBLE);
+				viewLine2.setVisibility(View.INVISIBLE);
 				viewLine3.setVisibility(View.INVISIBLE);
 				break;
 			case 2:
-				viewLine3.setVisibility(View.VISIBLE);
 				viewLine1.setVisibility(View.INVISIBLE);
+				viewLine2.setVisibility(View.VISIBLE);
+				viewLine3.setVisibility(View.INVISIBLE);
+				break;
+			case 3:
+				viewLine1.setVisibility(View.INVISIBLE);
+				viewLine2.setVisibility(View.INVISIBLE);
+				viewLine3.setVisibility(View.VISIBLE);
 				break;
 		}
 	}

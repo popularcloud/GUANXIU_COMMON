@@ -104,6 +104,12 @@ public class IntegralOrderDetailActivity extends BaseActivity{
                     tv_type.setText("抽奖奖励");
                 }
                 break;
+            case 6:
+                tv_type.setText("租赁订单");
+                break;
+            case 7:
+                tv_type.setText("订单缴费");
+                break;
         }
 
         tv_time.setText(dataBean.getCreateTime());

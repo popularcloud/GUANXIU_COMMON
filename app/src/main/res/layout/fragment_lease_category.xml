@@ -18,12 +18,6 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_90"
-                android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:src="@drawable/image_default_picture"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_right_goods"
                 android:layout_width="match_parent"
@@ -31,6 +25,5 @@
                 android:layout_weight="1"
                 android:background="@color/white"/>
         </LinearLayout>
-      
     </LinearLayout>
 </LinearLayout>

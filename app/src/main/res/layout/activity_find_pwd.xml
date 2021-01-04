@@ -16,7 +16,7 @@
             <LinearLayout
                 android:layout_width="@dimen/dp_300"
                 android:layout_height="@dimen/dp_44"
-                android:background="@drawable/btn_round_white_bg">
+                android:background="@drawable/btn_round_white_bg_line_cc">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -57,15 +57,15 @@
                 android:layout_width="@dimen/dp_300"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_18"
-                >
+                android:background="@color/white">
                 <EditText
                     android:id="@+id/edtCode"
                     style="@style/edit_login_new_style"
                     android:layout_height="@dimen/dp_44"
                     android:layout_width="0dp"
-                    android:background="@drawable/btn_round_white_bg"
                     android:layout_weight="1"
                     android:inputType="number"
+                    android:background="@drawable/btn_round_white_bg_line_cc"
                     android:textColorHint="@color/black_66"
                     android:textColor="@color/all_black"
                     android:layout_marginLeft="0dp"
@@ -87,7 +87,7 @@
                 android:layout_height="@dimen/dp_44"
                 android:layout_marginTop="@dimen/dp_18"
                 android:orientation="horizontal"
-                android:background="@drawable/btn_round_white_bg">
+                android:background="@drawable/btn_round_white_bg_line_cc">
                 <EditText
                     android:id="@+id/edtPassword"
                     style="@style/edit_login_new_style"

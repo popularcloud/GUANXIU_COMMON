@@ -78,6 +78,45 @@ public class TradingRecordAdapter extends SuperAdapter<TradingRecordBean> {
             holder.setText(R.id.txtTitle, "邀请奖励");
             holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.red_money));
             img.setImageResource(R.drawable.ic_invitation_reward);
+        }else if (item.getTransactionScene() == 9) {
+            if(item.getTransactionType() == 14 || item.getTransactionType() == 15){
+                holder.setText(R.id.txtTitle, "租赁退款");
+                holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.red_money));
+                img.setImageResource(R.drawable.ic_order_return);
+            }else{
+                if (item.getTransactionMeans().equals("1")) {
+                    img.setImageResource(R.drawable.ic_paytype_balance);
+                    if (item.getPaymentType().equals("0")){
+                        holder.setText(R.id.txtTitle, "钱包收入");
+                        holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.red_money));
+                    } else {
+                        jj="-";
+                        holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.all_black));
+                        holder.setText(R.id.txtTitle, "钱包支出");
+                    }
+                } else if (item.getTransactionMeans().equals("2")) {
+                    img.setImageResource(R.drawable.ic_paytype_ali);
+                    if (item.getPaymentType().equals("0")){
+                        holder.setText(R.id.txtTitle, "支付宝充值");
+                        holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.red_money));
+                    } else {
+                        jj="-";
+                        holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.all_black));
+                        holder.setText(R.id.txtTitle, "支付宝提现");
+                    }
+                } else if (item.getTransactionMeans().equals("3")) {
+                    img.setImageResource(R.drawable.ic_paytype_wechat);
+                    if (item.getPaymentType().equals("0")){
+                        holder.setText(R.id.txtTitle, "微信充值");
+                        holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.red_money));
+                    } else {
+                        jj="-";
+                        holder.setText(R.id.txtTitle, "微信提现");
+                        holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.all_black));
+                    }
+                }
+            }
+
         } else {
             if (item.getTransactionMeans().equals("1")) {
                 img.setImageResource(R.drawable.ic_paytype_balance);

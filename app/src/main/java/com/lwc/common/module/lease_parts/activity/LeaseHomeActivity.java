@@ -1,6 +1,6 @@
 package com.lwc.common.module.lease_parts.activity;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,19 +8,19 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.lwc.common.R;
 import com.lwc.common.module.BaseFragmentActivity;
 import com.lwc.common.module.bean.User;
-import com.lwc.common.module.common_adapter.FragmentsPagerAdapter;
+import com.lwc.common.module.common_adapter.FragmentsLeasePagerAdapter;
 import com.lwc.common.module.lease_parts.fragment.LeaseCategoryFragment;
 import com.lwc.common.module.lease_parts.fragment.LeaseHomeFragment;
 import com.lwc.common.module.lease_parts.fragment.LeaseMinetFragment;
 import com.lwc.common.module.lease_parts.fragment.LeaseShoppingCartFragment;
+import com.lwc.common.utils.MsgReadUtil;
 import com.lwc.common.utils.SharedPreferencesUtils;
-import com.lwc.common.utils.SpUtil;
-import com.lwc.common.utils.Utils;
 import com.lwc.common.widget.CustomViewPager;
 
 import java.util.HashMap;
@@ -46,6 +46,9 @@ public class LeaseHomeActivity extends BaseFragmentActivity {
     @BindView(R.id.my_content_view)
     RelativeLayout myContentView;
 
+    @BindView(R.id.tv_msg)
+    TextView tv_msg;
+
     /**
      * fragment相关
      */
@@ -62,8 +65,6 @@ public class LeaseHomeActivity extends BaseFragmentActivity {
      * 获取当前实例
      */
     public static LeaseHomeActivity activity;
-
-
 
 
     @Override
@@ -86,7 +87,7 @@ public class LeaseHomeActivity extends BaseFragmentActivity {
         ImmersionBar.with(this)
                 .statusBarColor(R.color.white)
                 .statusBarDarkFont(true)
-                .navigationBarColor(R.color.white).init();
+                .init();
     }
 
     @Override
@@ -102,6 +103,8 @@ public class LeaseHomeActivity extends BaseFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //获取未读租赁消息
+        MsgReadUtil.hasMessage(LeaseHomeActivity.this,tv_msg);
     }
 
     /**
@@ -113,6 +116,17 @@ public class LeaseHomeActivity extends BaseFragmentActivity {
         rButtonHashMap.put(1, radioNews);
         rButtonHashMap.put(2, radioOrder);
         rButtonHashMap.put(3, radioMine);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        int startType = intent.getIntExtra("startType",0);
+
+        if(cViewPager != null){
+            cViewPager.setCurrentItem(startType, false);
+        }
     }
 
     /**
@@ -131,7 +145,7 @@ public class LeaseHomeActivity extends BaseFragmentActivity {
         //是否滑动
         cViewPager.setPagingEnabled(false);
         cViewPager.setOffscreenPageLimit(4);//最多缓存4个页面
-        cViewPager.setAdapter(new FragmentsPagerAdapter(getSupportFragmentManager(), fragmentList));
+        cViewPager.setAdapter(new FragmentsLeasePagerAdapter(getSupportFragmentManager(), fragmentList));
         cViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

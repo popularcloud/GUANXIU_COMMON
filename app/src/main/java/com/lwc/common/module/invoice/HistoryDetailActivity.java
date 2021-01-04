@@ -95,9 +95,11 @@ public class HistoryDetailActivity extends BaseActivity {
 				bundle.putString("invoiceHistoryIds", invoiceHistory.getInvoiceOrders());
 				if("1".equals( invoiceHistory.getBuyType())){
 					IntentUtil.gotoActivity(HistoryDetailActivity.this, InvoiceOrderActivity.class, bundle);
-				}else{
+				}else if("2".equals( invoiceHistory.getBuyType())){
 					IntentUtil.gotoActivity(HistoryDetailActivity.this, InvoicePackageActivity.class, bundle);
-				}
+				}else{
+					IntentUtil.gotoActivity(HistoryDetailActivity.this, InvoiceLeaseOrderActivity.class, bundle);
+			}
 				break;
 		}
 	}

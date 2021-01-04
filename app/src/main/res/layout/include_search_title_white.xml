@@ -46,6 +46,7 @@
                     android:maxLines="1"
                     android:textSize="@dimen/sp_12"
                     android:background="@null"
+                    android:singleLine="true"
                     android:drawablePadding="10dp"
                     android:paddingLeft="@dimen/dp_10"
                     android:drawableLeft="@drawable/map_search_gray"/>

@@ -127,6 +127,19 @@
 		<item name="android:textSize">@dimen/tab_text_size</item>
 	</style>
 
+    <style name="lease_main_menu_radiobutton_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">@dimen/tab_padding_bottom</item>
+        <item name="android:paddingTop">@dimen/tab_padding_top</item>
+        <item name="android:textColor">@drawable/tab_lease_textcolor_selector</item>
+        <item name="android:textSize">@dimen/tab_text_size</item>
+    </style>
+
     <style name="main_menu_button">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -314,5 +327,10 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/gray_99</item>
         <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+        <item name="android:paddingLeft">8dp</item>
     </style>
 </resources>

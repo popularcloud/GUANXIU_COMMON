@@ -92,6 +92,32 @@ public class IntegralOrderAdapter extends SuperAdapter<UserIntegralBean.DataBean
                     jj="+";
                 }
                 break;
+            case 6: //抽奖
+                if(item.getPaymentType().equals("0")){ //转入
+                    img.setImageResource(R.drawable.ic_lease_order_integral);
+                    holder.setText(R.id.txtTitle, "租赁订单");
+                    holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.color_33));
+                    jj="-";
+                }else{  //转出
+                    holder.setText(R.id.txtTitle, "租赁订单");
+                    img.setImageResource(R.drawable.ic_lease_order_integral);
+                    holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.red_money));
+                    jj="+";
+                }
+                break;
+            case 7: //抽奖
+                if(item.getPaymentType().equals("0")){ //转入
+                    img.setImageResource(R.drawable.ic_xufei_integral);
+                    holder.setText(R.id.txtTitle, "订单缴费");
+                    holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.color_33));
+                    jj="-";
+                }else{  //转出
+                    holder.setText(R.id.txtTitle, "订单缴费");
+                    img.setImageResource(R.drawable.ic_xufei_integral);
+                    holder.setTextColor(R.id.tv_money, context.getResources().getColor(R.color.red_money));
+                    jj="+";
+                }
+                break;
             default:
                 break;
         }

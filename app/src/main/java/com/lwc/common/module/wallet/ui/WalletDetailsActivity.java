@@ -88,7 +88,35 @@ public class WalletDetailsActivity extends BaseActivity {
             }
         }else if (tradingRecordBean.getTransactionScene() == 4) {
             tv_type.setText("邀请奖励");
-        }  else {
+        } else if (tradingRecordBean.getTransactionScene() == 9) {
+            if(tradingRecordBean.getTransactionType() == 14 || tradingRecordBean.getTransactionType() == 15){
+                tv_type.setText("租赁退款");
+            }else{
+                if (tradingRecordBean.getTransactionMeans().equals("1")) {
+                    if (tradingRecordBean.getPaymentType().equals("0")){
+                        tv_type.setText("钱包收入");
+                    } else {
+                        jj="-";
+                        tv_type.setText("钱包支出");
+                    }
+                } else if (tradingRecordBean.getTransactionMeans().equals("2")) {
+                    if (tradingRecordBean.getPaymentType().equals("0")){
+                        tv_type.setText("支付宝充值");
+                    } else {
+                        jj="-";
+                        tv_type.setText("支付宝提现");
+                    }
+                } else if (tradingRecordBean.getTransactionMeans().equals("3")) {
+                    if (tradingRecordBean.getPaymentType().equals("0")){
+                        tv_type.setText( "微信充值");
+                    } else {
+                        jj="-";
+                        tv_type.setText("微信提现");
+                    }
+                }
+            }
+
+        } else {
             if (tradingRecordBean.getTransactionMeans().equals("1")) {
                 if (tradingRecordBean.getPaymentType().equals("0")) {
                     tv_type.setText("余额收入");

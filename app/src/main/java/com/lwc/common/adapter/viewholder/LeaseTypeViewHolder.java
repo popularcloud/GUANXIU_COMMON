@@ -7,6 +7,7 @@ import android.view.View;
 import com.gcssloop.widget.PagerGridLayoutManager;
 import com.gcssloop.widget.PagerGridSnapHelper;
 import com.lwc.common.R;
+import com.lwc.common.adapter.LeaseGoodTypeAdapter;
 import com.lwc.common.adapter.RepairTypeAdapter;
 import com.lwc.common.module.bean.Repairs;
 
@@ -37,7 +38,7 @@ public class LeaseTypeViewHolder extends BaseViewHolder{
         snapHelper.attachToRecyclerView(rv_repair_type);*/
 
         //设置适配器
-        RepairTypeAdapter repairTypeAdapter = new RepairTypeAdapter(context,leaseTypeData);
+        LeaseGoodTypeAdapter repairTypeAdapter = new LeaseGoodTypeAdapter(context,leaseTypeData);
         rv_repair_type.setAdapter(repairTypeAdapter);
 
     }

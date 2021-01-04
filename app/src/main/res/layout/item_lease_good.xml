@@ -4,25 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:paddingBottom="@dimen/dp_13"
-    android:background="@color/white">
+    android:paddingBottom="@dimen/dp_10"
+    android:background="@color/gray_f9">
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_width="@dimen/dp_169"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/dp_169"
-        android:scaleType="centerCrop"
+        android:layout_marginLeft="@dimen/dp_7"
+        android:layout_marginRight="@dimen/dp_5"
+        android:scaleType="fitXY"
         android:src="@drawable/img_default_load" />
-    <TextView
-        android:id="@+id/tv_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/black"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="10dp"
-        android:maxLines="2"
-        android:text="酷睿8核1060吃鸡显卡酷睿8核1060吃鸡显卡"/>
+        android:gravity="center"
+        android:background="@drawable/down_radius_white_8px"
+        android:paddingBottom="@dimen/dp_13"
+        android:layout_marginLeft="@dimen/dp_7"
+        android:layout_marginRight="@dimen/dp_5"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/black"
+                android:maxLines="2"
+                android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_red_fill_3a_3px"
+                android:paddingLeft="@dimen/dp_3"
+                android:layout_marginTop="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_2"
+                android:text="租赁"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </RelativeLayout>
     <TextView
         android:id="@+id/tv_spc"
         android:layout_width="match_parent"
@@ -44,7 +72,7 @@
         android:layout_marginRight="@dimen/dp_12"
         android:layout_marginTop="10dp"
         android:maxLines="1"
-        android:text="￥300元起"/>
+        android:text="￥300起"/>
     <com.lwc.common.widget.TagsLayout
         android:id="@+id/tl_tags"
         android:layout_width="match_parent"
@@ -53,4 +81,5 @@
         android:layout_marginRight="@dimen/dp_12"
         android:layout_marginTop="8dp"
         android:layout_gravity="center_vertical" />
+    </LinearLayout>
 </LinearLayout>

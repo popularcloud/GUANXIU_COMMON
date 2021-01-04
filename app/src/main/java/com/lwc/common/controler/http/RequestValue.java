@@ -247,6 +247,11 @@ public class RequestValue {
     public static final String GET_INVOICE_PACKAGE_LIST = "/user/invoice/package";
 
     /**
+     * 查询待开发票订单列表(租赁)
+     */
+    public static final String GET_INVOICE_LEASEORDER_LIST = "/user/invoice/leaseOrder";
+
+    /**
      * 查询用户开发票历史列表
      */
     public static final String GET_INVOICE_HISTORY_LIST = "/user/invoice/history";
@@ -375,6 +380,7 @@ public class RequestValue {
      * 查询轮播广告图
      */
     public static final String GET_ADVERTISING = "/information/advertising";
+
 
     /**
      * 邀请维修
@@ -555,4 +561,192 @@ public class RequestValue {
      * 获取租赁广告图
      */
     public static final String LEASEMANAGE_GETLEASEIMAGES = "/leaseManage/getLeaseImages";
+
+    /**
+     * 获取租赁商品推荐栏目
+     */
+    public static final String LEASEMANAGE_GETLEASERECOMMENDS = "/leaseManage/getLeaseRecommends";
+
+    /**
+     * 获取租赁商品
+     */
+    public static final String LEASEMANAGE_GETLEASEGOODS = "/leaseManage/getLeaseGoods";
+
+    /**
+     * 获取租赁商品详情
+     */
+    public static final String LEASEMANAGE_GETLEASEGOOD = "/leaseManage/getLeaseGood";
+
+    /**
+     * 获取租赁商品相关规格
+     */
+    public static final String LEASEMANAGE_GETLEASESPECSREVELENCE = "/leaseManage/getLeaseSpecsRevelence";
+
+    /**
+     * 加入购物车
+     */
+    public static final String LEASEMANAGE_ADDLEASEGOODSCAR = "/leaseManage/addLeaseGoodsCar";
+
+    /**
+     * 查看购物车
+     */
+    public static final String LEASEMANAGE_QUERYLEASEGOODSCAR = "/leaseManage/queryLeaseGoodsCar";
+
+    /**
+     * 确认订单
+     */
+    public static final String LEASEMANAGE_ORDER_SAVE = "/leaseManage/order/save";
+
+    /**
+     * 查询商品优惠价格
+     */
+    public static final String LEASEMANAGE_GOODSACTIVITY = "/leaseManage/goodsActivity";
+
+    /**
+     * 拉取支付信息
+     */
+    public static final String LEASEMANAGE_PAY_LEASEINFO = "/pay/leaseInfo";
+
+    /**
+     * 拉取租赁商品续费支付信息
+     */
+    public static final String LEASEMANAGE_PAY_LEASERENEWALINFO = "/pay/leaseRenewalInfo";
+
+
+    /**
+     * 查看我的租赁订单
+     */
+    public static final String LEASEMANAGE_QUERYLEASEORDERS = "/leaseManage/queryLeaseOrders";
+
+    /**
+     * 查看我的租赁订单(退款、退租)
+     */
+    public static final String LEASEMANAGE_QUERYLEASEBRANCHORDERS = "/leaseManage/queryLeaseBranchOrders";
+
+    /**
+     * 查看我的租赁商品类型
+     */
+    public static final String LEASEMANAGE_GETDEVICETYPES = "/leaseManage/getDeviceTypes";
+
+    /**
+     * 查看我的租赁商品类型小类
+     */
+    public static final String LEASEMANAGE_GETDEVICETYPEDETAILS = "/leaseManage/getDeviceTypeDetails";
+
+    /**
+     * 租赁商品筛选内容
+     */
+    public static final String LEASEMANAGE_GETLEASETYPEALL = "/leaseManage/getLeaseTypeAll";
+
+    /**
+     * 租赁商品搜索历史及热搜榜
+     */
+    public static final String LEASEMANAGE_LEASEGOODSKEYWORD = "/leaseManage/leaseGoodsKeyword";
+
+    /**
+     * 加入收藏夹
+     */
+    public static final String LEASEMANAGE_ADDLEASEGOODSCOLLECTION = "/leaseManage/addLeaseGoodsCollection";
+
+    /**
+     * 查看我的租赁订单详情
+     */
+    public static final String LEASEMANAGE_GETLEASEORDER = "/leaseManage/getLeaseOrder";
+
+    /**
+     * 查看我的租赁订单详情（退款，退租）
+     */
+    public static final String LEASEMANAGE_GETLEASEBRANCHORDER = "/leaseManage/getLeaseBranchOrder";
+
+    /**
+     * 用户申请认证
+     */
+    public static final String LEASEMANAGE_AUTHORGUSER = "/leaseManage/authOrgUser";
+
+    /**
+     * 删除购物车
+     */
+    public static final String LEASEMANAGE_DELLEASEGOODSCAR = "/leaseManage/delLeaseGoodsCar";
+
+    /**
+     * 购物车移入收藏夹
+     */
+    public static final String LEASEMANAGE_LEASEGOODSCARTOCOLLE = "/leaseManage/leaseGoodsCarToColle";
+
+    /**
+     * 取消租赁订单
+     */
+    public static final String LEASEMANAGE_CANCELLEASEORDER = "/leaseManage/cancelLeaseOrder";
+
+    /**
+     * 用户申请退款
+     */
+    public static final String LEASEMANAGE_APPLYREFUND = "/leaseManage/applyRefund";
+
+    /**
+     * 用户申请退租
+     */
+    public static final String LEASEMANAGE_APPLYREFUNDGOODS = "/leaseManage/applyRefundGoods";
+
+    /**
+     * 用户确认收货
+     */
+    public static final String LEASEMANAGE_INLEASE = "/leaseManage/inLease";
+
+    /**
+     * 用户缴费详情
+     */
+    public static final String LEASEMANAGE_USERPAYDETAIL = "/leaseManage/userPayDetail";
+
+    /**
+     * 我的收藏
+     */
+    public static final String LEASEMANAGE_QUERYLEASEGOODSCOLLECTION = "/leaseManage/queryLeaseGoodsCollection";
+
+    /**
+     * 商品名称列表
+     */
+    public static final String LEASEMANAGE_GOODSLEASEINFO = "/leaseManage/goodsLeaseInfo";
+
+    /**
+     * 修改购物车
+     */
+    public static final String LEASEMANAGE_MODLEASEGOODSCAR = "/leaseManage/modLeaseGoodsCar";
+
+
+    /**
+     * 删除收藏夹
+     */
+    public static final String LEASEMANAGE_DELLEASEGOODSCOLLECTION = "/leaseManage/delLeaseGoodsCollection";
+
+    /**
+     * 用户撤销退款，退租申请
+     */
+    public static final String LEASEMANAGE_UODOLEASEBRANCHORDER = "/leaseManage/uodoLeaseBranchOrder";
+
+    /**
+     * 查询用户订单数量
+     */
+    public static final String LEASEMANAGE_ORDERNUMDATA = "/leaseManage/orderNumData";
+
+    /**
+     * 删除租赁订单(退租,退款)
+     */
+    public static final String LEASEMANAGE_DELETELEASEBRANCHORDER = "/leaseManage/deleteLeaseBranchOrder";
+
+    /**
+     * 删除租赁订单
+     */
+    public static final String LEASEMANAGE_DELETELEASEORDER = "/leaseManage/deleteLeaseOrder";
+
+    /**
+     * 查看我的租赁认证信息
+     */
+    public static final String LEASEMANAGE_GETAUTHORGUSER = "/leaseManage/getAuthOrgUser";
+
+    /**
+     * 清空租赁商品搜索历史
+     */
+    public static final String LEASEMANAGE_DELLEASEGOODSKEYWORD = "/leaseManage/delLeaseGoodsKeyword";
+
 }

@@ -43,8 +43,10 @@ public class MyMsgListAdapter extends SuperAdapter<MyMsg> {
             holder.setImageResource(R.id.iv_icon, R.drawable.newstyle_information);
         } else if (!TextUtils.isEmpty(item.getMessageType()) && item.getMessageType().equals("3")) {
             holder.setImageResource(R.id.iv_icon, R.drawable.newstyle_gift);
-        } else {
+        } else if (!TextUtils.isEmpty(item.getMessageType()) && item.getMessageType().equals("4")){
             holder.setImageResource(R.id.iv_icon, R.drawable.newstyle_oder);
+        }else if (!TextUtils.isEmpty(item.getMessageType()) && item.getMessageType().equals("5")){
+            holder.setImageResource(R.id.iv_icon, R.drawable.ic_lease_order);
         }
 
         holder.setText(R.id.tv_desc, item.getMessageContent());

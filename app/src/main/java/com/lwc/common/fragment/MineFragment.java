@@ -163,7 +163,6 @@ public class MineFragment extends BaseFragment {
                 if (Utils.gotoLogin(user, getActivity())){
                     IntentUtil.gotoActivity(getActivity(), MyMsgActivity.class);
                 }
-
                 break;
             case R.id.txtUserInfor:
             case R.id.txt_name:
@@ -233,8 +232,7 @@ public class MineFragment extends BaseFragment {
             ((MainActivity)getActivity()).hasMessage();
             ImmersionBar.with(getActivity())
                     .statusBarColor(R.color.blue_9ff)
-                    .statusBarDarkFont(true)
-                    .navigationBarColor(R.color.white).init();
+                    .statusBarDarkFont(true).init();
         }
     }
 

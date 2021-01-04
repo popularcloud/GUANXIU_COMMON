@@ -5,7 +5,7 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:id="@+id/rl_title"
-        android:background="@null">
+        android:background="@color/white">
         <ImageView
             android:onClick="onBack"
             android:id="@+id/img_back"
@@ -20,12 +20,12 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
             android:orientation="horizontal">
             <LinearLayout
+                android:id="@+id/ll_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/rounded_edit_f0"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -48,7 +48,7 @@
                     android:background="@null"
                     android:drawablePadding="10dp"
                     android:paddingLeft="@dimen/dp_10"
-                    android:drawableLeft="@drawable/ic_search_white"/>
+                    android:drawableLeft="@drawable/ic_black_search"/>
                 <ImageView android:id="@+id/iv_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,5 +66,31 @@
         android:layout_marginRight="15dp"
         android:text="@string/search"
         android:textSize="@dimen/sp_15"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
+  <RelativeLayout
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_5"
+      android:layout_marginRight="15dp">
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_message"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"/>
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/dp_5"
+            android:textSize="@dimen/sp_10"
+            android:paddingRight="@dimen/dp_5"
+            android:visibility="gone"
+            android:text="0"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_red_fill"/>
+    </RelativeLayout>
     </LinearLayout>

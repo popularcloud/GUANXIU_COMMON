@@ -28,6 +28,8 @@ public class TradingRecordBean implements Serializable {
 	private String transactionStatus;//": 1,                 //交易状态(1.已完成 2.处理中 3.审核失败)
 	private String transactionRemark;//": "通过活动：双十二红包雨，获取奖金8.88元"      //备注
 	private int transactionScene;//交易场景(1.红包 2.订单，3余额 )
+	private int spendType;//类型（1路费 2红包 3积分兑换 4新用户补贴 5接单奖励 6邀请奖励 7邀请维修 8渠道分成 9租赁安装 10维修退费 11租赁退款 ）
+	private int transactionType;// 交易类型（1.充值 2.充值结算 3.购买 4.支付 5.订单结算 6.红包 7.提现 8.缴纳保证金 9.保证金结算 10.扣除保证金 11.财务支出 12.退回保证金 13租赁支付 14租赁退款 15租赁退租
 
 	public int getTransactionScene() {
 		return transactionScene;
@@ -98,5 +100,13 @@ public class TradingRecordBean implements Serializable {
 
 	public void setTransactionRemark(String transactionRemark) {
 		this.transactionRemark = transactionRemark;
+	}
+
+	public int getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(int transactionType) {
+		this.transactionType = transactionType;
 	}
 }

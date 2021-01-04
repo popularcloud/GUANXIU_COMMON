@@ -22,31 +22,59 @@
             android:background="@color/white"
             android:gravity="center"
             android:orientation="horizontal">
-
             <RadioButton
                 android:id="@+id/radio_home"
-                style="@style/main_menu_radiobutton_style"
+                style="@style/lease_main_menu_radiobutton_style"
                 android:checked="true"
-                android:drawableTop="@drawable/tab_map_selector"
+                android:drawableTop="@drawable/tab_lease_home_selector"
                 android:text="首页" />
 
             <RadioButton
                 android:id="@+id/radio_news"
-                style="@style/main_menu_radiobutton_style"
-                android:drawableTop="@drawable/tab_news_selector"
+                style="@style/lease_main_menu_radiobutton_style"
+                android:drawableTop="@drawable/tab_lease_type_selector"
                 android:text="分类" />
 
             <RadioButton
                 android:id="@+id/radio_order"
-                style="@style/main_menu_radiobutton_style"
-                android:drawableTop="@drawable/tab_order_selector"
+                style="@style/lease_main_menu_radiobutton_style"
+                android:drawableTop="@drawable/tab_lease_car_selector"
                 android:text="购物车" />
 
             <RadioButton
                 android:id="@+id/radio_mine"
-                style="@style/main_menu_radiobutton_style"
-                android:drawableTop="@drawable/tab_mine_selector"
+                style="@style/lease_main_menu_radiobutton_style"
+                android:drawableTop="@drawable/tab_lease_personal_selector"
                 android:text="个人中心" />
         </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|top"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:paddingLeft="@dimen/dp_5"
+                android:textSize="@dimen/sp_10"
+                android:paddingRight="@dimen/dp_5"
+                android:visibility="gone"
+                android:text="0"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_red_fill"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

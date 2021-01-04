@@ -165,4 +165,28 @@
         <item>https://192.168.3.110:8082</item>
         <item>https://192.168.3.120:8082</item>
     </string-array>
+
+    <declare-styleable name="RoundAngleImageView">
+            <attr name="roundWidth" format="dimension" />  
+            <attr name="roundHeight" format="dimension" />
+    </declare-styleable>
+        <!-- 密码框 -->
+        <declare-styleable name="PasswordEditText">
+            <!-- 密码的个数 -->
+            <attr name="passwordNumber" format="integer"/>
+            <!-- 密码圆点的半径 -->
+            <attr name="passwordRadius" format="dimension" />
+            <!-- 密码圆点的颜色 -->
+            <attr name="passwordColor" format="color" />
+            <!-- 分割线的颜色 -->
+            <attr name="divisionLineColor" format="color" />
+            <!-- 分割线的大小 -->
+            <attr name="divisionLineSize" format="color" />
+            <!-- 背景边框的颜色 -->
+            <attr name="bgColor" format="color" />
+            <!-- 背景边框的大小 -->
+            <attr name="bgSize" format="dimension" />
+            <!-- 背景边框的圆角大小 -->
+            <attr name="bgCorner" format="dimension"/>
+        </declare-styleable>
 </resources>
